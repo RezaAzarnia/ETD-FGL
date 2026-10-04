@@ -12,6 +12,7 @@ from multidata_suite.defenses import (
     ConfigurableETDFGLAggregator,
     ETDFGLAggregator,
     _graph_descriptor,
+    compute_homophily_diagnostics,
 )
 from multidata_suite.model import GCN
 
@@ -164,27 +165,36 @@ def test_d_production_runner_defaults():
 
 
 # =========================================================================
-# TEST E — Stage-1 regression
+# TEST E — Production 5D label-free descriptor & historical homophily diagnostic
 # =========================================================================
-def test_e_stage1_regression():
-    """Verify Stage-1 train-mask-aware homophily descriptor remains active and unchanged."""
+def test_e_production_5d_descriptor_and_historical_diagnostic():
+    """Verify production 5D descriptor is label-free and historical diagnostic is isolated."""
     data = Data(
         edge_index=torch.tensor([[0, 1, 2, 3], [1, 0, 3, 2]], dtype=torch.long),
         y=torch.tensor([0, 1, 0, 0], dtype=torch.long),
         train_mask=torch.tensor([True, True, False, False], dtype=torch.bool),
         num_nodes=4,
     )
+    # Production descriptor MUST be exactly length 5
     desc = _graph_descriptor(data)
-    # Edge (0, 1): both observed, y[0]=0, y[1]=1 -> heterophilous
-    # Edge (2, 3): unobserved -> excluded
-    # Expected homophily = 0.0
-    assert desc[5] == 0.0
+    assert len(desc) == 5, f"Expected 5D descriptor, got {len(desc)}"
+    assert desc.shape == (5,)
+
+    # Changing labels must NOT affect production descriptor
+    data_label_changed = data.clone()
+    data_label_changed.y = torch.tensor([5, 6, 7, 8], dtype=torch.long)
+    desc_changed = _graph_descriptor(data_label_changed)
+    assert np.allclose(desc, desc_changed), "Production descriptor leaked labels!"
+
+    # Historical diagnostic function remains available for audit provenance
+    diag = compute_homophily_diagnostics(data)
+    assert diag["homophily"] == 0.0
 
     # If both 2 and 3 are observed:
-    data.train_mask = torch.tensor([True, True, True, True], dtype=torch.bool)
-    desc_full = _graph_descriptor(data)
-    # (0, 1) mismatch, (2, 3) match -> 1 hit / 2 edges = 0.5
-    assert desc_full[5] == 0.5
+    data_full = data.clone()
+    data_full.train_mask = torch.tensor([True, True, True, True], dtype=torch.bool)
+    diag_full = compute_homophily_diagnostics(data_full)
+    assert diag_full["homophily"] == 0.5
 
 
 # =========================================================================

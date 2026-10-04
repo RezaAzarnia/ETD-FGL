@@ -273,11 +273,49 @@ def purify_explanation_guided(
 
 
 # ---------------- ETD-FGL adaptation ----------------
+# Final Frozen Topology Descriptor (5D label-free):
+# d(G) = [
+#     rho(G),
+#     mean_degree(G),
+#     Var(k)/(mean(k)^2 + epsilon),
+#     C(G),
+#     T(G)/N(G)
+# ]
+ETDFGL_DESCRIPTOR_VERSION: str = "topology_5d_label_free_v1"
+ETDFGL_DESCRIPTOR_COORDINATES: list[str] = [
+    "density",
+    "mean_degree",
+    "normalized_degree_variance",
+    "average_clustering",
+    "triangles_per_node",
+]
+ETDFGL_DESCRIPTOR_DIM: int = 5
+
+ETDFGL_METHOD_METADATA: dict[str, Any] = {
+    "descriptor_version": ETDFGL_DESCRIPTOR_VERSION,
+    "descriptor_coordinates": ETDFGL_DESCRIPTOR_COORDINATES,
+    "descriptor_dim": ETDFGL_DESCRIPTOR_DIM,
+    "alpha_topology": 9.0 / 13.0,
+    "alpha_update": 4.0 / 13.0,
+    "alpha_explanation": 0.0,
+    "reference_policy": (
+        "authenticated exact clean pre-attack client reference in simulation"
+    ),
+}
+
+
 def _graph_descriptor(
     data: Data,
     observed_mask: Tensor | np.ndarray | None = None,
     return_diagnostics: bool = False,
 ) -> np.ndarray | tuple[np.ndarray, dict[str, int | float]]:
+    """Compute the authoritative label-free 5-dimensional ETD-FGL topology descriptor.
+
+    The descriptor is strictly structural and label-free. It does NOT access
+    data.y, train_mask, val_mask, or test_mask for topology-risk computation.
+    """
+    del observed_mask  # Retained for signature compatibility, strictly unused in security path.
+
     graph = nx.Graph()
     graph.add_nodes_from(range(int(data.num_nodes)))
     graph.add_edges_from([
@@ -287,8 +325,53 @@ def _graph_descriptor(
     ])
     degrees = np.asarray([degree for _, degree in graph.degree()], dtype=np.float64)
     density = nx.density(graph) if graph.number_of_nodes() > 1 else 0.0
+    mean_deg = float(degrees.mean()) if degrees.size else 0.0
+    norm_deg_var = float(degrees.var() / (degrees.mean() ** 2 + 1e-12)) if degrees.size else 0.0
     clustering = nx.average_clustering(graph) if graph.number_of_edges() else 0.0
     triangles = sum(nx.triangles(graph).values()) / 3.0
+    triangles_per_node = triangles / max(1.0, graph.number_of_nodes())
+
+    total_edges = graph.number_of_edges()
+
+    descriptor = np.asarray([
+        density,
+        mean_deg,
+        norm_deg_var,
+        clustering,
+        triangles_per_node,
+    ], dtype=np.float64)
+
+    if return_diagnostics:
+        diagnostics: dict[str, int | float] = {
+            "total_edges": total_edges,
+            "total_nodes": graph.number_of_nodes(),
+            "density": density,
+            "mean_degree": mean_deg,
+            "normalized_degree_variance": norm_deg_var,
+            "clustering": clustering,
+            "triangles": triangles,
+            "triangles_per_node": triangles_per_node,
+        }
+        return descriptor, diagnostics
+    return descriptor
+
+
+def compute_homophily_diagnostics(
+    data: Data,
+    observed_mask: Tensor | np.ndarray | None = None,
+) -> dict[str, int | float]:
+    """DIAGNOSTIC / HISTORICAL AUDIT ONLY: Excluded from security-critical path.
+
+    ETDFGLAggregator never calls this function and its output never affects
+    client risk, trust, or aggregation weights.
+    """
+    graph = nx.Graph()
+    graph.add_nodes_from(range(int(data.num_nodes)))
+    graph.add_edges_from([
+        (int(u), int(v))
+        for u, v in data.edge_index.t().tolist()
+        if int(u) != int(v)
+    ])
 
     if observed_mask is None:
         observed_mask = getattr(data, "train_mask", None)
@@ -319,37 +402,12 @@ def _graph_descriptor(
         else 0.0
     )
 
-    descriptor = np.asarray([
-        density,
-        float(degrees.mean()) if degrees.size else 0.0,
-        float(degrees.var() / (degrees.mean() ** 2 + 1e-12)) if degrees.size else 0.0,
-        clustering,
-        triangles / max(1.0, graph.number_of_nodes()),
-        homophily,
-    ], dtype=np.float64)
-
-    if return_diagnostics:
-        diagnostics: dict[str, int | float] = {
-            "total_edges": total_edges,
-            "homophily_eligible_edges": homophily_eligible_edges,
-            "homophily_hits": homophily_hits,
-            "homophily": homophily,
-        }
-        return descriptor, diagnostics
-    return descriptor
-
-
-def compute_homophily_diagnostics(
-    data: Data,
-    observed_mask: Tensor | np.ndarray | None = None,
-) -> dict[str, int | float]:
-    """Expose total_edges and homophily_eligible_edges for verification."""
-    _, diag = _graph_descriptor(
-        data,
-        observed_mask=observed_mask,
-        return_diagnostics=True,
-    )
-    return diag
+    return {
+        "total_edges": total_edges,
+        "homophily_eligible_edges": homophily_eligible_edges,
+        "homophily_hits": homophily_hits,
+        "homophily": homophily,
+    }
 
 
 def _robust_positive(values: np.ndarray) -> np.ndarray:
@@ -411,8 +469,15 @@ class ETDFGLAggregator:
     post-hoc diagnosis by setting ``compute_explanation_diagnostic=True``.
     """
 
+    DESCRIPTOR_VERSION: str = ETDFGL_DESCRIPTOR_VERSION
+    DESCRIPTOR_COORDINATES: list[str] = ETDFGL_DESCRIPTOR_COORDINATES
+    DESCRIPTOR_DIM: int = ETDFGL_DESCRIPTOR_DIM
     ALPHA_TOPOLOGY: float = 9.0 / 13.0
     ALPHA_UPDATE: float = 4.0 / 13.0
+    ALPHA_EXPLANATION: float = 0.0
+    REFERENCE_POLICY: str = (
+        "authenticated exact clean pre-attack client reference in simulation"
+    )
 
     def __init__(
         self,
