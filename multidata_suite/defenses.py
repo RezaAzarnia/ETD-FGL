@@ -232,6 +232,8 @@ def purify_explanation_guided(
     target_class: int,
     trigger_size: int,
     max_candidates: int = 8,
+    client_id: int | None = None,
+    verbose: bool = True,
 ) -> Data:
     device = next(model.parameters()).device
     graph = data.to(device)
@@ -269,6 +271,19 @@ def purify_explanation_guided(
     ]
     purified = data.clone()
     purified.edge_index = data.edge_index[:, torch.tensor(keep, dtype=torch.bool)]
+    purified.num_removed_edges = int(len(removed))
+    purified.purification_diagnostics = {
+        "client_id": client_id,
+        "num_candidates": len(candidates),
+        "num_removed_edges": int(len(removed)),
+        "candidate_nodes": candidates,
+    }
+    client_label = f"Client {client_id}" if client_id is not None else "Client"
+    if verbose:
+        print(
+            f"[{client_label}] DMGNN-FL purification: removed {len(removed)} edges "
+            f"(candidates={len(candidates)}, threshold=0.02)"
+        )
     return purified
 
 

@@ -1,0 +1,10 @@
+\section{Computational Efficiency and Runtime Scope}
+\label{sec:computational_efficiency}
+Table~\ref{tab:table_08_computational_runtime_training_loop} and Figure~S3 compare runtime across benchmark methods over 50 communication rounds on identical hardware (NVIDIA GeForce RTX 3080 Laptop GPU).
+Standard Attacked FedAvg completes 50 rounds in $2.73$s on Cora, $9.44$s on PubMed, and $11.07$s on Reddit.
+\textsc{ETD-FGL} incurs modest runtime overhead ($2.85$s on Cora, $10.53$s on PubMed, $7.40$s on Reddit), representing an average overhead of only $+10.5\%$ over FedAvg.
+In sharp contrast, complex graph purification defenses impose prohibitive execution penalties: FedTGE consumes $177.0$s on Cora ($64\times$ slower), while FLPurifier-GNN requires $6.95$s.
+
+\textbf{Measurement Scope Limitation}:
+We explicitly note that reported execution times measure the active federated training loop (local SGD training, descriptor extraction, server aggregation, and test evaluation).
+Offline preprocessing phases—specifically initial dataset loading, client graph partitioning, and server-side reference descriptor precomputation—are performed once prior to training and are not included in training loop timings.

@@ -76,11 +76,17 @@ def test_a_validation_test_leakage():
     assert math.isclose(old_h1, 1.0)
     assert math.isclose(old_h2, 1.0 / 3.0)
 
-    # 2. Under new implementation, homophily MUST NOT change
+    # 2. Under production 5D implementation, descriptor is strictly label-free and 5-dimensional
     new_desc1 = _graph_descriptor(data1)
     new_desc2 = _graph_descriptor(data2)
-    assert math.isclose(new_desc1[5], new_desc2[5]), f"Leakage detected in _graph_descriptor: {new_desc1[5]} != {new_desc2[5]}"
-    assert math.isclose(new_desc1[5], 1.0)
+    assert new_desc1.shape == (5,), f"Expected 5D descriptor, got {new_desc1.shape}"
+    assert np.allclose(new_desc1, new_desc2, atol=1e-12), "Production descriptor must be strictly label-free"
+
+    # Diagnostic homophily calculation must not leak val/test labels
+    diag1 = compute_homophily_diagnostics(data1)
+    diag2 = compute_homophily_diagnostics(data2)
+    assert math.isclose(diag1["homophily"], diag2["homophily"]), f"Leakage in diagnostics: {diag1['homophily']} != {diag2['homophily']}"
+    assert math.isclose(diag1["homophily"], 1.0)
 
     # 3. In test_topology_descriptor.calculate_homophily
     topo_h1 = calculate_homophily(data1)
@@ -92,7 +98,7 @@ def test_a_validation_test_leakage():
 
 
 def test_b_training_label_sensitivity():
-    """TEST B: Changing the label of an eligible training node SHOULD change homophily."""
+    """TEST B: Changing the label of an eligible training node SHOULD change diagnostic homophily, but NOT production descriptor."""
     # Graph structure:
     # 0 -- 1 (train - train)
     # 2 -- 3 (val - val)
@@ -112,8 +118,17 @@ def test_b_training_label_sensitivity():
     data_same = Data(edge_index=edge_index, y=y_same, train_mask=train_mask, val_mask=val_mask, num_nodes=4)
     data_diff = Data(edge_index=edge_index, y=y_diff, train_mask=train_mask, val_mask=val_mask, num_nodes=4)
 
-    h_same = _graph_descriptor(data_same)[5]
-    h_diff = _graph_descriptor(data_diff)[5]
+    # Production 5D descriptor is strictly label-invariant
+    desc_same = _graph_descriptor(data_same)
+    desc_diff = _graph_descriptor(data_diff)
+    assert desc_same.shape == (5,)
+    assert np.allclose(desc_same, desc_diff, atol=1e-12), "Production descriptor must not vary with labels!"
+
+    # Diagnostic homophily calculation is sensitive to train labels
+    diag_same = compute_homophily_diagnostics(data_same)
+    diag_diff = compute_homophily_diagnostics(data_diff)
+    h_same = diag_same["homophily"]
+    h_diff = diag_diff["homophily"]
 
     assert math.isclose(h_same, 1.0), f"Expected 1.0, got {h_same}"
     assert math.isclose(h_diff, 0.0), f"Expected 0.0, got {h_diff}"
@@ -129,7 +144,7 @@ def test_b_training_label_sensitivity():
 
 
 def test_c_mixed_edge():
-    """TEST C: Mixed edges (training node <-> test node) MUST NOT contribute to homophily."""
+    """TEST C: Mixed edges (training node <-> test node) MUST NOT contribute to diagnostic homophily."""
     # Nodes:
     # 0: train, label 1
     # 1: test, label 1   <-- edge (0, 1) is mixed with same label!
@@ -150,19 +165,26 @@ def test_c_mixed_edge():
     leaky_h = _legacy_graph_descriptor(data)[5]
     assert math.isclose(leaky_h, 0.5), "Sanity check on legacy behavior"
 
-    # Under new code, edge (0, 1) is NOT eligible because node 1 is not in train_mask!
+    # Production descriptor is 5D and label-free
+    desc, diag = _graph_descriptor(data, return_diagnostics=True)
+    assert desc.shape == (5,)
+    assert diag["total_edges"] == 2
+
+    # Under diagnostic homophily, edge (0, 1) is NOT eligible because node 1 is not in train_mask!
     # Only edge (2, 3) is eligible, and its endpoints have labels 0 != 1.
     # Therefore, eligible = 1, hits = 0, homophily = 0.0!
-    desc, diag = _graph_descriptor(data, return_diagnostics=True)
-    assert diag["total_edges"] == 2
-    assert diag["homophily_eligible_edges"] == 1
-    assert diag["homophily_hits"] == 0
-    assert math.isclose(desc[5], 0.0)
+    homo_diag = compute_homophily_diagnostics(data)
+    assert homo_diag["total_edges"] == 2
+    assert homo_diag["homophily_eligible_edges"] == 1
+    assert homo_diag["homophily_hits"] == 0
+    assert math.isclose(homo_diag["homophily"], 0.0)
 
     # Now verify that changing test node 1's label does not change homophily at all
     data_test_changed = Data(edge_index=edge_index, y=torch.tensor([1, 999, 0, 1]), train_mask=train_mask, test_mask=test_mask, num_nodes=4)
     desc_changed = _graph_descriptor(data_test_changed)
-    assert math.isclose(desc[5], desc_changed[5])
+    assert np.allclose(desc, desc_changed, atol=1e-12)
+    homo_diag_changed = compute_homophily_diagnostics(data_test_changed)
+    assert math.isclose(homo_diag["homophily"], homo_diag_changed["homophily"])
 
     # Check test_topology_descriptor
     t_h, t_diag = calculate_homophily(data, return_diagnostics=True)
@@ -192,12 +214,18 @@ def test_d_empty_eligible_set():
     data = Data(edge_index=edge_index, y=y, train_mask=train_mask, val_mask=val_mask, test_mask=test_mask, num_nodes=4)
 
     desc, diag = _graph_descriptor(data, return_diagnostics=True)
-    assert not np.isnan(desc[5]), "Homophily returned NaN on empty eligible set"
-    assert not np.isinf(desc[5]), "Homophily returned Inf on empty eligible set"
-    assert desc[5] == 0.0, f"Expected deterministic fallback 0.0, got {desc[5]}"
+    assert desc.shape == (5,)
+    assert not np.isnan(desc).any(), "Descriptor returned NaN on empty eligible set"
+    assert not np.isinf(desc).any(), "Descriptor returned Inf on empty eligible set"
     assert diag["total_edges"] == 3
-    assert diag["homophily_eligible_edges"] == 0
-    assert diag["homophily_hits"] == 0
+
+    homo_diag = compute_homophily_diagnostics(data)
+    assert not np.isnan(homo_diag["homophily"]), "Homophily returned NaN on empty eligible set"
+    assert not np.isinf(homo_diag["homophily"]), "Homophily returned Inf on empty eligible set"
+    assert homo_diag["homophily"] == 0.0, f"Expected deterministic fallback 0.0, got {homo_diag['homophily']}"
+    assert homo_diag["total_edges"] == 3
+    assert homo_diag["homophily_eligible_edges"] == 0
+    assert homo_diag["homophily_hits"] == 0
 
     # Also check test_topology_descriptor
     t_h, t_diag = calculate_homophily(data, return_diagnostics=True)

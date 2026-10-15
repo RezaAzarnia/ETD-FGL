@@ -1,0 +1,18 @@
+\section{Controlled Component Ablation Study}
+\label{sec:controlled_ablation}
+To rigorously isolate the scientific contribution of each evidence channel without conflating channel removal with coefficient scaling, Table~\ref{tab:table_05_controlled_ablation_study}, Table~\ref{tab:table_06_paired_component_contributions}, and Figure~4 evaluate controlled ablation variants where channel coefficients are strictly held constant:
+\begin{itemize}
+    \item \textbf{Full \textsc{ETD-FGL}}: $R_k = \frac{9}{13} A_{\text{topo},k} + \frac{4}{13} A_{\text{upd},k}$
+    \item \textbf{Fixed No Update}: $R_k = \frac{9}{13} A_{\text{topo},k}$
+    \item \textbf{Fixed No Topology}: $R_k = \frac{4}{13} A_{\text{upd},k}$
+\end{itemize}
+
+\textbf{Essential Role of Topology Channel}:
+Removing the topology channel (Fixed No Topology) triggers catastrophic defense collapse: mean ASR surges to $42.53 \pm 15.94\%$ on Cora (a paired surge of $+37.32 \pm 15.35\%$ pts, Table~\ref{tab:table_06_paired_component_contributions}) and $66.31 \pm 7.14\%$ on Reddit (paired surge of $+52.23 \pm 14.61\%$ pts). Attacker aggregation weight remains largely unpenalized at $13.24\% - 18.41\%$, close to the unmitigated $20\%$ baseline. This rigorously proves that parameter-space divergence alone is fundamentally blind to localized topological clique injections.
+
+\textbf{Marginal Dynamic Role of Model Update Channel}:
+Holding the topology coefficient fixed at $9/13$ reveals that removing the model update channel (Fixed No Update) systematically increases backdoor vulnerability across all three datasets:
+ASR increases from $5.21\%$ to $6.40\%$ on Cora ($+1.19 \pm 1.42\%$ pts),
+from $0.89\%$ to $1.18\%$ on PubMed ($+0.28 \pm 0.19\%$ pts),
+and from $14.08\%$ to $25.19\%$ on Reddit ($+11.11 \pm 5.60\%$ pts).
+The update channel provides indispensable dynamic protection against adaptive gradient steering over progressive communication rounds.

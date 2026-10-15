@@ -62,3 +62,28 @@ def get_config(dataset: str) -> DatasetConfig:
             f"Choose one of: {', '.join(DATASET_CONFIGS)}"
         )
     return DATASET_CONFIGS[key]
+
+
+# Central Canonical Method Registry: (Display Name, Output Slug)
+BENCHMARK_METHODS: list[tuple[str, str]] = [
+    ("Clean FedAvg", "fedavg_clean"),
+    ("Attacked FedAvg", "fedavg_structural_backdoor"),
+    ("PD-FL", "baseline_pdfl"),
+    ("GSP-FL", "baseline_gsp"),
+    ("FLPurifier-GNN", "baseline_flpurifier"),
+    ("DMGNN-FL", "baseline_dmgnn"),
+    ("FedTGE", "baseline_fedtge"),
+    ("ETD-FGL", "defended_etdfgl"),
+]
+
+# Canonical Method-to-Color Mapping for Consistent Scientific Visualizations across Subplots
+METHOD_COLORS: dict[str, str] = {
+    "Clean FedAvg": "#1f77b4",          # tab:blue
+    "Attacked FedAvg": "#ff7f0e",       # tab:orange
+    "PD-FL": "#2ca02c",                 # tab:green
+    "GSP-FL": "#d62728",                # tab:red
+    "FLPurifier-GNN": "#9467bd",        # tab:purple
+    "DMGNN-FL": "#8c564b",              # tab:brown
+    "FedTGE": "#e377c2",                # tab:pink
+    "ETD-FGL": "#7f7f7f",               # tab:gray
+}

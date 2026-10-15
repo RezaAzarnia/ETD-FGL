@@ -1,0 +1,442 @@
+{
+  "status": "PASS",
+  "checks_passed": 87,
+  "checks_failed": 0,
+  "details": [
+    {
+      "check": "source_inventory_exists",
+      "status": "PASS",
+      "message": "Inventory exists at C:\\Users\\R_Azarnia\\Desktop\\main paper\\ETD-FGL\\paper_artifacts\\ETDFGL_Publication_Results_v1\\source_inventory.csv"
+    },
+    {
+      "check": "source_inventory_count",
+      "status": "PASS",
+      "message": "Expected 132 runs, found 132"
+    },
+    {
+      "check": "source_manifests_valid",
+      "status": "PASS",
+      "message": "All 132 runs have valid SHA256 manifests"
+    },
+    {
+      "check": "consolidated_csv_exists",
+      "status": "PASS",
+      "message": "Consolidated CSV exists at C:\\Users\\R_Azarnia\\Desktop\\main paper\\ETD-FGL\\paper_artifacts\\ETDFGL_Publication_Results_v1\\consolidated_data\\consolidated_experiments.csv"
+    },
+    {
+      "check": "consolidated_csv_count",
+      "status": "PASS",
+      "message": "Expected 132 rows in consolidated data, found 132"
+    },
+    {
+      "check": "accuracy_agreement_row_0",
+      "status": "PASS",
+      "message": "Row 0 (Cora DMGNN-FL seed 42) matches raw summary"
+    },
+    {
+      "check": "accuracy_agreement_row_23",
+      "status": "PASS",
+      "message": "Row 23 (Reddit Attacked FedAvg seed 42) matches raw summary"
+    },
+    {
+      "check": "accuracy_agreement_row_45",
+      "status": "PASS",
+      "message": "Row 45 (Cora ETD-FGL w/o Trust Weighting seed 42) matches raw summary"
+    },
+    {
+      "check": "accuracy_agreement_row_78",
+      "status": "PASS",
+      "message": "Row 78 (Reddit ETD-FGL (Full final) seed 42) matches raw summary"
+    },
+    {
+      "check": "accuracy_agreement_row_110",
+      "status": "PASS",
+      "message": "Row 110 (PubMed ETD-FGL (Full final) seed 42) matches raw summary"
+    },
+    {
+      "check": "accuracy_agreement_row_131",
+      "status": "PASS",
+      "message": "Row 131 (Reddit Attacked FedAvg seed 44) matches raw summary"
+    },
+    {
+      "check": "figure_main_Fig_01_Overall_Performance_Baselines_png",
+      "status": "PASS",
+      "message": "Main figure Fig_01_Overall_Performance_Baselines.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_01_Overall_Performance_Baselines_pdf",
+      "status": "PASS",
+      "message": "Main figure Fig_01_Overall_Performance_Baselines.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_01_Overall_Performance_Baselines_svg",
+      "status": "PASS",
+      "message": "Main figure Fig_01_Overall_Performance_Baselines.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_02_MultiSeed_Robustness_png",
+      "status": "PASS",
+      "message": "Main figure Fig_02_MultiSeed_Robustness.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_02_MultiSeed_Robustness_pdf",
+      "status": "PASS",
+      "message": "Main figure Fig_02_MultiSeed_Robustness.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_02_MultiSeed_Robustness_svg",
+      "status": "PASS",
+      "message": "Main figure Fig_02_MultiSeed_Robustness.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_03_Accuracy_Robustness_Tradeoff_png",
+      "status": "PASS",
+      "message": "Main figure Fig_03_Accuracy_Robustness_Tradeoff.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_03_Accuracy_Robustness_Tradeoff_pdf",
+      "status": "PASS",
+      "message": "Main figure Fig_03_Accuracy_Robustness_Tradeoff.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_03_Accuracy_Robustness_Tradeoff_svg",
+      "status": "PASS",
+      "message": "Main figure Fig_03_Accuracy_Robustness_Tradeoff.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_04_Controlled_Ablation_png",
+      "status": "PASS",
+      "message": "Main figure Fig_04_Controlled_Ablation.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_04_Controlled_Ablation_pdf",
+      "status": "PASS",
+      "message": "Main figure Fig_04_Controlled_Ablation.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_04_Controlled_Ablation_svg",
+      "status": "PASS",
+      "message": "Main figure Fig_04_Controlled_Ablation.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_05_Learning_Dynamics_Rounds_png",
+      "status": "PASS",
+      "message": "Main figure Fig_05_Learning_Dynamics_Rounds.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_05_Learning_Dynamics_Rounds_pdf",
+      "status": "PASS",
+      "message": "Main figure Fig_05_Learning_Dynamics_Rounds.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_05_Learning_Dynamics_Rounds_svg",
+      "status": "PASS",
+      "message": "Main figure Fig_05_Learning_Dynamics_Rounds.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_06_Attacker_Weight_Dynamics_png",
+      "status": "PASS",
+      "message": "Main figure Fig_06_Attacker_Weight_Dynamics.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_06_Attacker_Weight_Dynamics_pdf",
+      "status": "PASS",
+      "message": "Main figure Fig_06_Attacker_Weight_Dynamics.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_main_Fig_06_Attacker_Weight_Dynamics_svg",
+      "status": "PASS",
+      "message": "Main figure Fig_06_Attacker_Weight_Dynamics.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S01_Standard_vs_Controlled_Ablation_png",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S01_Standard_vs_Controlled_Ablation.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S01_Standard_vs_Controlled_Ablation_pdf",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S01_Standard_vs_Controlled_Ablation.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S01_Standard_vs_Controlled_Ablation_svg",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S01_Standard_vs_Controlled_Ablation.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S02_Attack_Effect_All_Methods_png",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S02_Attack_Effect_All_Methods.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S02_Attack_Effect_All_Methods_pdf",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S02_Attack_Effect_All_Methods.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S02_Attack_Effect_All_Methods_svg",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S02_Attack_Effect_All_Methods.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S03_Training_Runtime_Comparison_png",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S03_Training_Runtime_Comparison.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S03_Training_Runtime_Comparison_pdf",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S03_Training_Runtime_Comparison.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S03_Training_Runtime_Comparison_svg",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S03_Training_Runtime_Comparison.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S04_Reddit_Seed_Heterogeneity_Analysis_png",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S04_Reddit_Seed_Heterogeneity_Analysis.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S04_Reddit_Seed_Heterogeneity_Analysis_pdf",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S04_Reddit_Seed_Heterogeneity_Analysis.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S04_Reddit_Seed_Heterogeneity_Analysis_svg",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S04_Reddit_Seed_Heterogeneity_Analysis.svg exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S05_Benign_Client_Trust_Preservation_png",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S05_Benign_Client_Trust_Preservation.png exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S05_Benign_Client_Trust_Preservation_pdf",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S05_Benign_Client_Trust_Preservation.pdf exists and > 0 bytes"
+    },
+    {
+      "check": "figure_supp_Fig_S05_Benign_Client_Trust_Preservation_svg",
+      "status": "PASS",
+      "message": "Supplementary figure Fig_S05_Benign_Client_Trust_Preservation.svg exists and > 0 bytes"
+    },
+    {
+      "check": "table_01_csv",
+      "status": "PASS",
+      "message": "Table 01 CSV exists"
+    },
+    {
+      "check": "table_01_tex",
+      "status": "PASS",
+      "message": "Table 01 LaTeX exists"
+    },
+    {
+      "check": "table_01_md",
+      "status": "PASS",
+      "message": "Table 01 Markdown exists"
+    },
+    {
+      "check": "table_02_csv",
+      "status": "PASS",
+      "message": "Table 02 CSV exists"
+    },
+    {
+      "check": "table_02_tex",
+      "status": "PASS",
+      "message": "Table 02 LaTeX exists"
+    },
+    {
+      "check": "table_02_md",
+      "status": "PASS",
+      "message": "Table 02 Markdown exists"
+    },
+    {
+      "check": "table_03_csv",
+      "status": "PASS",
+      "message": "Table 03 CSV exists"
+    },
+    {
+      "check": "table_03_tex",
+      "status": "PASS",
+      "message": "Table 03 LaTeX exists"
+    },
+    {
+      "check": "table_03_md",
+      "status": "PASS",
+      "message": "Table 03 Markdown exists"
+    },
+    {
+      "check": "table_04_csv",
+      "status": "PASS",
+      "message": "Table 04 CSV exists"
+    },
+    {
+      "check": "table_04_tex",
+      "status": "PASS",
+      "message": "Table 04 LaTeX exists"
+    },
+    {
+      "check": "table_04_md",
+      "status": "PASS",
+      "message": "Table 04 Markdown exists"
+    },
+    {
+      "check": "table_05_csv",
+      "status": "PASS",
+      "message": "Table 05 CSV exists"
+    },
+    {
+      "check": "table_05_tex",
+      "status": "PASS",
+      "message": "Table 05 LaTeX exists"
+    },
+    {
+      "check": "table_05_md",
+      "status": "PASS",
+      "message": "Table 05 Markdown exists"
+    },
+    {
+      "check": "table_06_csv",
+      "status": "PASS",
+      "message": "Table 06 CSV exists"
+    },
+    {
+      "check": "table_06_tex",
+      "status": "PASS",
+      "message": "Table 06 LaTeX exists"
+    },
+    {
+      "check": "table_06_md",
+      "status": "PASS",
+      "message": "Table 06 Markdown exists"
+    },
+    {
+      "check": "table_07_csv",
+      "status": "PASS",
+      "message": "Table 07 CSV exists"
+    },
+    {
+      "check": "table_07_tex",
+      "status": "PASS",
+      "message": "Table 07 LaTeX exists"
+    },
+    {
+      "check": "table_07_md",
+      "status": "PASS",
+      "message": "Table 07 Markdown exists"
+    },
+    {
+      "check": "table_08_csv",
+      "status": "PASS",
+      "message": "Table 08 CSV exists"
+    },
+    {
+      "check": "table_08_tex",
+      "status": "PASS",
+      "message": "Table 08 LaTeX exists"
+    },
+    {
+      "check": "table_08_md",
+      "status": "PASS",
+      "message": "Table 08 Markdown exists"
+    },
+    {
+      "check": "table_09_csv",
+      "status": "PASS",
+      "message": "Table 09 CSV exists"
+    },
+    {
+      "check": "table_09_tex",
+      "status": "PASS",
+      "message": "Table 09 LaTeX exists"
+    },
+    {
+      "check": "table_09_md",
+      "status": "PASS",
+      "message": "Table 09 Markdown exists"
+    },
+    {
+      "check": "manuscript_section_01",
+      "status": "PASS",
+      "message": "Manuscript section 01 exists"
+    },
+    {
+      "check": "manuscript_section_02",
+      "status": "PASS",
+      "message": "Manuscript section 02 exists"
+    },
+    {
+      "check": "manuscript_section_03",
+      "status": "PASS",
+      "message": "Manuscript section 03 exists"
+    },
+    {
+      "check": "manuscript_section_04",
+      "status": "PASS",
+      "message": "Manuscript section 04 exists"
+    },
+    {
+      "check": "manuscript_section_05",
+      "status": "PASS",
+      "message": "Manuscript section 05 exists"
+    },
+    {
+      "check": "manuscript_section_06",
+      "status": "PASS",
+      "message": "Manuscript section 06 exists"
+    },
+    {
+      "check": "manuscript_section_07",
+      "status": "PASS",
+      "message": "Manuscript section 07 exists"
+    },
+    {
+      "check": "manuscript_section_08",
+      "status": "PASS",
+      "message": "Manuscript section 08 exists"
+    },
+    {
+      "check": "manuscript_section_09",
+      "status": "PASS",
+      "message": "Manuscript section 09 exists"
+    },
+    {
+      "check": "manuscript_section_10",
+      "status": "PASS",
+      "message": "Manuscript section 10 exists"
+    },
+    {
+      "check": "manuscript_section_11",
+      "status": "PASS",
+      "message": "Manuscript section 11 exists"
+    },
+    {
+      "check": "manuscript_section_12",
+      "status": "PASS",
+      "message": "Manuscript section 12 exists"
+    },
+    {
+      "check": "manuscript_section_13",
+      "status": "PASS",
+      "message": "Manuscript section 13 exists"
+    },
+    {
+      "check": "captions_document_exists",
+      "status": "PASS",
+      "message": "Captions document exists"
+    },
+    {
+      "check": "scientific_review_exists",
+      "status": "PASS",
+      "message": "Scientific review document exists"
+    },
+    {
+      "check": "reddit_full_ddof1_check",
+      "status": "PASS",
+      "message": "Reddit Full ASR mean \u00b1 std (ddof=1) verified: 14.08 \u00b1 18.19"
+    }
+  ]
+}

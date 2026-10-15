@@ -8,7 +8,13 @@ import numpy as np
 import torch
 
 from multidata_suite.config import get_config
-from multidata_suite.core import build_context, fedavg, run_method, standard_local_train
+from multidata_suite.core import (
+    build_context,
+    fedavg,
+    run_method,
+    standard_local_train,
+    validate_existing_experiment,
+)
 from multidata_suite.defenses import (
     ETDFGLAggregator,
     FLPurifierAggregator,
@@ -90,11 +96,25 @@ def main() -> None:
     methods = []
 
     def execute(slug, **kwargs):
-        if _summary_exists(context, slug) and not args.force:
-            print(f"SKIP {slug}: existing summary found")
-            summary = json.loads((context.base_output / slug / "final_summary.json").read_text(encoding="utf-8"))
+        method_name = kwargs.get("method_name")
+        cached_summary = validate_existing_experiment(context, slug, expected_method_name=method_name) if not args.force else None
+        if cached_summary is not None:
+            print(f"SKIP {slug}: validated compatible existing experiment found")
+            summary = cached_summary
         else:
-            summary = run_method(context=context, output_slug=slug, **kwargs)
+            output_dir = context.base_output / slug
+            has_existing = (
+                (output_dir / "final_summary.json").is_file()
+                or (output_dir / "best_model.pt").is_file()
+                or (output_dir / "training_history.csv").is_file()
+            )
+            if has_existing and not args.force:
+                raise RuntimeError(
+                    f"Existing experiment in {output_dir} is incompatible or failed validation. "
+                    "Automatic overwrite is prohibited by research integrity policy. "
+                    "Use --force to explicitly authorize an overwrite, or choose a distinct output directory."
+                )
+            summary = run_method(context=context, output_slug=slug, force=args.force, **kwargs)
         methods.append(summary)
 
     execute(
@@ -144,8 +164,9 @@ def main() -> None:
             graph,
             target_class=config.target_class,
             trigger_size=config.trigger_size,
+            client_id=client_idx,
         )
-        for graph in context.attacked_graphs_cpu
+        for client_idx, graph in enumerate(context.attacked_graphs_cpu)
     ]
     execute(
         "baseline_dmgnn",
@@ -173,7 +194,8 @@ def main() -> None:
             "prop_layers": 1,
             "prop_alpha": 0.1,
             "supervised_epochs": 3,
-            "model_architecture": "FedTGEGCN (2 GCNConv, 2 LayerNorm, hidden=16, dropout=0.5)",
+            "model_architecture": f"FedTGEGCN (2 GCNConv, 2 LayerNorm, hidden={config.hidden_channels}, dropout={config.dropout})",
+            "hidden_channels": int(config.hidden_channels),
             "finch_provenance": "Sarfraz et al., CVPR 2019 (vendored parameter-free FINCH)",
         },
     )

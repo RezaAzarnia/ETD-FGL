@@ -7,6 +7,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+from multidata_suite.config import METHOD_COLORS
+
 DATASETS = ["cora", "pubmed", "reddit"]
 DISPLAY = {"cora": "Cora", "pubmed": "PubMed", "reddit": "Reddit"}
 METHODS = [
@@ -16,9 +18,10 @@ METHODS = [
     "GSP-FL",
     "FLPurifier-GNN",
     "DMGNN-FL",
+    "FedTGE",
     "ETD-FGL",
 ]
-HATCHES = ["//", "\\\\", "xx", "..", "++", "oo", "--"]
+HATCHES = ["//", "\\\\", "xx", "..", "++", "oo", "**", "--"]
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -33,6 +36,15 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 
 def load_all_results(project_dir: Path) -> dict[str, dict[str, dict[str, str]]]:
     results: dict[str, dict[str, dict[str, str]]] = {}
+    core_methods = [
+        "Clean FedAvg",
+        "Attacked FedAvg",
+        "PD-FL",
+        "GSP-FL",
+        "FLPurifier-GNN",
+        "DMGNN-FL",
+        "ETD-FGL",
+    ]
     for dataset in DATASETS:
         path = (
             project_dir
@@ -45,10 +57,10 @@ def load_all_results(project_dir: Path) -> dict[str, dict[str, dict[str, str]]]:
         rows = read_csv(path)
         results[dataset] = {row["method"]: row for row in rows}
 
-        missing = [method for method in METHODS if method not in results[dataset]]
+        missing = [method for method in core_methods if method not in results[dataset]]
         if missing:
             raise ValueError(
-                f"Missing methods in {path}: {', '.join(missing)}"
+                f"Missing required methods in {path}: {', '.join(missing)}"
             )
     return results
 
@@ -89,8 +101,11 @@ def grouped_bar(
     output_dir: Path,
     include_clean: bool,
 ) -> None:
-    methods = METHODS if include_clean else [m for m in METHODS if m != "Clean FedAvg"]
-    width = 0.11 if len(methods) >= 7 else 0.13
+    candidate_methods = METHODS if include_clean else [m for m in METHODS if m != "Clean FedAvg"]
+    methods = [m for m in candidate_methods if any(m in results.get(d, {}) for d in DATASETS)]
+    if not methods:
+        return
+    width = 0.8 / max(1, len(methods) + 1)
     x = list(range(len(DATASETS)))
 
     fig, ax = plt.subplots(figsize=(9.2, 4.9))
@@ -99,17 +114,22 @@ def grouped_bar(
         offset = (method_index - (len(methods) - 1) / 2) * width
         values: list[float] = []
         for dataset in DATASETS:
-            raw = results[dataset][method].get(metric, "")
-            if raw == "":
+            method_data = results.get(dataset, {}).get(method)
+            if method_data is None:
                 values.append(float("nan"))
             else:
-                values.append(float(raw))
+                raw = method_data.get(metric, "")
+                if raw == "" or raw is None:
+                    values.append(float("nan"))
+                else:
+                    values.append(float(raw))
 
         bars = ax.bar(
             [value + offset for value in x],
             values,
             width=width,
             label=method,
+            color=METHOD_COLORS.get(method),
             edgecolor="black",
             linewidth=0.65,
             hatch=HATCHES[method_index % len(HATCHES)],
@@ -119,12 +139,13 @@ def grouped_bar(
         for bar, value in zip(bars, values, strict=True):
             if value != value:  # NaN
                 continue
+            va = "bottom" if value >= 0 else "top"
             ax.text(
                 bar.get_x() + bar.get_width() / 2,
                 value,
                 f"{value:.3f}",
                 ha="center",
-                va="bottom",
+                va=va,
                 fontsize=6.5,
                 rotation=90,
             )
@@ -141,13 +162,22 @@ def grouped_bar(
     finite_values = []
     for dataset in DATASETS:
         for method in methods:
-            raw = results[dataset][method].get(metric, "")
-            if raw != "":
-                finite_values.append(float(raw))
+            method_data = results.get(dataset, {}).get(method)
+            if method_data is not None:
+                raw = method_data.get(metric, "")
+                if raw != "":
+                    finite_values.append(float(raw))
     if finite_values:
         ymax = max(finite_values)
+        ymin = min(finite_values)
         if metric in {"clean_test_accuracy", "attack_success_rate"}:
             ax.set_ylim(0.0, max(1.02, ymax * 1.12))
+        elif ymin < 0 or metric == "trigger_attack_effect":
+            val_range = max(ymax - ymin, 1e-4)
+            lower_bound = min(0.0, ymin - 0.18 * val_range) if ymin < 0 else -0.05 * ymax
+            upper_bound = ymax + 0.20 * val_range if ymax > 0 else 0.1
+            ax.set_ylim(lower_bound, upper_bound)
+            ax.axhline(0.0, color="black", linestyle="--", linewidth=0.8, alpha=0.75, zorder=2)
         else:
             ax.set_ylim(0.0, ymax * 1.18 if ymax > 0 else 1.0)
 
@@ -173,7 +203,7 @@ def main() -> None:
         stem="Fig_09_Final_Clean_Accuracy_All_Datasets",
         caption=(
             "Final clean test accuracy of Clean FedAvg, Attacked FedAvg, "
-            "four baseline defenses, and ETD-FGL on Cora, PubMed, and Reddit."
+            "five baseline defenses, and ETD-FGL on Cora, PubMed, and Reddit."
         ),
         output_dir=output_dir,
         include_clean=True,
@@ -185,7 +215,7 @@ def main() -> None:
         ylabel="Final attack success rate (ASR)",
         stem="Fig_10_Final_ASR_All_Datasets",
         caption=(
-            "Final attack success rate of Attacked FedAvg, the baseline defenses, "
+            "Final attack success rate of Attacked FedAvg, five baseline defenses, "
             "and ETD-FGL on Cora, PubMed, and Reddit."
         ),
         output_dir=output_dir,
@@ -199,7 +229,9 @@ def main() -> None:
         stem="Fig_11_Final_Trigger_Effect_All_Datasets",
         caption=(
             "Final trigger-induced target-rate increase for Attacked FedAvg, "
-            "the baseline defenses, and ETD-FGL on Cora, PubMed, and Reddit."
+            "five baseline defenses, and ETD-FGL on Cora, PubMed, and Reddit. "
+            "A visible dashed horizontal line at y=0 indicates the zero-effect baseline, "
+            "properly distinguishing effective attacks from negative attack-effect values."
         ),
         output_dir=output_dir,
         include_clean=False,
@@ -211,8 +243,10 @@ def main() -> None:
         ylabel="Runtime (s)",
         stem="Fig_12_Runtime_All_Datasets",
         caption=(
-            "Measured runtime of the compared methods on Cora, PubMed, and Reddit "
-            "under the unified experimental pipeline."
+            "Measured runtime of the timed federated training loop (communication rounds and local updates) "
+            "for the compared methods on Cora, PubMed, and Reddit under the unified experimental pipeline. "
+            "Note: This comparison reflects the timed federated training loop and does not necessarily measure "
+            "complete offline graph preprocessing, pre-training explainer attribution, or candidate pruning."
         ),
         output_dir=output_dir,
         include_clean=True,

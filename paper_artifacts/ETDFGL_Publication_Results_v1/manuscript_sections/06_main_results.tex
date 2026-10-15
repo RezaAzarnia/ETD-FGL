@@ -1,0 +1,12 @@
+\section{Main Benchmark Comparison}
+\label{sec:main_results}
+Table~\ref{tab:table_02_main_baseline_comparison} and Figure~1 present the benchmark performance on Seed 42 across Cora, PubMed, and Reddit.
+Under unmitigated Attacked FedAvg, the backdoor embeds with alarming efficacy, attaining $58.16\%$ ASR on Cora and $76.24\%$ ASR on Reddit, with Attack Effects exceeding $+49.0\%$ and $+75.8\%$ points.
+Existing defenses demonstrate critical failure modes:
+\begin{itemize}
+    \item \textbf{Parameter-only defenses} (\textsc{PD-FL}, \textsc{GSP-FL}) fail to identify the backdoor because localized subgraph modifications require only subtle gradient adjustments that easily bypass Euclidean or norm-based weight filters (attaining $55.86\% - 56.67\%$ ASR on Cora).
+    \item \textbf{Graph purification} (\textsc{FLPurifier-GNN}) succeeds in reducing ASR on Cora ($0.23\%$) and PubMed ($0.20\%$), but severely degrades clean classification accuracy on Cora from $76.10\%$ down to $56.90\%$ (a crippling $-19.2\%$ point drop) by over-pruning legitimate homophilous edges.
+    \item \textbf{DMGNN-FL} provides moderate defense on Cora ($56.78\%$ ASR) but exhibits complete failure on Reddit ($76.24\%$ ASR), identical to undefended FedAvg. Diagnostic tracking confirmed that DMGNN-FL's explanation-guided edge purification threshold was never exceeded on Reddit ($0$ edges removed across all clients), leaving malicious updates entirely unfiltered.
+    \item \textbf{FedTGE} suffers severe backdoor susceptibility ($82.87\%$ ASR on Cora and $74.57\%$ on Reddit) while requiring an excessive training runtime of $177.0$ seconds on Cora.
+\end{itemize}
+In contrast, \textsc{ETD-FGL} achieves near-zero ASR on Cora ($4.25\%$) and PubMed ($0.41\%$) while maintaining clean classification accuracy ($77.20\%$ on Cora, $77.80\%$ on PubMed, $85.05\%$ on Reddit) that equals or exceeds Clean FedAvg ($76.10\%$, $76.50\%$, $85.35\%$).

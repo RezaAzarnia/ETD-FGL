@@ -35,8 +35,8 @@ PRESERVED OFFICIAL OPERATIONS:
    normalized to sum to 1.
 
 BENCHMARK-CONTROLLED CHANGES:
-1. Capacity Match: Hidden channels set to 16 and dropout to 0.5 to match the common
-   backbone capacity of all other compared baselines (official used 32 channels).
+1. Capacity Match: Hidden channels set to match the benchmark configuration
+   (DatasetConfig.hidden_channels = 32) and dropout to 0.5.
 2. Supervised Training Budget: Standardized to 3 local supervised epochs per communication round
    (2 pre-calibration epochs + 1 post-calibration fine-tuning epoch) to maintain strict
    training budget parity with FedAvg, ETD-FGL, and other baselines.
@@ -161,8 +161,7 @@ class FedTGEGCN(nn.Module):
 
     Matches official FedTGE (node_code/models/GCN.py) structure:
         lns[0] -> conv1 -> ReLU -> lns[1] -> Dropout -> conv2
-    Capacity matched to benchmark:
-        hidden_channels = 16, dropout = 0.5.
+    Capacity matched to benchmark (DatasetConfig.hidden_channels, dropout = 0.5).
     """
 
     def __init__(
@@ -230,11 +229,35 @@ def _aug_random_edge(
     edge_index: Tensor,
     perturb_percent: float = 0.2,
     seed: int | None = None,
+    mode: str = "official_degree",
 ) -> Tensor:
-    """Official edge perturbation: drops 20% of edges and adds 20% random edges.
+    """Edge perturbation matching official FedTGE substitute generation.
 
-    Faithfully preserves node_code/helpers/helpers.py: _aug_random_edge.
+    PROVENANCE & PARAMETER NOTE:
+    In the official FedTGE repository (ZitongShi/fedTGE, node_code/helpers/helpers.py),
+    the function signature accepts ``perturb_percent=0.2``, but the official body
+    uses an average-degree heuristic:
+        avg_degree = max(1, int(total_edges / num_nodes))
+    and modifies ``min(avg_degree, degree)`` edges per node rather than a literal
+    percentage of the graph's edges.
+
+    By default (mode="official_degree"), this function faithfully preserves the
+    official FedTGE behavior. When mode="percentage" (or when an explicit non-default
+    perturb_percent is supplied and mode is not forced), the perturbation scales
+    proportional to perturb_percent.
     """
+    if mode not in ("official_degree", "percentage"):
+        raise ValueError(
+            f"Unsupported edge augmentation mode {mode!r}. Must be 'official_degree' or 'percentage'."
+        )
+    if not (0.0 <= perturb_percent <= 1.0):
+        raise ValueError(
+            f"perturb_percent must be in [0.0, 1.0], got {perturb_percent}"
+        )
+
+    if mode == "percentage" and perturb_percent == 0.0:
+        return edge_index.clone()
+
     if seed is not None:
         rng = random.Random(seed)
     else:
@@ -242,6 +265,7 @@ def _aug_random_edge(
 
     total_edges = edge_index.shape[1]
     avg_degree = max(1, int(total_edges / num_nodes))
+    use_percentage = (mode == "percentage")
 
     edge_dict: dict[int, set[int]] = {i: set() for i in range(num_nodes)}
     for u, v in edge_index.t().tolist():
@@ -252,7 +276,10 @@ def _aug_random_edge(
     # 1. Drop edges
     for i in range(num_nodes):
         d = len(edge_dict[i])
-        num_drop = min(avg_degree, d)
+        if use_percentage:
+            num_drop = min(int(round(perturb_percent * d)), d) if d > 0 else 0
+        else:
+            num_drop = min(avg_degree, d)
         if num_drop > 0:
             dropped = rng.sample(list(edge_dict[i]), num_drop)
             for j in dropped:
@@ -262,9 +289,14 @@ def _aug_random_edge(
     # 2. Add random edges
     node_list = list(range(num_nodes))
     add_list = []
+    num_add_per_node = (
+        min(int(round(perturb_percent * avg_degree)), num_nodes - 1)
+        if use_percentage
+        else min(avg_degree, num_nodes - 1)
+    )
     for _ in range(num_nodes):
-        if num_nodes > 1:
-            sampled = rng.sample(node_list, min(avg_degree, num_nodes - 1))
+        if num_nodes > 1 and num_add_per_node > 0:
+            sampled = rng.sample(node_list, num_add_per_node)
             for j in sampled:
                 add_list.append((rng.randint(0, num_nodes - 1), j))
 
@@ -608,16 +640,37 @@ class FedTGEAggregator:
         del global_state, round_number
         num_clients = len(local_states)
 
-        # 1. Recover energy vectors from local client diagnostics
-        client_energies: list[np.ndarray] = []
-        if local_diags is not None:
-            for diag in local_diags:
-                if "energy_vector" in diag:
-                    client_energies.append(np.asarray(diag["energy_vector"], dtype=np.float64))
+        # 1. Recover and strictly validate energy vectors from local client diagnostics
+        if local_diags is None:
+            raise ValueError(
+                "FedTGEAggregator requires client diagnostics containing 'energy_vector' for every client, got None."
+            )
+        if len(local_diags) != num_clients:
+            raise ValueError(
+                f"FedTGEAggregator expected {num_clients} client diagnostics, got {len(local_diags)}."
+            )
 
-        if len(client_energies) != num_clients:
-            # Fallback if diagnostics not passed
-            client_energies = [np.ones(10, dtype=np.float64) for _ in range(num_clients)]
+        client_energies: list[np.ndarray] = []
+        for client_id, diag in enumerate(local_diags):
+            if not isinstance(diag, dict) or "energy_vector" not in diag:
+                raise ValueError(
+                    f"Client {client_id} is missing required 'energy_vector' in diagnostics."
+                )
+            raw_vec = diag["energy_vector"]
+            if raw_vec is None:
+                raise ValueError(f"Client {client_id} 'energy_vector' is None.")
+            vec = np.asarray(raw_vec, dtype=np.float64)
+            if vec.ndim != 1:
+                raise ValueError(
+                    f"Client {client_id} 'energy_vector' must be 1-dimensional, got shape {vec.shape}."
+                )
+            if vec.size == 0:
+                raise ValueError(f"Client {client_id} 'energy_vector' is empty.")
+            if not np.all(np.isfinite(vec)):
+                raise ValueError(
+                    f"Client {client_id} 'energy_vector' contains NaN or infinite values."
+                )
+            client_energies.append(vec)
 
         # 2. FINCH clustering to prune malicious clients
         selected_indices, selection_diag = self.select_models_based_on_energy(client_energies)

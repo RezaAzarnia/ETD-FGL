@@ -1,0 +1,1 @@
+Figure S3: Timed 50-round federated training loop runtime across benchmark datasets (Seed 42). Important measurement note: Timings reflect the active federated training and aggregation loop on identical hardware; they do not measure initial client graph partitioning or offline descriptor precomputation. ETD-FGL adds minimal aggregation overhead relative to standard FedAvg.

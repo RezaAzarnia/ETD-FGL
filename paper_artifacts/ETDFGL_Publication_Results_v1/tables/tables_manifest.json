@@ -1,0 +1,52 @@
+{
+  "package": "ETD-FGL Publication Table Package v1.0",
+  "source_data_dir": "C:\\Users\\R_Azarnia\\Desktop\\main paper\\ETD-FGL\\paper_artifacts\\ETDFGL_Publication_Results_v1\\consolidated_data",
+  "total_tables": 9,
+  "tables": [
+    {
+      "id": 1,
+      "stem": "Table_01_Dataset_Configurations",
+      "title": "Dataset Characteristics and Federated Experimental Configurations"
+    },
+    {
+      "id": 2,
+      "stem": "Table_02_Main_Baseline_Comparison",
+      "title": "Performance and Defense Effectiveness Comparison Across Benchmark Datasets (Seed 42)"
+    },
+    {
+      "id": 3,
+      "stem": "Table_03_MultiSeed_Robustness",
+      "title": "Multi-Seed Robustness Evaluation: Attacked FedAvg vs. ETD-FGL (Seeds 42, 43, 44)"
+    },
+    {
+      "id": 4,
+      "stem": "Table_04_Standard_Ablation_Study",
+      "title": "Standard Component Ablation Study Across Benchmark Datasets (Seeds 42, 43, 44)"
+    },
+    {
+      "id": 5,
+      "stem": "Table_05_Controlled_Ablation_Study",
+      "title": "Controlled Component Ablation Study with Held-Constant Coefficients (Seeds 42, 43, 44)"
+    },
+    {
+      "id": 6,
+      "stem": "Table_06_Paired_Component_Contributions",
+      "title": "Paired Within-Seed Component Contributions (Delta = Variant - Full ETD-FGL)"
+    },
+    {
+      "id": 7,
+      "stem": "Table_07_Defense_Effectiveness_Attacker_Weights",
+      "title": "Client Risk and Attacker Aggregation Weight Dynamics Under Controlled Defense Variants"
+    },
+    {
+      "id": 8,
+      "stem": "Table_08_Computational_Runtime_Training_Loop",
+      "title": "Computational Runtime Comparison: 50 Communication Rounds on Identical GPU Hardware"
+    },
+    {
+      "id": 9,
+      "stem": "Table_09_Granular_PerSeed_Supplementary_Results",
+      "title": "Complete Granular Per-Seed Experimental Results for All Evaluated Runs (N=132)"
+    }
+  ]
+}

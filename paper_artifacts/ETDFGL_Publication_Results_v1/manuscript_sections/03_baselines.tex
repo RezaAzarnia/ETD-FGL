@@ -1,0 +1,13 @@
+\section{Comparison Baselines}
+\label{sec:baselines}
+We compare \textsc{ETD-FGL} against eight distinct experimental configurations spanning undefended baselines, existing parameter-space robust aggregation rules, and specialized graph purification schemes:
+\begin{enumerate}
+    \item \textbf{Clean FedAvg}: Standard Federated Averaging executed in a completely benign federation without backdoor injection, establishing the non-attacked empirical performance ceiling.
+    \item \textbf{Attacked FedAvg}: Standard Federated Averaging under active backdoor attack with uniform client aggregation weights ($w_k = 1/K = 0.20$), serving as the unmitigated attack baseline.
+    \item \textbf{PD-FL} (Pruning Defense for Federated Learning): Detects anomalous parameter updates by tracking magnitude and pruning suspect convolutional weights.
+    \item \textbf{GSP-FL} (Graph Sparsification Protection): Applies graph edge pruning based on client parameter divergences to suppress out-of-distribution message passing.
+    \item \textbf{FLPurifier-GNN}: Cleans client local graphs via feature-similarity edge purification prior to message passing.
+    \item \textbf{DMGNN-FL} (Discriminative Metric GNN): Employs GNNExplainer-based post-hoc explanations to identify and prune edges that disproportionately bias predictions toward the target class.
+    \item \textbf{FedTGE} (Topology-Guided Estimation): Robust graph federated aggregation incorporating global graph topology estimation.
+    \item \textbf{\textsc{ETD-FGL} (Proposed)}: Dual-channel trust-weighted aggregation combining server-side structural descriptor divergence ($\mathbf{d}_{\text{topo}} \in \mathbb{R}^5$) and parameter-space model update drift ($\Delta \mathbf{w}_k$).
+\end{enumerate}

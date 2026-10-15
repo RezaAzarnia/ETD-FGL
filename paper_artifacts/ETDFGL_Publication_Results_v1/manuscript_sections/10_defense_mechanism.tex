@@ -1,0 +1,7 @@
+\section{Defense Mechanism and Trust Dynamics}
+\label{sec:defense_mechanism}
+Figure~5, Figure~6, and Table~\ref{tab:table_07_defense_effectiveness_attacker_weights} illuminate the inner mechanics of \textsc{ETD-FGL}'s trust-weighted aggregation.
+In unmitigated FedAvg, the attacker maintains a fixed $20.0\%$ weight share ($1/K$).
+Under Full \textsc{ETD-FGL}, the server's dual-channel scoring rapidly identifies the topological discrepancy of client 0 ($A_{\text{topo},0} \approx 1.0$), suppressing the malicious aggregation weight $w_0$ down to $4.76 \pm 0.03\%$ on Cora, $4.55 \pm 0.04\%$ on PubMed, and $2.53 \pm 0.08\%$ on Reddit within 5 communication rounds.
+This establishes a benign-to-malicious trust discrimination ratio of $5.0\times$ to $9.6\times$ (Table~\ref{tab:table_07_defense_effectiveness_attacker_weights}).
+Simultaneously, benign client risk $R_{\text{benign}}$ remains minimal ($0.020 - 0.058$), preserving over $85\%$ of unconstrained aggregation trust for honest participants.

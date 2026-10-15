@@ -86,6 +86,7 @@ last_model.pt
 tmp/
 temp/
 scratch/
+delivery/
 
 *.tmp
 *.temp

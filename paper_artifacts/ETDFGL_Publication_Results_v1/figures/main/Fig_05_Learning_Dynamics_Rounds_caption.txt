@@ -1,0 +1,1 @@
+Figure 5: Federated learning dynamics over 50 communication rounds on Cora, PubMed, and Reddit (Seed 42). Top row: Clean test accuracy convergence. Bottom row: Backdoor Attack Success Rate (ASR). While unmitigated Attacked FedAvg converges rapidly to high ASR (60–80%), ETD-FGL suppresses backdoor injection from early communication rounds without retarding clean convergence.

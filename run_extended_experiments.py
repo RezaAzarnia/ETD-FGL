@@ -10,7 +10,13 @@ import numpy as np
 import torch
 
 from multidata_suite.config import DatasetConfig, get_config
-from multidata_suite.core import build_context, fedavg, run_method, standard_local_train
+from multidata_suite.core import (
+    build_context,
+    fedavg,
+    run_method,
+    standard_local_train,
+    validate_existing_experiment,
+)
 from multidata_suite.defenses import (
     ConfigurableETDFGLAggregator,
     ETDFGLAggregator,
@@ -71,14 +77,28 @@ def _execute(
     force: bool,
     **kwargs,
 ) -> dict:
-    summary_path = context.base_output / slug / "final_summary.json"
-    if summary_path.exists() and not force:
-        print(f"SKIP {slug}: existing summary found")
-        return _load_summary(summary_path)
+    if not force:
+        cached_summary = validate_existing_experiment(context, slug, expected_method_name=method_name)
+        if cached_summary is not None:
+            print(f"SKIP {slug}: validated compatible existing experiment found")
+            return cached_summary
+        output_dir = context.base_output / slug
+        has_existing = (
+            (output_dir / "final_summary.json").is_file()
+            or (output_dir / "best_model.pt").is_file()
+            or (output_dir / "training_history.csv").is_file()
+        )
+        if has_existing:
+            raise RuntimeError(
+                f"Existing experiment in {output_dir} is incompatible or failed validation. "
+                "Automatic overwrite without authorization is prohibited by research integrity policy. "
+                "Pass force=True (or --force on CLI) to explicitly authorize an overwrite."
+            )
     return run_method(
         context=context,
         output_slug=slug,
         method_name=method_name,
+        force=force,
         **kwargs,
     )
 
@@ -243,8 +263,9 @@ def _run_selected_methods(
                 graph,
                 target_class=context.config.target_class,
                 trigger_size=context.config.trigger_size,
+                client_id=client_idx,
             )
-            for graph in context.attacked_graphs_cpu
+            for client_idx, graph in enumerate(context.attacked_graphs_cpu)
         ]
         summaries.append(
             _execute(
@@ -283,7 +304,8 @@ def _run_selected_methods(
                     "prop_layers": 1,
                     "prop_alpha": 0.1,
                     "supervised_epochs": 3,
-                    "model_architecture": "FedTGEGCN (2 GCNConv, 2 LayerNorm, hidden=16, dropout=0.5)",
+                    "model_architecture": f"FedTGEGCN (2 GCNConv, 2 LayerNorm, hidden={context.config.hidden_channels}, dropout={context.config.dropout})",
+                    "hidden_channels": int(context.config.hidden_channels),
                     "finch_provenance": "Sarfraz et al., CVPR 2019 (vendored parameter-free FINCH)",
                 },
             )
@@ -478,16 +500,25 @@ def run_clients(project_dir: Path, datasets, client_counts, methods, seed: int, 
             _run_selected_methods(context, methods, force=force)
 
 
-def parse_methods(value: str) -> tuple[str, ...]:
-    if value.strip().lower() == "all":
+def parse_methods(value: str | Iterable[str]) -> tuple[str, ...]:
+    if isinstance(value, str):
+        raw_items = [value]
+    else:
+        raw_items = list(value)
+    parts: list[str] = []
+    for item in raw_items:
+        for sub in str(item).split(","):
+            cleaned = sub.strip().lower()
+            if cleaned:
+                parts.append(cleaned)
+    if "all" in parts:
         return ALL_METHODS
-    methods = tuple(part.strip().lower() for part in value.split(",") if part.strip())
-    invalid = [method for method in methods if method not in ALL_METHODS]
+    invalid = [method for method in parts if method not in ALL_METHODS]
     if invalid:
         raise argparse.ArgumentTypeError(
             f"Unknown method(s): {', '.join(invalid)}. Valid: {', '.join(ALL_METHODS)}"
         )
-    return methods
+    return tuple(dict.fromkeys(parts))
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -503,9 +534,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--force", action="store_true")
     parser.add_argument(
         "--methods",
-        type=parse_methods,
-        default=("attacked", "pdfl", "flpurifier", "etdfgl"),
-        help="Comma-separated method keys or 'all'.",
+        nargs="+",
+        default=["attacked", "pdfl", "flpurifier", "etdfgl"],
+        help="Comma-separated or space-separated method keys or 'all'.",
     )
     parser.add_argument("--seeds", nargs="+", type=int, default=[42, 43, 44])
     parser.add_argument("--alphas", nargs="+", type=float, default=[0.1, 0.5, 1.0])
@@ -518,13 +549,14 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> None:
     args = build_parser().parse_args()
     project_dir = Path(__file__).resolve().parent
+    methods = parse_methods(args.methods)
 
     if args.study == "multiseed":
         # Multi-seed is the statistical version of the main comparison; by
         # default the dedicated .bat file requests all seven methods.
-        run_multiseed(project_dir, args.datasets, args.seeds, args.methods, args.force)
+        run_multiseed(project_dir, args.datasets, args.seeds, methods, args.force)
     elif args.study == "noniid":
-        run_noniid(project_dir, args.datasets, args.alphas, args.methods, args.seed, args.force)
+        run_noniid(project_dir, args.datasets, args.alphas, methods, args.seed, args.force)
     elif args.study == "ablation":
         run_ablation(project_dir, args.datasets, args.seed, args.force)
     elif args.study == "poison":
@@ -532,7 +564,7 @@ def main() -> None:
     elif args.study == "trigger":
         run_sensitivity_trigger(project_dir, args.datasets, args.trigger_sizes, args.seed, args.force)
     elif args.study == "clients":
-        run_clients(project_dir, args.datasets, args.client_counts, args.methods, args.seed, args.force)
+        run_clients(project_dir, args.datasets, args.client_counts, methods, args.seed, args.force)
 
     print("=" * 108)
     print(f"EXTENDED STUDY COMPLETED: {args.study}")

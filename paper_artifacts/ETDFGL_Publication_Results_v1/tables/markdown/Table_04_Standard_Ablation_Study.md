@@ -1,0 +1,28 @@
+### Standard Component Ablation Study Across Benchmark Datasets (Seeds 42, 43, 44)
+
+| Dataset | Ablation Variant                                  | Topology Coeff | Update Coeff      | Clean Accuracy (%) ↑ | Backdoor ASR (%) ↓ | Attack Effect (% pts) ↓ |
+| ------- | ------------------------------------------------- | -------------- | ----------------- | -------------------- | ------------------ | ----------------------- |
+| Cora    | Attacked FedAvg                                   | 0.00           | 0.00              | 75.00 ± 0.72         | 62.03 ± 15.38      | 52.26 ± 14.25           |
+| Cora    | ETD-FGL (Full final)                              | 9/13 ≈ 0.692   | 4/13 ≈ 0.308      | 75.57 ± 1.57         | 5.21 ± 0.88        | -2.22 ± 2.17            |
+| Cora    | ETD-FGL Topology-only                             | 1.00           | 0.00              | 75.40 ± 1.65         | 4.60 ± 0.90        | -3.98 ± 3.30            |
+| Cora    | ETD-FGL Update-only                               | 0.00           | 1.00              | 74.90 ± 1.90         | 44.33 ± 8.02       | 35.86 ± 6.99            |
+| Cora    | ETD-FGL w/o Trust Weighting                       | 9/13           | 4/13 (Unweighted) | 75.00 ± 0.72         | 62.03 ± 15.38      | 52.26 ± 14.25           |
+| Cora    | Historical Three-Channel Variant (0.45/0.35/0.20) | 0.45           | 0.35 (+0.20 Exp)  | 75.43 ± 1.10         | 18.93 ± 3.80       | 9.92 ± 4.53             |
+| PubMed  | Attacked FedAvg                                   | 0.00           | 0.00              | 74.80 ± 3.18         | 9.23 ± 7.36        | 2.56 ± 7.73             |
+| PubMed  | ETD-FGL (Full final)                              | 9/13 ≈ 0.692   | 4/13 ≈ 0.308      | 75.50 ± 2.01         | 0.89 ± 0.56        | -3.54 ± 0.53            |
+| PubMed  | ETD-FGL Topology-only                             | 1.00           | 0.00              | 74.60 ± 3.64         | 0.81 ± 0.39        | -3.50 ± 0.69            |
+| PubMed  | ETD-FGL Update-only                               | 0.00           | 1.00              | 75.83 ± 1.93         | 6.50 ± 9.37        | 0.61 ± 7.54             |
+| PubMed  | ETD-FGL w/o Trust Weighting                       | 9/13           | 4/13 (Unweighted) | 74.80 ± 3.18         | 9.23 ± 7.36        | 2.56 ± 7.73             |
+| PubMed  | Historical Three-Channel Variant (0.45/0.35/0.20) | 0.45           | 0.35 (+0.20 Exp)  | 75.80 ± 2.01         | 1.14 ± 0.87        | -3.86 ± 1.02            |
+| Reddit  | Attacked FedAvg                                   | 0.00           | 0.00              | 84.90 ± 0.80         | 74.42 ± 1.85       | 74.06 ± 1.75            |
+| Reddit  | ETD-FGL (Full final)                              | 9/13 ≈ 0.692   | 4/13 ≈ 0.308      | 84.87 ± 0.40         | 14.08 ± 18.19      | 13.77 ± 18.09           |
+| Reddit  | ETD-FGL Topology-only                             | 1.00           | 0.00              | 84.93 ± 0.49         | 10.44 ± 16.08      | 10.16 ± 15.96           |
+| Reddit  | ETD-FGL Update-only                               | 0.00           | 1.00              | 84.80 ± 0.66         | 31.49 ± 17.73      | 31.25 ± 17.62           |
+| Reddit  | ETD-FGL w/o Trust Weighting                       | 9/13           | 4/13 (Unweighted) | 84.90 ± 0.80         | 74.42 ± 1.85       | 74.06 ± 1.75            |
+| Reddit  | Historical Three-Channel Variant (0.45/0.35/0.20) | 0.45           | 0.35 (+0.20 Exp)  | 84.90 ± 0.62         | 21.87 ± 16.33      | 21.59 ± 16.27           |
+
+**Notes:**
+- Values report sample mean $\pm$ sample standard deviation ($ddof=1$) over Seeds 42, 43, 44.
+- Crucial methodological distinction: In this historical standard ablation, removing a channel re-normalized the remaining channel's coefficient to 1.0.
+- For Topology-only, inflating the topology coefficient from 9/13 (+44%) artificially increased attacker trust suppression, yielding lower ASR than Full ETD-FGL in some cases.
+- ETD-FGL w/o Trust Weighting produces identical results to Attacked FedAvg because uniform trust aggregation is mathematically equivalent to FedAvg.

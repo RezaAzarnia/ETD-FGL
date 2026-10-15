@@ -1,0 +1,9 @@
+\section{Evaluation Metrics}
+\label{sec:evaluation_metrics}
+We evaluate three core performance dimensions:
+\begin{enumerate}
+    \item \textbf{Clean Test Accuracy (\%)}: Supervised node classification accuracy on clean test nodes with uncorrupted local graph neighborhoods.
+    \item \textbf{Attack Success Rate (ASR \%)}: Percentage of test nodes from non-target classes that are misclassified into the adversary's target class (class 0) upon inserting the 3-node clique trigger into their egonet.
+    \item \textbf{Attack Effect (\% points)}: Defined as $\text{ASR} - \text{Clean Target Rate}$, measuring the net change in target class predictions induced strictly by trigger presence. Negative Attack Effect values demonstrate that triggered test nodes are classified into the target class at rates lower than or equal to the unattacked prior, indicating complete neutralization of the backdoor.
+    \item \textbf{Malicious Aggregation Weight ($w_0$ \%)}: The effective contribution share allocated to malicious client 0 during server aggregation, relative to the uniform benchmark share of $1/K = 20.0\%$.
+\end{enumerate}

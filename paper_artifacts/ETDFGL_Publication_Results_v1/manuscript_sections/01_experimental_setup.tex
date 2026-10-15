@@ -1,0 +1,9 @@
+\section{Experimental Setup}
+\label{sec:experimental_setup}
+We evaluate the proposed Evidence-based Topological Defense for Federated Graph Learning (\textsc{ETD-FGL}) across three benchmark citation and community network datasets against state-of-the-art graph federated learning defenses under targeted topological backdoor attacks.
+Our federated topology comprises $K = 5$ participating graph clients coordinated by a central server.
+In each communication round, clients perform $E = 3$ local epochs of supervised node classification before transmitting model parameters to the server for aggregation.
+We simulate an untrusted federated environment where client index $k=0$ is compromised by an adversary attempting to embed a structural backdoor trigger, while the remaining $K-1 = 4$ clients are benign.
+The federated training proceeds for $T = 50$ communication rounds.
+To rigorously quantify stability, every multi-seed experiment is independently executed across three random seeds ($\{42, 43, 44\}$) initializing client partition splits, model parameter initialization, and SGD minibatch ordering.
+Model selection for all methods selects the checkpoint round yielding highest validation accuracy on clean holdout data, ensuring no test data leakage informs checkpoint selection.

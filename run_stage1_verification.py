@@ -110,6 +110,8 @@ def main():
         
         ref_desc, ref_diag = _graph_descriptor(cg, return_diagnostics=True)
         cur_desc, cur_diag = _graph_descriptor(ag, return_diagnostics=True)
+        ref_homo_diag = compute_homophily_diagnostics(cg)
+        cur_homo_diag = compute_homophily_diagnostics(ag)
         
         row = {
             "client_id": cid,
@@ -117,13 +119,13 @@ def main():
             "reference_nodes": int(cg.num_nodes),
             "reference_total_edges": ref_diag["total_edges"],
             "reference_train_nodes": int(cg.train_mask.sum().item()),
-            "reference_homophily_eligible_edges": ref_diag["homophily_eligible_edges"],
-            "reference_homophily": float(ref_desc[5]),
+            "reference_homophily_eligible_edges": ref_homo_diag["homophily_eligible_edges"],
+            "reference_homophily": float(ref_homo_diag["homophily"]),
             "current_nodes": int(ag.num_nodes),
             "current_total_edges": cur_diag["total_edges"],
             "current_train_nodes": int(ag.train_mask.sum().item()),
-            "current_homophily_eligible_edges": cur_diag["homophily_eligible_edges"],
-            "current_homophily": float(cur_desc[5]),
+            "current_homophily_eligible_edges": cur_homo_diag["homophily_eligible_edges"],
+            "current_homophily": float(cur_homo_diag["homophily"]),
         }
         table_rows.append(row)
 
@@ -231,12 +233,16 @@ def main():
     # Check that ETDFGLAggregator._graph_descriptor calls match our table rows
     agg_clean = np.stack([_graph_descriptor(g) for g in context.clean_graphs_cpu])
     agg_current = np.stack([_graph_descriptor(g) for g in context.attacked_graphs_cpu])
+    assert agg_clean.shape == (config.num_clients, 5), f"Expected 5D clean descriptors, got {agg_clean.shape}"
+    assert agg_current.shape == (config.num_clients, 5), f"Expected 5D current descriptors, got {agg_current.shape}"
 
     for cid in range(config.num_clients):
-        assert math.isclose(agg_clean[cid, 5], table_rows[cid]["reference_homophily"]), f"Clean homophily mismatch at client {cid}!"
-        assert math.isclose(agg_current[cid, 5], table_rows[cid]["current_homophily"]), f"Current homophily mismatch at client {cid}!"
+        clean_homo = float(compute_homophily_diagnostics(context.clean_graphs_cpu[cid])["homophily"])
+        cur_homo = float(compute_homophily_diagnostics(context.attacked_graphs_cpu[cid])["homophily"])
+        assert math.isclose(clean_homo, table_rows[cid]["reference_homophily"]), f"Clean homophily mismatch at client {cid}!"
+        assert math.isclose(cur_homo, table_rows[cid]["current_homophily"]), f"Current homophily mismatch at client {cid}!"
 
-    print("[OK] Production ETDFGLAggregator consumes EXACTLY the table descriptor values.")
+    print("[OK] Production ETDFGLAggregator consumes strictly 5-dimensional label-free descriptors.")
 
     # =========================================================================
     # 5. COMPARE OLD VS NEW HOMOPHILY
@@ -261,11 +267,11 @@ def main():
         G_a = _build_nx_graph(ag)
         
         old_ref = _legacy_homophily(G_c, cg.y)
-        new_ref = float(_graph_descriptor(cg)[5])
+        new_ref = float(compute_homophily_diagnostics(cg)["homophily"])
         diff_ref = abs(old_ref - new_ref)
         
         old_cur = _legacy_homophily(G_a, ag.y)
-        new_cur = float(_graph_descriptor(ag)[5])
+        new_cur = float(compute_homophily_diagnostics(ag)["homophily"])
         diff_cur = abs(old_cur - new_cur)
         
         print(

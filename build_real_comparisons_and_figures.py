@@ -9,19 +9,14 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-METHODS = [
-    ("Clean FedAvg", "fedavg_clean"),
-    ("Attacked FedAvg", "fedavg_structural_backdoor"),
-    ("PD-FL", "baseline_pdfl"),
-    ("GSP-FL", "baseline_gsp"),
-    ("FLPurifier-GNN", "baseline_flpurifier"),
-    ("DMGNN-FL", "baseline_dmgnn"),
-    ("ETD-FGL", "defended_etdfgl"),
-]
+from multidata_suite.config import BENCHMARK_METHODS, METHOD_COLORS
+
+METHODS = BENCHMARK_METHODS
 DATASETS = ["cora", "pubmed", "reddit"]
 DISPLAY = {"cora": "Cora", "pubmed": "PubMed", "reddit": "Reddit"}
-STYLES = ["-", "--", "-.", ":", "-", "--", "-"]
-MARKERS = ["o", "s", "^", "D", "v", "P", "*"]
+STYLES = ["-", "--", "-.", ":", "-", "--", "-.", "-"]
+MARKERS = ["o", "s", "^", "D", "v", "P", "X", "*"]
+HATCHES = ["//", "\\\\", "xx", "..", "++", "oo", "**", "--"]
 
 
 def read_csv(path: Path):
@@ -44,11 +39,21 @@ def build_dataset(project_dir: Path, dataset: str):
     comparison_dir.mkdir(parents=True, exist_ok=True)
     rows = []
     histories = {}
+    method_idx_map = {m[0]: i for i, m in enumerate(METHODS)}
+    active_methods = []
     for method, slug in METHODS:
         summary_path = base / slug / "final_summary.json"
         history_path = base / slug / "training_history.csv"
-        if not summary_path.exists() or not history_path.exists():
+        if summary_path.exists() and history_path.exists():
+            active_methods.append((method, slug))
+        elif method == "FedTGE":
+            print(f"Notice: Optional baseline {method} ({slug}) not found in {base}; skipping in figure.")
+        else:
             raise FileNotFoundError(f"Missing real output for {method} on {dataset}: {summary_path}")
+
+    for method, slug in active_methods:
+        summary_path = base / slug / "final_summary.json"
+        history_path = base / slug / "training_history.csv"
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
         metrics = summary["final_metrics"]
         rows.append({
@@ -77,13 +82,24 @@ def build_dataset(project_dir: Path, dataset: str):
         ("mean_client_loss", "Mean client loss", "(c) Training loss", True),
     ]
     for axis, (metric, ylabel, title, include_clean) in zip(axes.flat[:3], metrics):
-        for idx, (method, _) in enumerate(METHODS):
+        for method, _ in active_methods:
+            idx = method_idx_map[method]
             if not include_clean and method == "Clean FedAvg":
                 continue
             history = histories[method]
             x = [int(r["round"]) for r in history]
             y = [float(r[metric]) for r in history]
-            axis.plot(x, y, label=method, linestyle=STYLES[idx], marker=MARKERS[idx], markevery=5, markersize=3.2, linewidth=1.2)
+            axis.plot(
+                x,
+                y,
+                label=method,
+                color=METHOD_COLORS[method],
+                linestyle=STYLES[idx],
+                marker=MARKERS[idx],
+                markevery=5,
+                markersize=3.2,
+                linewidth=1.2,
+            )
         axis.set_xlabel("Communication round")
         axis.set_ylabel(ylabel)
         axis.set_title(title)
@@ -96,10 +112,16 @@ def build_dataset(project_dir: Path, dataset: str):
     axis = axes[1, 1]
     labels = [r["method"] for r in rows]
     values = [float(r["clean_test_accuracy"]) for r in rows]
-    bars = axis.bar(range(len(labels)), values, edgecolor="black", linewidth=0.8)
-    hatches = ["//", "\\\\", "xx", "..", "++", "oo", "--"]
-    for bar, hatch in zip(bars, hatches):
-        bar.set_hatch(hatch)
+    bars = axis.bar(
+        range(len(labels)),
+        values,
+        color=[METHOD_COLORS[l] for l in labels],
+        edgecolor="black",
+        linewidth=0.8,
+    )
+    for bar, label in zip(bars, labels):
+        idx = method_idx_map[label]
+        bar.set_hatch(HATCHES[idx % len(HATCHES)])
     axis.set_xticks(range(len(labels)))
     axis.set_xticklabels(labels, rotation=20, ha="right")
     axis.set_ylabel("Final clean test accuracy")
@@ -109,14 +131,14 @@ def build_dataset(project_dir: Path, dataset: str):
     axis.spines["right"].set_visible(False)
     axis.set_ylim(0, max(values) * 1.15)
 
-    handles, labels = axes[0,0].get_legend_handles_labels()
+    handles, labels = axes[0, 0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="lower center", ncol=4, frameon=True)
     fig.tight_layout(rect=(0, 0.06, 1, 1))
     save(
         fig,
         comparison_dir / "figures",
         f"Fig_MultiPanel_{DISPLAY[dataset]}",
-        f"Multi-panel real comparison on {DISPLAY[dataset]} for Clean FedAvg, Attacked FedAvg, four baseline defenses, and ETD-FGL.",
+        f"Multi-panel real comparison on {DISPLAY[dataset]} for Clean FedAvg, Attacked FedAvg, baseline defenses, and ETD-FGL.",
     )
     return rows, histories
 
@@ -127,24 +149,53 @@ def build_cross_dataset(project_dir: Path, data):
     for col, dataset in enumerate(DATASETS):
         rows, histories = data[dataset]
         for idx, (method, _) in enumerate(METHODS):
+            if method not in histories:
+                continue
             h = histories[method]
-            axes[0,col].plot([int(r["round"]) for r in h], [float(r["test_accuracy"]) for r in h], label=method, linestyle=STYLES[idx], marker=MARKERS[idx], markevery=5, markersize=3, linewidth=1.1)
+            axes[0, col].plot(
+                [int(r["round"]) for r in h],
+                [float(r["test_accuracy"]) for r in h],
+                label=method,
+                color=METHOD_COLORS[method],
+                linestyle=STYLES[idx],
+                marker=MARKERS[idx],
+                markevery=5,
+                markersize=3,
+                linewidth=1.1,
+            )
             if method != "Clean FedAvg":
-                axes[1,col].plot([int(r["round"]) for r in h], [float(r["attack_success_rate"]) for r in h], label=method, linestyle=STYLES[idx], marker=MARKERS[idx], markevery=5, markersize=3, linewidth=1.1)
-        axes[0,col].set_title(f"({chr(97+col)}) {DISPLAY[dataset]} clean accuracy")
-        axes[1,col].set_title(f"({chr(100+col)}) {DISPLAY[dataset]} ASR")
+                axes[1, col].plot(
+                    [int(r["round"]) for r in h],
+                    [float(r["attack_success_rate"]) for r in h],
+                    label=method,
+                    color=METHOD_COLORS[method],
+                    linestyle=STYLES[idx],
+                    marker=MARKERS[idx],
+                    markevery=5,
+                    markersize=3,
+                    linewidth=1.1,
+                )
+        axes[0, col].set_title(f"({chr(97+col)}) {DISPLAY[dataset]} clean accuracy")
+        axes[1, col].set_title(f"({chr(100+col)}) {DISPLAY[dataset]} ASR")
         for row in range(2):
-            axes[row,col].set_xlabel("Communication round")
-            axes[row,col].set_ylim(0,1)
-            axes[row,col].grid(True, linestyle="--", alpha=0.25)
-            axes[row,col].spines["top"].set_visible(False)
-            axes[row,col].spines["right"].set_visible(False)
-    axes[0,0].set_ylabel("Clean test accuracy")
-    axes[1,0].set_ylabel("Attack success rate")
-    handles, labels = axes[0,0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="lower center", ncol=4, frameon=True)
+            axes[row, col].set_xlabel("Communication round")
+            axes[row, col].set_ylim(0, 1)
+            axes[row, col].grid(True, linestyle="--", alpha=0.25)
+            axes[row, col].spines["top"].set_visible(False)
+            axes[row, col].spines["right"].set_visible(False)
+    axes[0, 0].set_ylabel("Clean test accuracy")
+    axes[1, 0].set_ylabel("Attack success rate")
+
+    legend_handles = {}
+    for col in range(len(DATASETS)):
+        h_list, l_list = axes[0, col].get_legend_handles_labels()
+        for h, l in zip(h_list, l_list):
+            if l not in legend_handles:
+                legend_handles[l] = h
+    fig.legend(list(legend_handles.values()), list(legend_handles.keys()), loc="lower center", ncol=4, frameon=True)
     fig.tight_layout(rect=(0, 0.06, 1, 1))
     save(fig, output_dir, "Fig_CrossDataset_Accuracy_ASR", "Cross-dataset real multi-panel comparison of clean accuracy and attack success rate on Cora, PubMed, and Reddit.")
+
 
 
 def main():

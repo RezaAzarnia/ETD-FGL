@@ -1,0 +1,4 @@
+Dataset,Nodes,Edges,Features,Classes,Sampled?,Clients ($K$),Malicious ($m$),Rounds ($T$),Epochs ($E$),Learning Rate,Poison Rate,Trigger Structure
+Cora,"2,708","10,556","1,433",7,No (Full),5,1 (Client 0),50,3,0.010,20%,3-node clique ($K_3$)
+PubMed,"19,717","88,648",500,3,No (Full),5,1 (Client 0),50,3,0.010,20%,3-node clique ($K_3$)
+Reddit (8K),"8,000","135,224",602,41,Yes (Stratified 8K),5,1 (Client 0),50,3,0.005,20%,3-node clique ($K_3$)

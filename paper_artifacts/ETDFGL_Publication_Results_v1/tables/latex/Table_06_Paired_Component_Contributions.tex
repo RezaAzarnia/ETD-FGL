@@ -1,0 +1,22 @@
+% Auto-generated publication table for ETD-FGL
+\begin{table*}[t]
+\centering
+\caption{Paired Within-Seed Component Contributions ($\Delta = \text{Variant} - \text{Full ETD-FGL}$)}
+\label{tab:table_06_paired_component_contributions}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Dataset} & \textbf{Ablated Component} & \textbf{Paired Seeds} & \textbf{$\Delta$ Clean Acc (\% pts)} & \textbf{$\Delta$ Backdoor ASR (\% pts)} & \textbf{$\Delta$ Attack Effect (\% pts)} & \textbf{$\Delta$ Attacker Weight (\% pts)} & \textbf{$\Delta$ Benign Risk} \\
+\midrule
+Cora & Without Model Update Channel ($-\frac{4}{13} A_{upd}$) & 3 & $0.30 \pm 1.28$ & $1.19 \pm 1.42$ & $0.34 \pm 0.91$ & $-0.64 \pm 0.03$ & $-0.0577 \pm 0.0007$ \\
+Cora & Without Topology Channel ($-\frac{9}{13} A_{topo}$) & 3 & $0.53 \pm 1.17$ & $37.32 \pm 15.35$ & $37.32 \pm 15.92$ & $13.66 \pm 0.58$ & $0.0033 \pm 0.0027$ \\
+PubMed & Without Model Update Channel ($-\frac{4}{13} A_{upd}$) & 3 & $-0.93 \pm 1.27$ & $0.28 \pm 0.19$ & $-0.37 \pm 0.21$ & $-0.44 \pm 0.04$ & $-0.0487 \pm 0.0054$ \\
+PubMed & Without Topology Channel ($-\frac{9}{13} A_{topo}$) & 3 & $0.20 \pm 2.10$ & $3.58 \pm 3.07$ & $1.87 \pm 3.78$ & $11.21 \pm 0.56$ & $-0.0206 \pm 0.0082$ \\
+Reddit & Without Model Update Channel ($-\frac{4}{13} A_{upd}$) & 3 & $0.13 \pm 0.83$ & $11.11 \pm 5.60$ & $11.15 \pm 5.57$ & $1.59 \pm 0.08$ & $-0.0203 \pm 0.0012$ \\
+Reddit & Without Topology Channel ($-\frac{9}{13} A_{topo}$) & 3 & $0.40 \pm 0.50$ & $52.23 \pm 14.61$ & $52.26 \pm 14.45$ & $10.71 \pm 1.02$ & $0.0020 \pm 0.0018$ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\small
+\item \textit{Notes:} Statistics report sample mean $\pm$ sample standard deviation of paired differences ($d_i = x_{i,\text{variant}} - x_{i,\text{full}}$) across matched seeds (42, 43, 44). A positive $\Delta$ ASR indicates that removing the channel increases backdoor vulnerability (i.e., the channel provides essential protection). Removing the update channel leads to a $+11.11 \pm 5.60$ percentage point surge in ASR on Reddit, while removing topology leads to $+37.32 \pm 15.35$ pts on Cora and $+52.23 \pm 14.61$ pts on Reddit.
+\end{tablenotes}
+\end{table*}

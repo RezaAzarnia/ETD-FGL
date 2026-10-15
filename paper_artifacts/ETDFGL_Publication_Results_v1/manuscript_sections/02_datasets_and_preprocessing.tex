@@ -1,0 +1,10 @@
+\section{Datasets and Preprocessing}
+\label{sec:datasets_and_preprocessing}
+Our evaluation spans three widely adopted graph benchmarks exhibiting diverse scale, density, and class cardinality:
+\begin{enumerate}
+    \item \textbf{Cora}: A standard scientific publication citation network comprising 2,708 scientific publications classified into 7 subject areas, connected by 10,556 directed citation edges (5,278 undirected citations), characterized by 1,433-dimensional bag-of-words binary word occurrence features.
+    \item \textbf{PubMed}: A large-scale biomedical citation network consisting of 19,717 diabetes-related scientific articles categorized into 3 classes, linked by 88,648 directed citation edges, with 500-dimensional TF-IDF term frequency node features.
+    \item \textbf{Reddit (Sampled 8K)}: A large social discussion community network where nodes represent forum posts and edges connect posts commented on by the same user. To ensure tractable federated multi-round execution while preserving authentic community topology and heavy-tailed degree distributions, we extract an 8,000-node subgraph using class-stratified sampling across all 41 discussion communities (sample seed 42), spanning 135,224 directed edges and 602-dimensional GloVe word embedding features.
+\end{enumerate}
+Datasets are partitioned among the 5 clients using independent random partitioning.
+All node features are normalized using feature-wise standard L2-normalization prior to local graph neural network training.

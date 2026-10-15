@@ -1,0 +1,9 @@
+\section{Limitations and Threats to Validity}
+\label{sec:limitations}
+We identify several methodological and empirical limitations of the current study:
+\begin{enumerate}
+    \item \textbf{Statistical Sample Size}: All multi-seed and ablation experiments were conducted over $N=3$ random seeds ($\{42, 43, 44\}$). While sufficient to capture major variances (such as the Reddit Seed 43 outlier), formal parametric hypothesis testing (e.g., paired t-tests) is avoided, and we report exact sample standard deviations ($ddof=1$).
+    \item \textbf{Server Reference Graph Assumption}: \textsc{ETD-FGL} assumes the server has access to a modest clean reference graph ($N_{\text{ref}} = 64$ nodes) drawn from the same domain to calibrate baseline topological descriptors. If the reference graph exhibits severe distribution shift from client graphs, anomaly detection sensitivity may decrease.
+    \item \textbf{Attack Intensity on PubMed}: On PubMed, the unmitigated backdoor attack exhibited relatively low baseline efficacy ($9.23 \pm 7.36\%$ ASR, $+2.56\%$ Attack Effect) due to PubMed's large graph diameter and low class cardinality. Caution is warranted when attributing low ASR exclusively to defense mechanisms under weak attack conditions.
+    \item \textbf{IID vs. Non-IID Graph Partitioning}: Experiments were conducted under uniform random client partitioning. Highly non-IID graph topologies across clients may induce natural topological divergence among benign clients, potentially increasing benign client false-positive risk.
+\end{enumerate}

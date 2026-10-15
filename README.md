@@ -205,7 +205,7 @@ The repository includes a real, non-synthetic extended evaluation suite for the 
 
 1. **Multi-seed statistical evaluation** using seeds 42, 43, and 44, reported as mean ± standard deviation.
 2. **Non-IID robustness** using split-aware Dirichlet label skew with α ∈ {0.1, 0.5, 1.0}.
-3. **ETD-FGL component ablation** removing topology evidence, explanation evidence, update-anomaly evidence, or trust-weighted aggregation one component at a time.
+3. **ETD-FGL component ablation** evaluating the production two-channel formulation (topology 9/13, update 4/13, explanation 0), topology-only (w/o update), update-only (w/o topology), unweighted aggregation (w/o trust weighting), and the historical three-channel development baseline (0.45 / 0.35 / 0.20).
 4. **Sensitivity analysis** over poisoning rate {0.05, 0.10, 0.20, 0.30} and trigger size {2, 3, 4, 5}.
 5. **Federation-size scalability** with {5, 10, 20, 30, 50} clients.
 

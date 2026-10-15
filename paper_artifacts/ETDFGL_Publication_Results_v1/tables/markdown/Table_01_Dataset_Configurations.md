@@ -1,0 +1,13 @@
+### Dataset Characteristics and Federated Experimental Configurations
+
+| Dataset     | Nodes  | Edges   | Features | Classes | Sampled?            | Clients ($K$) | Malicious ($m$) | Rounds ($T$) | Epochs ($E$) | Learning Rate | Poison Rate | Trigger Structure     |
+| ----------- | ------ | ------- | -------- | ------- | ------------------- | ------------- | --------------- | ------------ | ------------ | ------------- | ----------- | --------------------- |
+| Cora        | 2,708  | 10,556  | 1,433    | 7       | No (Full)           | 5             | 1 (Client 0)    | 50           | 3            | 0.010         | 20%         | 3-node clique ($K_3$) |
+| PubMed      | 19,717 | 88,648  | 500      | 3       | No (Full)           | 5             | 1 (Client 0)    | 50           | 3            | 0.010         | 20%         | 3-node clique ($K_3$) |
+| Reddit (8K) | 8,000  | 135,224 | 602      | 41      | Yes (Stratified 8K) | 5             | 1 (Client 0)    | 50           | 3            | 0.005         | 20%         | 3-node clique ($K_3$) |
+
+**Notes:**
+- Edge counts represent directed edge indices as stored in PyTorch Geometric (undirected graphs have 2 directed edges per link).
+- Reddit is sampled using class-stratified sampling with sample seed 42 to preserve community structure and class distribution.
+- Attack model: Targeted structural backdoor where client 0 injects a 3-node clique trigger with fixed sparse feature pattern into 20% of training nodes; target class is class 0.
+- All models use a 2-layer Graph Convolutional Network (GCN) with 32 hidden units, dropout rate 0.5, and weight decay $5 \times 10^{-4}$.

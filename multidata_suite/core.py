@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import csv
+import hashlib
+import inspect
 import json
+import os
 import time
 from collections import OrderedDict
 from dataclasses import asdict
@@ -239,6 +242,172 @@ def _save_history(rows: list[dict[str, Any]], path: Path) -> None:
         writer.writerows(rows)
 
 
+def _file_sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        while chunk := f.read(65536):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _atomic_save_json(data: dict[str, Any], path: Path) -> None:
+    temp_path = path.with_suffix(".tmp")
+    temp_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    temp_path.replace(path)
+
+
+def validate_existing_experiment(
+    context: ExperimentContext,
+    slug: str,
+    expected_method_name: str | None = None,
+) -> dict[str, Any] | None:
+    """Validates that a previously executed experiment exists, is uncorrupted, and matches requested configuration."""
+    output_dir = context.base_output / slug
+    summary_path = output_dir / "final_summary.json"
+    history_path = output_dir / "training_history.csv"
+    checkpoint_path = output_dir / "best_model.pt"
+
+    if not (summary_path.is_file() and history_path.is_file() and checkpoint_path.is_file()):
+        return None
+
+    if summary_path.stat().st_size == 0 or history_path.stat().st_size == 0 or checkpoint_path.stat().st_size == 0:
+        return None
+
+    try:
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+    for required_key in ["dataset", "method", "config", "final_metrics", "best_round"]:
+        if required_key not in summary:
+            return None
+
+    # Validate method name if expected
+    if expected_method_name is not None and summary.get("method") != expected_method_name:
+        return None
+
+    # Validate dataset identity
+    saved_dataset = str(summary.get("dataset", "")).strip().lower()
+    expected_datasets = {
+        context.config.key.strip().lower(),
+        context.config.display_name.strip().lower(),
+    }
+    if saved_dataset not in expected_datasets:
+        return None
+
+    # Validate output slug if recorded
+    saved_slug = summary.get("output_slug")
+    if saved_slug is not None and saved_slug != slug:
+        return None
+
+    # Validate complete configuration fields (must all be present and match)
+    saved_cfg = summary.get("config")
+    if not isinstance(saved_cfg, dict):
+        return None
+
+    req_cfg = context.config
+    required_cfg_keys = [
+        "seed",
+        "rounds",
+        "local_epochs",
+        "hidden_channels",
+        "learning_rate",
+        "weight_decay",
+        "dropout",
+        "poison_rate",
+        "trigger_size",
+        "target_class",
+        "malicious_client_id",
+        "num_clients",
+    ]
+    for key in required_cfg_keys:
+        if key not in saved_cfg:
+            return None
+        if saved_cfg[key] != getattr(req_cfg, key):
+            return None
+
+    # Validate history CSV schema and content
+    try:
+        with history_path.open("r", encoding="utf-8", newline="") as f:
+            reader = csv.reader(f)
+            header = next(reader, None)
+            if not header:
+                return None
+            header_lower = [h.strip().lower() for h in header]
+            if "round" not in header_lower:
+                return None
+            rows = list(reader)
+            if len(rows) == 0:
+                return None
+    except Exception:
+        return None
+
+    # Safe checkpoint validation: load state_dict without arbitrary code execution
+    try:
+        checkpoint_data = torch.load(checkpoint_path, map_location="cpu", weights_only=True)
+    except Exception:
+        try:
+            checkpoint_data = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
+        except Exception:
+            return None
+
+    if not isinstance(checkpoint_data, dict) or "model_state_dict" not in checkpoint_data:
+        return None
+    state_dict = checkpoint_data["model_state_dict"]
+    if not isinstance(state_dict, dict) or len(state_dict) == 0:
+        return None
+    has_conv = any("conv" in k for k in state_dict.keys())
+    if not has_conv:
+        return None
+
+    # Validate manifest checksums if manifest exists
+    manifest_path = output_dir / "experiment_manifest.json"
+    if manifest_path.is_file():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            if "checkpoint_sha256" in manifest and manifest["checkpoint_sha256"] != _file_sha256(checkpoint_path):
+                return None
+            if "history_sha256" in manifest and manifest["history_sha256"] != _file_sha256(history_path):
+                return None
+        except Exception:
+            return None
+
+    return summary
+
+
+def invoke_aggregator(
+    aggregate_fn: AggregateFn,
+    local_states: list[StateDict],
+    counts: list[int],
+    global_state: StateDict,
+    round_number: int,
+    local_diags: list[dict[str, Any]] | None = None,
+) -> tuple[StateDict, dict[str, Any]]:
+    """Explicitly invokes aggregate_fn based on signature inspection.
+
+    Internal exceptions (including TypeError) raised within the aggregator are
+    preserved and propagated rather than caught or retried.
+    """
+    sig = inspect.signature(aggregate_fn)
+    params = sig.parameters
+    accepts_local_diags = (
+        "local_diags" in params
+        or any(p.kind == inspect.Parameter.VAR_KEYWORD for p in params.values())
+    )
+    if accepts_local_diags:
+        result = aggregate_fn(
+            local_states, counts, global_state, round_number, local_diags=local_diags
+        )
+    else:
+        result = aggregate_fn(local_states, counts, global_state, round_number)
+
+    if not isinstance(result, tuple) or len(result) != 2:
+        raise ValueError(
+            f"Aggregator {aggregate_fn!r} must return a tuple of (state_dict, diagnostics_dict), got {type(result)!r}"
+        )
+    return result
+
+
 def run_method(
     *,
     context: ExperimentContext,
@@ -249,6 +418,7 @@ def run_method(
     aggregate_fn: AggregateFn = fedavg,
     method_metadata: dict[str, Any] | None = None,
     model_cls: type[nn.Module] = GCN,
+    force: bool = False,
 ) -> dict[str, Any]:
     # Reset the RNG at the beginning of every compared method so all methods
     # within the same experimental condition start from a reproducible and
@@ -256,11 +426,25 @@ def run_method(
     set_seed(context.config.seed)
 
     output_dir = context.base_output / output_slug
-    output_dir.mkdir(parents=True, exist_ok=True)
     summary_path = output_dir / "final_summary.json"
     history_path = output_dir / "training_history.csv"
     checkpoint_path = output_dir / "best_model.pt"
 
+    # Fail closed: never silently overwrite existing experimental outputs unless force=True
+    if not force:
+        has_existing_outputs = (
+            summary_path.is_file()
+            or history_path.is_file()
+            or checkpoint_path.is_file()
+        )
+        if has_existing_outputs:
+            raise RuntimeError(
+                f"Output directory {output_dir} already contains existing experimental artifacts. "
+                "Automatic overwrite without authorization is prohibited by research integrity policy. "
+                "Pass force=True (or --force on CLI) to explicitly authorize an overwrite."
+            )
+
+    output_dir.mkdir(parents=True, exist_ok=True)
     client_graphs = [graph.to(context.device) for graph in client_graphs_cpu]
     model = model_cls(
         context.num_features,
@@ -298,12 +482,14 @@ def run_method(
             counts.append(count)
             local_diags.append(diag)
 
-        try:
-            averaged, aggregation_diag = aggregate_fn(
-                local_states, counts, global_state, round_number, local_diags=local_diags
-            )
-        except TypeError:
-            averaged, aggregation_diag = aggregate_fn(local_states, counts, global_state, round_number)
+        averaged, aggregation_diag = invoke_aggregator(
+            aggregate_fn,
+            local_states,
+            counts,
+            global_state,
+            round_number,
+            local_diags=local_diags,
+        )
         model.load_state_dict(averaged)
         metrics = evaluate(
             model,
@@ -370,6 +556,23 @@ def run_method(
         "history_path": str(history_path),
         "checkpoint_path": str(checkpoint_path),
     }
-    summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    _atomic_save_json(summary, summary_path)
+
+    manifest_path = output_dir / "experiment_manifest.json"
+    manifest = {
+        "manifest_version": "1.0",
+        "dataset": context.config.display_name,
+        "dataset_key": context.config.key,
+        "method": method_name,
+        "output_slug": output_slug,
+        "best_round": best_round,
+        "config": asdict(context.config),
+        "history_sha256": _file_sha256(history_path),
+        "checkpoint_sha256": _file_sha256(checkpoint_path),
+        "summary_sha256": _file_sha256(summary_path),
+        "timestamp": time.time(),
+    }
+    _atomic_save_json(manifest, manifest_path)
+
     print(f"Summary: {summary_path}")
     return summary

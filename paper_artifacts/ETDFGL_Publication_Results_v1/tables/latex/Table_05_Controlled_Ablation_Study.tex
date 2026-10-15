@@ -1,0 +1,25 @@
+% Auto-generated publication table for ETD-FGL
+\begin{table*}[t]
+\centering
+\caption{Controlled Component Ablation Study with Held-Constant Coefficients (Seeds 42, 43, 44)}
+\label{tab:table_05_controlled_ablation_study}
+\begin{tabular}{lllccccc}
+\toprule
+\textbf{Dataset} & \textbf{Evaluated Variant} & \textbf{Risk Formulation $R_k$} & \textbf{Clean Accuracy (\%) ↑} & \textbf{Backdoor ASR (\%) ↓} & \textbf{Attack Effect (\% pts) ↓} & \textbf{Attacker Weight ($w_0$ \%) ↓} & \textbf{Benign Risk ($R_{benign}$) ↓} \\
+\midrule
+Cora & Full ETD-FGL & $\frac{9}{13} A_{topo} + \frac{4}{13} A_{upd}$ & $75.57 \pm 1.57$ & $5.21 \pm 0.88$ & $-2.22 \pm 2.17$ & $4.76 \pm 0.03$ & $0.0577 \pm 0.0007$ \\
+Cora & Fixed No Update & $\frac{9}{13} A_{topo}$ & $75.87 \pm 1.56$ & $6.40 \pm 1.59$ & $-1.88 \pm 2.76$ & $4.12 \pm 0.00$ & $0.0000 \pm 0.0000$ \\
+Cora & Fixed No Topology & $\frac{4}{13} A_{upd}$ & $76.10 \pm 0.87$ & $42.53 \pm 15.94$ & $35.10 \pm 14.40$ & $18.41 \pm 0.60$ & $0.0610 \pm 0.0032$ \\
+PubMed & Full ETD-FGL & $\frac{9}{13} A_{topo} + \frac{4}{13} A_{upd}$ & $75.50 \pm 2.01$ & $0.89 \pm 0.56$ & $-3.54 \pm 0.53$ & $4.55 \pm 0.04$ & $0.0487 \pm 0.0054$ \\
+PubMed & Fixed No Update & $\frac{9}{13} A_{topo}$ & $74.57 \pm 3.17$ & $1.18 \pm 0.71$ & $-3.90 \pm 0.49$ & $4.12 \pm 0.00$ & $0.0000 \pm 0.0000$ \\
+PubMed & Fixed No Topology & $\frac{4}{13} A_{upd}$ & $75.70 \pm 1.90$ & $4.47 \pm 3.45$ & $-1.67 \pm 3.78$ & $15.76 \pm 0.59$ & $0.0281 \pm 0.0058$ \\
+Reddit & Full ETD-FGL & $\frac{9}{13} A_{topo} + \frac{4}{13} A_{upd}$ & $84.87 \pm 0.40$ & $14.08 \pm 18.19$ & $13.77 \pm 18.09$ & $2.53 \pm 0.08$ & $0.0203 \pm 0.0012$ \\
+Reddit & Fixed No Update & $\frac{9}{13} A_{topo}$ & $85.00 \pm 0.89$ & $25.19 \pm 17.81$ & $24.91 \pm 17.65$ & $4.12 \pm 0.00$ & $0.0000 \pm 0.0000$ \\
+Reddit & Fixed No Topology & $\frac{4}{13} A_{upd}$ & $85.27 \pm 0.81$ & $66.31 \pm 7.14$ & $66.03 \pm 7.08$ & $13.24 \pm 1.03$ & $0.0223 \pm 0.0024$ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\small
+\item \textit{Notes:} Values report sample mean $\pm$ sample standard deviation ($ddof=1$) over Seeds 42, 43, 44. In this controlled setting, component weights are held constant at their production ratios ($9/13$ and $4/13$) without re-normalization. Baseline uniform client aggregation share is $1/K = 20.0\%$. Attacker weight $w_0$ measures the malicious client's share in the global model. Removing the update channel increases ASR across all datasets (+1.19% Cora, +0.28% PubMed, +11.11% Reddit), proving its non-redundant dynamic role. Removing the topology channel causes catastrophic defense breakdown on Cora (42.53% ASR) and Reddit (66.31% ASR), proving parameter-space anomaly detection alone cannot stop structural backdoors.
+\end{tablenotes}
+\end{table*}

@@ -1,0 +1,25 @@
+Dataset,Method,Clean Accuracy (%) ↑,Backdoor ASR (%) ↓,Attack Effect (% pts) ↓,Training Runtime (s)
+Cora,Clean FedAvg,76.10,3.56,-0.46,2.90
+Cora,Attacked FedAvg,74.20,48.05,40.34,2.88
+Cora,PD-FL,74.90,53.22,46.32,4.53
+Cora,GSP-FL,73.90,55.86,49.66,2.97
+Cora,FLPurifier-GNN,56.90,0.23,-3.56,6.95
+Cora,DMGNN-FL,75.20,56.78,47.36,2.70
+Cora,FedTGE,76.80,82.87,73.91,177.03
+Cora,ETD-FGL,76.10,4.25,0.23,3.26
+PubMed,Clean FedAvg,76.30,1.22,-4.39,9.13
+PubMed,Attacked FedAvg,75.30,17.68,11.22,11.40
+PubMed,PD-FL,74.30,41.10,34.39,10.16
+PubMed,GSP-FL,74.50,23.66,17.07,6.89
+PubMed,FLPurifier-GNN,66.40,2.93,-2.68,20.96
+PubMed,DMGNN-FL,74.00,16.83,8.41,7.74
+PubMed,FedTGE,71.30,79.27,66.71,773.29
+PubMed,ETD-FGL,77.60,1.22,-3.78,6.57
+Reddit,Clean FedAvg,86.20,0.11,-0.11,24.02
+Reddit,Attacked FedAvg,85.70,72.29,72.08,44.60
+Reddit,PD-FL,85.90,73.14,73.04,46.99
+Reddit,GSP-FL,85.50,73.14,73.04,42.95
+Reddit,FLPurifier-GNN,49.30,0.21,-0.11,45.96
+Reddit,DMGNN-FL,85.70,72.29,72.08,43.68
+Reddit,FedTGE,52.70,4.78,4.46,399.94
+Reddit,ETD-FGL,85.30,0.85,0.64,7.41

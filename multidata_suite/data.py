@@ -376,8 +376,45 @@ def load_or_create_partition(
     summary_path = output_dir / "partition_summary.json"
 
     if path.exists():
-        package = torch.load(path, map_location="cpu", weights_only=False)
-        return package["client_indices"]
+        try:
+            package = torch.load(path, map_location="cpu", weights_only=False)
+            cached_indices = package.get("client_indices")
+            if (
+                isinstance(cached_indices, dict)
+                and set(cached_indices.keys()) == set(range(config.num_clients))
+                and package.get("seed") == config.seed
+                and package.get("strategy") == strategy_key
+                and (strategy_key != "dirichlet" or package.get("dirichlet_alpha") == dirichlet_alpha)
+                and package.get("total_nodes") == data.num_nodes
+            ):
+                all_tensors = []
+                valid_types = True
+                for i in range(config.num_clients):
+                    c_idx = cached_indices[i]
+                    if not isinstance(c_idx, (torch.Tensor, np.ndarray, list)):
+                        valid_types = False
+                        break
+                    t = torch.as_tensor(c_idx, dtype=torch.long)
+                    if t.ndim != 1 or t.numel() == 0:
+                        valid_types = False
+                        break
+                    all_tensors.append(t)
+
+                if valid_types and len(all_tensors) == config.num_clients:
+                    concatenated = torch.cat(all_tensors)
+                    # Enforce exact universe coverage: all IDs in [0, N-1] with zero duplicates and zero omissions
+                    if (
+                        concatenated.numel() == data.num_nodes
+                        and concatenated.min().item() >= 0
+                        and concatenated.max().item() < data.num_nodes
+                        and torch.unique(concatenated).numel() == data.num_nodes
+                    ):
+                        return {
+                            i: torch.as_tensor(cached_indices[i], dtype=torch.long)
+                            for i in range(config.num_clients)
+                        }
+        except Exception:
+            pass  # Recompute if cache is corrupted or incompatible
 
     if strategy_key == "iid":
         indices = create_partition(
@@ -399,16 +436,19 @@ def load_or_create_partition(
             malicious_client_id=malicious_client_id,
         )
 
+    temp_path = path.with_suffix(".tmp")
     torch.save(
         {
             "seed": config.seed,
             "num_clients": config.num_clients,
             "strategy": strategy_key,
             "dirichlet_alpha": dirichlet_alpha,
+            "total_nodes": int(data.num_nodes),
             "client_indices": indices,
         },
-        path,
+        temp_path,
     )
+    temp_path.replace(path)
 
     summaries = []
     for client_id, node_indices in indices.items():

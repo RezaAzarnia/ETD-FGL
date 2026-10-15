@@ -1,0 +1,10 @@
+\section{Standard Component Ablation Study}
+\label{sec:standard_ablation}
+Table~\ref{tab:table_04_standard_ablation_study} displays results for the standard historical ablation suite across Seeds 42, 43, 44:
+\begin{enumerate}
+    \item \textbf{ETD-FGL w/o Trust Weighting}: When trust weighting is removed ($w_k = 1/K$), results are mathematically identical to Attacked FedAvg ($62.03\%$ ASR on Cora, $74.42\%$ on Reddit), proving that anomaly detection without adaptive weight penalization provides zero defensive benefit.
+    \item \textbf{Historical Three-Channel Variant (0.45/0.35/0.20)}: Incorporating post-hoc GNN explanations as a third evidence channel achieves $18.93 \pm 3.80\%$ ASR on Cora and $21.87 \pm 16.33\%$ on Reddit, substantially underperforming the two-channel model ($5.21\%$ and $14.08\%$). Post-hoc explanation masks introduce high gradient noise in distributed settings, confirming the design decision to freeze explanation weight at $0$.
+    \item \textbf{Standard Topology-only ($c_{\text{topo}} = 1.0$)}: Yields $4.60 \pm 0.90\%$ ASR on Cora and $10.44 \pm 16.08\%$ on Reddit.
+\end{enumerate}
+\textbf{Methodological Artifact in Standard Topology-Only}:
+In the standard ablation, removing the update channel re-normalized the topology coefficient to $1.0$, increasing it by $+44\%$ over its production value of $9/13 \approx 0.692$. This artificial amplification inflated the trust penalty on the attacker ($w_0$ compressed to $1.92\%$), masking the true contribution of the model update channel. This finding prompted the controlled ablation below.

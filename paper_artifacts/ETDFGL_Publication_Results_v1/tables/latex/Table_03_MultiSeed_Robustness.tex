@@ -1,0 +1,22 @@
+% Auto-generated publication table for ETD-FGL
+\begin{table*}[t]
+\centering
+\caption{Multi-Seed Robustness Evaluation: Attacked FedAvg vs. ETD-FGL (Seeds 42, 43, 44)}
+\label{tab:table_03_multiseed_robustness}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Dataset} & \textbf{Method} & \textbf{Seeds Evaluated} & \textbf{Clean Accuracy (\%) ↑} & \textbf{Backdoor ASR (\%) ↓} & \textbf{Attack Effect (\% pts) ↓} & \textbf{Training Runtime (s)} \\
+\midrule
+Cora & Attacked FedAvg & 3 & $75.00 \pm 0.72$ & $62.03 \pm 15.38$ & $52.26 \pm 14.25$ & $2.73 \pm 0.04$ \\
+Cora & ETD-FGL & 3 & $75.57 \pm 1.57$ & $5.21 \pm 0.88$ & $-2.22 \pm 2.17$ & $2.85 \pm 0.01$ \\
+PubMed & Attacked FedAvg & 3 & $74.80 \pm 3.18$ & $9.23 \pm 7.36$ & $2.56 \pm 7.73$ & $9.44 \pm 3.13$ \\
+PubMed & ETD-FGL & 3 & $75.50 \pm 2.01$ & $0.89 \pm 0.56$ & $-3.54 \pm 0.53$ & $10.53 \pm 3.64$ \\
+Reddit & Attacked FedAvg & 3 & $84.90 \pm 0.80$ & $74.42 \pm 1.85$ & $74.06 \pm 1.75$ & $11.07 \pm 6.58$ \\
+Reddit & ETD-FGL & 3 & $84.87 \pm 0.40$ & $14.08 \pm 18.19$ & $13.77 \pm 18.09$ & $7.40 \pm 0.05$ \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\small
+\item \textit{Notes:} Values report sample mean $\pm$ sample standard deviation ($ddof=1$) over three independent runs (Seeds 42, 43, 44). Reddit ETD-FGL variance: Seed 42 achieved 0.85% ASR and Seed 44 achieved 6.58% ASR, while Seed 43 exhibited an outlier ASR of 34.82% due to community partition overlap. Even under outlier Seed 43, ETD-FGL reduces ASR by more than 39 percentage points compared to Attacked FedAvg (74.42%).
+\end{tablenotes}
+\end{table*}

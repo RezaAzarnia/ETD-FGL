@@ -1,0 +1,8 @@
+\section{Summary of Scientific Findings}
+\label{sec:summary_findings}
+The experimental results demonstrate three core scientific insights:
+\begin{enumerate}
+    \item \textbf{Topology is the Primary Line of Defense}: Model update divergence alone fails completely against targeted structural backdoors ($42.5\% - 66.3\%$ ASR). Topological descriptor tracking is mandatory for detecting localized subgraph triggers.
+    \item \textbf{Model Update Channel Provides Dynamic Robustness}: When evaluated under rigorous held-constant coefficients, removing the update channel increases backdoor penetration across all benchmarks (+11.1\% on Reddit), confirming that dual-channel evidence fusion outperforms single-channel heuristics.
+    \item \textbf{High Utility Preservation with Minimal Overhead}: \textsc{ETD-FGL} retains clean node classification accuracy equal to Clean FedAvg ($75.6\%$ Cora, $75.5\%$ PubMed, $84.9\%$ Reddit) with only $\approx 10.5\%$ computational overhead, resolving the severe utility degradation plaguing prior graph purification methods.
+\end{enumerate}

@@ -1,0 +1,170 @@
+{
+  "release": "ETDFGL_Publication_Results_v1",
+  "timestamp": "2026-10-15T17:15:00Z",
+  "git_tag": "paper-results-v1.0.0",
+  "description": "Publication-ready research results package, figures, tables, and manuscript sections for ETD-FGL",
+  "datasets": [
+    "Cora",
+    "PubMed",
+    "Reddit (Sampled 8K)"
+  ],
+  "evaluated_methods": [
+    "Clean FedAvg",
+    "Attacked FedAvg",
+    "PD-FL",
+    "GSP-FL",
+    "FLPurifier-GNN",
+    "DMGNN-FL",
+    "FedTGE",
+    "ETD-FGL"
+  ],
+  "seeds_evaluated": [
+    42,
+    43,
+    44
+  ],
+  "total_experiments_validated": 132,
+  "suites": {
+    "baseline_seed42": {
+      "runs": 24,
+      "status": "completed_and_validated"
+    },
+    "multiseed": {
+      "runs": 18,
+      "status": "completed_and_validated"
+    },
+    "standard_ablation": {
+      "runs": 54,
+      "status": "completed_and_validated"
+    },
+    "controlled_ablation": {
+      "runs": 36,
+      "status": "completed_and_validated"
+    }
+  },
+  "figures": {
+    "main": [
+      {
+        "id": 1,
+        "stem": "Fig_01_Overall_Performance_Baselines",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      },
+      {
+        "id": 2,
+        "stem": "Fig_02_MultiSeed_Robustness",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      },
+      {
+        "id": 3,
+        "stem": "Fig_03_Accuracy_Robustness_Tradeoff",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      },
+      {
+        "id": 4,
+        "stem": "Fig_04_Controlled_Ablation",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      },
+      {
+        "id": 5,
+        "stem": "Fig_05_Learning_Dynamics_Rounds",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      },
+      {
+        "id": 6,
+        "stem": "Fig_06_Attacker_Weight_Dynamics",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      }
+    ],
+    "supplementary": [
+      {
+        "id": "S1",
+        "stem": "Fig_S01_Standard_vs_Controlled_Ablation",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      },
+      {
+        "id": "S2",
+        "stem": "Fig_S02_Attack_Effect_All_Methods",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      },
+      {
+        "id": "S3",
+        "stem": "Fig_S03_Training_Runtime_Comparison",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      },
+      {
+        "id": "S4",
+        "stem": "Fig_S04_Reddit_Seed_Heterogeneity_Analysis",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      },
+      {
+        "id": "S5",
+        "stem": "Fig_S05_Benign_Client_Trust_Preservation",
+        "formats": [
+          "pdf",
+          "svg",
+          "png"
+        ]
+      }
+    ]
+  },
+  "tables": {
+    "total_tables": 9,
+    "formats": [
+      "csv",
+      "latex",
+      "markdown"
+    ],
+    "list": [
+      "Table_01_Dataset_Configurations",
+      "Table_02_Main_Baseline_Comparison",
+      "Table_03_MultiSeed_Robustness",
+      "Table_04_Standard_Ablation_Study",
+      "Table_05_Controlled_Ablation_Study",
+      "Table_06_Paired_Component_Contributions",
+      "Table_07_Defense_Effectiveness_Attacker_Weights",
+      "Table_08_Computational_Runtime_Training_Loop",
+      "Table_09_Granular_PerSeed_Supplementary_Results"
+    ]
+  },
+  "archive_location": "paper_artifacts/ETDFGL_Publication_Results_v1.zip"
+}

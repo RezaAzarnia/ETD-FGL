@@ -152,19 +152,30 @@ def plot_final_bar(
     axis.spines["top"].set_visible(False)
     axis.spines["right"].set_visible(False)
 
-    padding = max(values) * 0.03 if values else 0.01
+    val_range = max(values) - min(values) if values else 1.0
+    ymin = min(values) if values else 0.0
+    ymax = max(values) if values else 1.0
+
+    padding = max(val_range * 0.03, 0.01)
     for bar, value in zip(bars, values, strict=True):
+        va = "bottom" if value >= 0 else "top"
         axis.text(
             bar.get_x() + bar.get_width() / 2,
-            value + padding,
+            value + (padding if value >= 0 else -padding),
             f"{value:.3f}",
             ha="center",
-            va="bottom",
+            va=va,
             fontsize=8.5,
         )
 
     if values:
-        axis.set_ylim(0.0, max(values) * 1.14)
+        if ymin < 0 or metric == "trigger_attack_effect":
+            lower_bound = min(0.0, ymin - 0.18 * val_range) if ymin < 0 else -0.05 * ymax
+            upper_bound = ymax + 0.18 * val_range if ymax > 0 else 0.1
+            axis.set_ylim(lower_bound, upper_bound)
+            axis.axhline(0.0, color="black", linestyle="--", linewidth=0.8, alpha=0.75, zorder=2)
+        else:
+            axis.set_ylim(0.0, ymax * 1.14)
     figure.tight_layout()
     save_figure(figure, output_dir, stem, caption)
 
@@ -201,7 +212,7 @@ def main() -> None:
         stem="Fig_01_Clean_Accuracy_vs_Round",
         caption=(
             "Fig. 1. Clean test accuracy over federated communication rounds "
-            "for Clean FedAvg, Attacked FedAvg, four baseline defenses, and ETD-FGL on Cora."
+            "for Clean FedAvg, Attacked FedAvg, five baseline defenses, and ETD-FGL on Cora."
         ),
         ylim=(0.0, 1.0),
     )
@@ -252,7 +263,7 @@ def main() -> None:
         output_dir=output_dir,
         stem="Fig_05_Final_ASR",
         caption=(
-            "Fig. 5. Final attack success rate of Attacked FedAvg, baseline defenses, and ETD-FGL on Cora."
+            "Fig. 5. Final attack success rate of Attacked FedAvg, five baseline defenses, and ETD-FGL on Cora."
         ),
         include_clean=False,
     )
@@ -264,7 +275,8 @@ def main() -> None:
         output_dir=output_dir,
         stem="Fig_06_Final_Trigger_Effect",
         caption=(
-            "Fig. 6. Final trigger-induced target-rate increase for Attacked FedAvg, baseline defenses, and ETD-FGL on Cora."
+            "Fig. 6. Final trigger-induced target-rate increase for Attacked FedAvg, "
+            "five baseline defenses, and ETD-FGL on Cora."
         ),
         include_clean=False,
     )

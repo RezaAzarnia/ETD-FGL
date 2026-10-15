@@ -1,0 +1,8 @@
+\section{Implementation Details}
+\label{sec:implementation_details}
+All local client models are parameterized as 2-layer Graph Convolutional Networks (\textsc{GCN}) with 32 hidden feature channels, ReLU activations, a dropout probability of 0.5, and a weight decay coefficient of $5 \times 10^{-4}$.
+Local optimization is performed using Adam with a learning rate of $\eta = 0.01$ for Cora and PubMed, and $\eta = 0.005$ for Reddit.
+The structural backdoor attack injects a 3-node clique ($K_3$) trigger into 20\% of training victim nodes assigned to malicious client 0, accompanied by a fixed sparse random feature perturbation ($L_2$ norm $\approx 0.224$, 16 active features), with target label set to class 0.
+\textsc{ETD-FGL} extracts a label-free 5-dimensional topological descriptor $\mathbf{d}_k = [ \bar{d}_k, d_{\max,k}, \bar{c}_k, \rho_k, \tilde{\lambda}_{1,k} ]^T$ capturing average degree, maximum degree, average clustering coefficient, graph edge density, and normalized algebraic connectivity.
+Topological anomaly scores $A_{\text{topo},k}$ are computed via standardized Euclidean distance against a small server reference graph ($N_{\text{ref}} = 64$ nodes), while update anomaly scores $A_{\text{upd},k}$ measure directional cosine and L2 drift of $\Delta \mathbf{w}_k$.
+Risk fusion applies the production weighting $R_k = \frac{9}{13} A_{\text{topo},k} + \frac{4}{13} A_{\text{upd},k}$, mapped to aggregation trust via $T_k = \exp(-3 R_k)$, clipped to $[0.05, 1.0]$, and normalized across clients $\sum_k w_k = 1$.

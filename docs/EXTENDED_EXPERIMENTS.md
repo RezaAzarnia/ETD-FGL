@@ -22,13 +22,13 @@ The default comparison includes Attacked FedAvg, PD-FL, FLPurifier-GNN, and ETD-
 
 The following variants are trained from scratch under the same attacked setting:
 
-- Full ETD-FGL: topology 0.45, explanation 0.35, update anomaly 0.20.
-- ETD-FGL w/o Topology: topology evidence removed and remaining weights renormalized.
-- ETD-FGL w/o Explanation: explanation evidence removed and remaining weights renormalized.
-- ETD-FGL w/o Update Anomaly: round-wise update evidence removed and remaining weights renormalized.
-- ETD-FGL w/o Trust Weighting: evidence can be computed, but aggregation falls back to sample-size weighting, isolating the effect of trust-weighted aggregation.
+- **Production ETD-FGL (Full final)**: Frozen two-channel formulation using topology drift (9/13 ≈ 0.6923) and model-update anomaly (4/13 ≈ 0.3077), with explanation weight = 0.0.
+- **ETD-FGL Topology-only (w/o Update)**: Model-update anomaly removed (topology 1.0, update 0.0, explanation 0.0), isolating structural drift defense.
+- **ETD-FGL Update-only (w/o Topology)**: Topology drift removed (topology 0.0, update 1.0, explanation 0.0), isolating gradient-space anomaly defense.
+- **ETD-FGL w/o Trust Weighting**: Risk is computed using production weights (9/13, 4/13), but aggregation falls back to standard client sample-size weighting, directly isolating the benefit of trust-weighted aggregation.
+- **Historical Three-Channel Variant (0.45 / 0.35 / 0.20)**: Preserved historical development baseline incorporating GNNExplainer explanation evidence (topology 0.45, explanation 0.35, update 0.20).
 
-The ablation does not use synthetic or hand-entered values.
+The ablation study uses real training runs from scratch without synthetic or hand-entered values.
 
 ## 4. Sensitivity analysis
 
