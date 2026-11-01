@@ -1,22 +1,23 @@
-# Publication figure manifest
+# Publication figure manifest (final)
 
-Generator: `tools/publication_figures/make_publication_figures.py` (committed in `33472ff`).
-Reproduce: `python -I tools/publication_figures/make_publication_figures.py figures/publication/tables figures/publication`
-Regenerate the CSV inputs from raw runs: `python -I tools/raw_recompute/recompute_tables_from_raw.py . <dir>` (inputs here are copies of its outputs, 80a3210-era raw runs).
-Tests: `test_publication_figures.py` (plotted arrays equal CSV values; recorded in `plotted_data.json`). SD = sample SD, ddof=1, n=3. No axis values, markers or error bars were altered for appearance. All PDFs: single page, Type-42 fonts embedded (`pdffonts`), 7.2 in wide (double column) unless noted.
+Generator: `tools/publication_figures/make_publication_figures.py` (design v3). Reproduce: `python -I tools/publication_figures/make_publication_figures.py figures/publication/tables figures/publication`. CSV inputs in `figures/publication/tables/` are copies of `tools/raw_recompute` output (raw runs produced under commit 80a3210) and were verified equal to a fresh raw recomputation. Captions and limitations: `FIGURE_CAPTIONS.md`.
 
-| Fig | File | Input CSV (figures/publication/tables) | Selection / aggregation | Axis limits | Status |
-|---|---|---|---|---|---|
-| 1 | `Fig1_etdfgl_architecture_workflow.pdf` | none (schematic) | box-to-code map below | – | camera-ready (schematic; minor empty box space) |
-| 2 | `Fig2_overall_baselines.pdf` | R02 | 8 methods x 3 datasets, seed 42, single run, no error bars | y 0-100 | camera-ready |
-| S2 | `supplementary/FigS2_accuracy_asr_scatter.pdf` (was Fig 3; demoted to supplementary in design v3) | R02, R03a | seed-42 open markers (8 methods); 3-seed mean ± SD (ddof=1) filled for Attacked FedAvg and ETD-FGL; per-dataset panels | x auto per dataset, y -6..105 | camera-ready (dense cluster near Cora/Reddit corner; markers overlap by data, not by layout) |
-| 4 | `Fig4_multiseed_robustness.pdf` | R03a | per-seed dots (labels 42/43/44), bar = mean, whisker = SD; Reddit seed 43 = 34.82 % annotated without cause | acc 0-100, ASR 0-105 | camera-ready |
-| 5 | `Fig5_learning_dynamics_rounds.pdf` | R07 | seed 42, all 50 rounds, unsmoothed; Clean/Attacked FedAvg, FedTGE*, ETD-FGL | acc auto, ASR -3..103 | camera-ready with caveat: dense; ETD-FGL ASR 75.4 % / 99.9 % at round 1 (Cora/PubMed) annotated |
-| 6 | `Fig6_controlled_ablation.pdf` | R05a, R06a | fixed-coefficient variants, per-seed markers, grey seed-pairing lines, paired Δ ASR | auto | camera-ready |
-| 7 | `Fig7_attacker_weight_dynamics.pdf` | R08 | seed 42 raw per-round w0; moving average (5 rounds, centred) only for the noisy no-topology trace and labelled "visual aid only"; 20 % reference | y 0-27 | camera-ready |
-| S | `supplementary/FigS1_runtime_exploratory.pdf` | R02, R11 | single-run wall-clock; same-method runs across suites | log y / auto | **EXPLORATORY ONLY** - not evidence of overhead/speed; hardware unrecorded |
+Final verification (2026-11-01): plotted arrays (`plotted_data.json`, 141 series) identical on regeneration; committed PDFs and PNGs identical on regeneration (PNG pixel-equal, PDF raster difference 0); Fig 2/4 values equal CSVs; sample SD ddof = 1; all PDFs one page, fonts embedded (Type 42), no Type 3 fonts; all PNGs viewed, no clipping; figure-fidelity tests 6/6, full suite 88 passed.
 
-Previews: `previews/*.png` (300 dpi). Plotted data dump: `plotted_data.json`.
+| Fig | PDF | PNG preview (300 dpi) | Size | Input CSV | Status | PDF sha256 (16) | PNG sha256 (16) |
+|---|---|---|---|---|---|---|---|
+| Fig S1 | `supplementary/FigS1_runtime_exploratory.pdf` | `previews/FigS1_runtime_exploratory.png` | 7.18 x 3.24 in | R02, R11 | EXPLORATORY ONLY - no overhead/speed claim | 74a9ab7d9149b35b | 3bf57e03d5df2c6b |
+| Fig S2 | `supplementary/FigS2_accuracy_asr_scatter.pdf` | `previews/FigS2_accuracy_asr_scatter.png` | 7.28 x 2.99 in | R02, R03a | Supplementary only (largely redundant with Figs 2, 4) | d6e3283097286290 | d5baf738b01106ec |
+| Fig 1 | `Fig1_etdfgl_architecture_workflow.pdf` | `previews/Fig1_etdfgl_architecture_workflow.png` | 7.40 x 4.50 in | none (schematic; box-to-code map below) | Camera-ready (double column) | 699b2b8f596940ad | 2ddeb7725b403e77 |
+| Fig 2 | `Fig2_overall_baselines.pdf` | `previews/Fig2_overall_baselines.png` | 7.88 x 4.72 in | R02 (seed 42, single runs) | Camera-ready | c290fcb5462f45bc | c1a24500868ad781 |
+| Fig 4 | `Fig4_multiseed_robustness.pdf` | `previews/Fig4_multiseed_robustness.png` | 7.24 x 4.63 in | R03a (seeds 42-44) | Camera-ready | a2127862d7688564 | c32d70ebd804b97e |
+| Fig 5 | `Fig5_learning_dynamics_rounds.pdf` | `previews/Fig5_learning_dynamics_rounds.png` | 7.33 x 4.73 in | R07 (seed 42, 50 rounds) | Camera-ready | e95c5c89de5ffcdd | 9fafb74e4be23e6d |
+| Fig 6 | `Fig6_controlled_ablation.pdf` | `previews/Fig6_controlled_ablation.png` | 7.24 x 4.96 in | R05a, R06a (seeds 42-44) | Camera-ready | 84c30127ecb12d27 | b03e02cf617724c8 |
+| Fig 7 | `Fig7_attacker_weight_dynamics.pdf` | `previews/Fig7_attacker_weight_dynamics.png` | 7.25 x 3.06 in | R08 (seed 42, 50 rounds) | Camera-ready | 6220c10f4fce7599 | 951be26cb3d1757f |
+
+Note: Fig 2 exports 7.88 in wide because bold y-axis labels extend the tight bounding box; scale to the journal column width on inclusion.
+
+Scientific limitations carried by these figures: Figs 2, 5, 7 are seed 42 single runs; Figs 4, 6 use n = 3 seeds without any significance test; baselines are untuned adapted implementations (*); reference graphs are a simulation assumption; Reddit seed 43 (ASR 34.82 %) is unexplained; ETD-FGL round-1 ASR is 75.4 % (Cora) and 99.9 % (PubMed); final metrics use the best clean-validation checkpoint.
 
 ## Fig. 1 box-to-code correspondence
 | Box | Code |
