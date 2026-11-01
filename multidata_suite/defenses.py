@@ -287,6 +287,28 @@ def purify_explanation_guided(
     return purified
 
 
+def summarize_purification_diagnostics(graphs: list[Data]) -> dict[str, Any]:
+    """Collect per-client DMGNN-FL edge-removal diagnostics for run metadata.
+
+    ``purify_explanation_guided`` stores ``purification_diagnostics`` on each purified graph;
+    this makes the removed-edge counts persist in ``final_summary.json`` (they were only printed).
+    """
+    clients = []
+    for index, graph in enumerate(graphs):
+        diag = getattr(graph, "purification_diagnostics", None)
+        clients.append({
+            "client_id": index,
+            "num_candidates": None if diag is None else int(diag["num_candidates"]),
+            "num_removed_edges": None if diag is None else int(diag["num_removed_edges"]),
+        })
+    known = [c["num_removed_edges"] for c in clients if c["num_removed_edges"] is not None]
+    return {
+        "per_client": clients,
+        "total_removed_edges": int(sum(known)) if known else None,
+        "diagnostics_available_for_all_clients": len(known) == len(clients),
+    }
+
+
 # ---------------- ETD-FGL adaptation ----------------
 # Final Frozen Topology Descriptor (5D label-free):
 # d(G) = [

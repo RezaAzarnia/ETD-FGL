@@ -1772,3 +1772,18 @@ def test_run_method_records_runtime_environment_and_timing_scope():
         assert on_disk["runtime_environment"]["torch"] == torch.__version__
         # Existing-run validation must remain compatible with the new optional keys.
         assert validate_existing_experiment(context, "env_check") is not None
+
+
+@pytest.mark.unit
+def test_summarize_purification_diagnostics_persists_removed_edge_counts():
+    from multidata_suite.defenses import summarize_purification_diagnostics
+
+    g0, g1, g2 = make_synthetic_graph(num_nodes=6), make_synthetic_graph(num_nodes=6), make_synthetic_graph(num_nodes=6)
+    g0.purification_diagnostics = {"client_id": 0, "num_candidates": 8, "num_removed_edges": 3, "candidate_nodes": []}
+    g1.purification_diagnostics = {"client_id": 1, "num_candidates": 8, "num_removed_edges": 0, "candidate_nodes": []}
+    out = summarize_purification_diagnostics([g0, g1])
+    assert out["total_removed_edges"] == 3 and out["diagnostics_available_for_all_clients"] is True
+    assert out["per_client"][1]["num_removed_edges"] == 0
+    partial = summarize_purification_diagnostics([g0, g2])
+    assert partial["diagnostics_available_for_all_clients"] is False
+    assert partial["per_client"][1]["num_removed_edges"] is None

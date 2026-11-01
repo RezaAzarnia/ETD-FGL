@@ -23,6 +23,7 @@ from multidata_suite.defenses import (
     make_flpurifier_trainer,
     purify_explanation_guided,
     purify_gsp,
+    summarize_purification_diagnostics,
 )
 from multidata_suite.fedtge import (
     FedTGEAggregator,
@@ -173,7 +174,12 @@ def main() -> None:
         method_name="DMGNN-FL",
         client_graphs_cpu=dmgnn_graphs,
         aggregate_fn=fedavg,
-        method_metadata={"doi": "10.1016/j.patcog.2026.113693", "type": "federated adaptation"},
+        method_metadata={
+            "doi": "10.1016/j.patcog.2026.113693",
+            "type": "federated adaptation",
+            "implementation": "leave-one-edge-out target-probability drop heuristic (not GNNExplainer)",
+            "purification": summarize_purification_diagnostics(dmgnn_graphs),
+        },
     )
 
     execute(
