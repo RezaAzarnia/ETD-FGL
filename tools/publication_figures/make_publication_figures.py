@@ -72,7 +72,7 @@ rt = pd.read_csv(TAB / "R11_runtime_same_method_across_suites.csv")
 # ====================================================================== Fig 1: architecture
 def fig1():
     fig, ax = plt.subplots(figsize=(W2, 4.3))
-    ax.set_xlim(0, 144); ax.set_ylim(-6, 82); ax.axis("off"); ax.set_position([0, 0, 1, 1])
+    ax.set_xlim(-5, 144); ax.set_ylim(-6, 82); ax.axis("off"); ax.set_position([0, 0, 1, 1])
     FS = 6.7
     GREY, ORG, GRN, PUR, BLU = "#F3F3F3", "#FFF1D6", "#E6F3E8", "#EFE7F5", "#E3F0FA"
     EO, EG, EP, EB = "#9A6B00", "#2E7D32", "#6A1B9A", "#0277BD"
@@ -106,14 +106,15 @@ def fig1():
         ax.add_patch(Circle((x_, y_), 1.3, fc=RED, ec="white", lw=0.6, zorder=3))
     txt(vx, vy - 3.6, "victim $v$", fs=6.0)
     txt(21.5, 23.3, "K3 trigger", fs=6.0, color=RED)
-    txt(14, 6.2, "label($v$) $\\to$ target class;  $G_0$ poisoned", fs=6.0)
+    txt(14, 7.6, "label($v$) $\\to$ target class", fs=6.0)
+    txt(14, 4.4, "$G_0$ poisoned", fs=6.0)
     # --- collector bracket: all five clients feed both channels
     bx = 30.5
     ax.plot([27.2, bx, bx, 27.2], [73.5, 73.5, 16.5, 16.5], color="#222", lw=0.9)
     for y_ in (73.5, 61.5, 49.5, 37.5, 16.5):
         ax.plot([27.2, bx], [y_, y_], color="#222", lw=0.9)
     arr((bx, 62), (39.5, 62)); arr((bx, 28), (39.5, 28))
-    txt(35, 66.3, "$G_i$\n$i=1..5$", fs=6.2); txt(35, 32.5, "$u_i^{t}$\n$i=1..5$", fs=6.2)
+    txt(35, 66.3, "$G_i$\n$i=0,\\ldots,4$", fs=6.2); txt(35, 32.5, "$u_i^{t}$\n$i=0,\\ldots,4$", fs=6.2)
 
     # --- static topology profiling
     box(40, 46, 49, 33, ORG, EO, lw=1.1)
@@ -141,11 +142,13 @@ def fig1():
     txt(119.5, 22.5, "$\\theta^{t} = \\sum_i w_i^{t}\\,\\theta_i^{t}$", fs=FS + 0.4)
     txt(119.5, 11.5, "checkpoint: round with best\nclean validation accuracy", fs=6.2)
     arr((89, 62), (96, 66)); arr((89, 24), (96, 56)); arr((119.5, 46), (119.5, 43))
-    # --- broadcast
+    # --- broadcast (reaches all five clients)
     ax.plot([143.5, 143.5], [20, -2.0], color=EB, lw=0.9, ls=":")
-    ax.plot([143.5, 14], [-2.0, -2.0], color=EB, lw=0.9, ls=":")
-    arr((14, -2.0), (14, 2.7), EB, ":")
-    txt(80, -4.2, "global model $\\theta^{t}$ broadcast to all clients", fs=6.0, color=EB)
+    ax.plot([143.5, -2.5], [-2.0, -2.0], color=EB, lw=0.9, ls=":")
+    ax.plot([-2.5, -2.5], [-2.0, 73.5], color=EB, lw=0.9, ls=":")
+    for y_ in (73.5, 61.5, 49.5, 37.5, 16.5):
+        arr((-2.5, y_), (0.6, y_), EB, ":")
+    txt(80, -4.2, "global model $\\theta^{t}$ broadcast to all five clients ($i=0,\\ldots,4$)", fs=6.0, color=EB)
     save(fig, "Fig1_etdfgl_architecture_workflow")
 
 
