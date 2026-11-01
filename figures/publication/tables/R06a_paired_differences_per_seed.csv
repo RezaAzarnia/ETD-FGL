@@ -1,0 +1,19 @@
+dataset,seed,comparison,d_clean_acc_pp,d_asr_pp,d_attack_effect_pp,d_attacker_weight_pp,d_benign_risk
+Cora,42,Remove update channel (Fixed No Update minus Full),1.4,0.8046,0.68966,-0.65011,-0.05832
+Cora,43,Remove update channel (Fixed No Update minus Full),0.6,0.0,-0.68965,-0.6607,-0.05779
+Cora,44,Remove update channel (Fixed No Update minus Full),-1.1,2.75862,1.03448,-0.61127,-0.05689
+PubMed,42,Remove update channel (Fixed No Update minus Full),-0.1,0.4878,-0.12195,-0.48657,-0.0533
+PubMed,43,Remove update channel (Fixed No Update minus Full),-0.3,0.2439,-0.4878,-0.40621,-0.04276
+PubMed,44,Remove update channel (Fixed No Update minus Full),-2.4,0.12195,-0.4878,-0.41867,-0.05011
+Reddit,42,Remove update channel (Fixed No Update minus Full),0.4,7.11253,7.21868,1.51095,-0.02069
+Reddit,43,Remove update channel (Fixed No Update minus Full),0.8,8.70489,8.70489,1.67869,-0.01886
+Reddit,44,Remove update channel (Fixed No Update minus Full),-0.8,17.51592,17.51592,1.57732,-0.02121
+Cora,42,Remove topology channel (Fixed No Topology minus Full),-0.5,21.83908,21.49425,14.23675,0.00636
+Cora,43,Remove topology channel (Fixed No Topology minus Full),1.8,37.58621,37.12644,13.64433,0.00172
+Cora,44,Remove topology channel (Fixed No Topology minus Full),0.3,52.52874,53.33333,13.08492,0.0018
+PubMed,42,Remove topology channel (Fixed No Topology minus Full),-1.9,7.07317,5.97561,11.7,-0.02096
+PubMed,43,Remove topology channel (Fixed No Topology minus Full),2.3,2.31707,1.09756,11.31316,-0.01217
+PubMed,44,Remove topology channel (Fixed No Topology minus Full),0.2,1.34146,-1.46341,10.60255,-0.0286
+Reddit,42,Remove topology channel (Fixed No Topology minus Full),0.9,57.21868,57.21868,10.02277,0.00032
+Reddit,43,Remove topology channel (Fixed No Topology minus Full),0.39999,35.77495,35.98726,10.22464,0.00189
+Reddit,44,Remove topology channel (Fixed No Topology minus Full),-0.1,63.69427,63.58811,11.8896,0.00389
