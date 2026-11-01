@@ -1,0 +1,48 @@
+# ETD-FGL Claim-to-Evidence Traceability Matrix (Revision v3)
+
+This matrix provides a comprehensive audit linking every quantitative claim, mathematical formula, empirical metric, and architectural property in the ETD-FGL research project to its exact code file, line range, and verified experimental result file.
+
+Revision v3 resolves all previously identified ambiguities:
+- **Trigger Structure:** Standardized to strictly 3-node clique ($K_3$, $s = 3$). Verified in `multidata_suite/config.py:21` and `multidata_suite/backdoor.py:10–55`. Sweeps across $s \ne 3$ (e.g., $s=5$) were not executed.
+- **Local Poisoning Budget:** Standardized to strictly 20% ($\rho = 0.20$) of candidate non-target training nodes in Client 0. Verified in `multidata_suite/config.py:20`. 10% poisoning rate was not executed.
+- **Controlled Ablation Units:** Explicitly designated as percentage points (`% pts` or `% points`) for all paired differences ($\Delta \text{ASR}$, $\Delta \text{Acc}$).
+
+---
+
+## Traceability Matrix
+
+| Claim / Property | Numerical Value / Formula | Code Location | Result File | Verification Status | Limitations / Scope |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **5-Dimensional Topology Descriptor** | $\mathbf{D}(G) = [\rho, \mu_d, \tilde{\sigma}_d^2, C, \tau]^T$ | `multidata_suite/defenses.py:300–357` | `descriptor_support_audit.csv` | **Verified** | Evaluated on static graph snapshots. Does not compute higher-order motifs beyond triangles. |
+| **Clean Graph Scale Standardization** | $\mathbf{s} = \text{std}(\mathbf{D}^{\text{clean}}, \text{axis}=0)$, floor $10^{-8}$ | `multidata_suite/defenses.py:508–509` | N/A (Online computation) | **Verified** | Requires authenticated clean pre-attack reference graphs. |
+| **Topological Drift Distance** | $d_i = \|(\mathbf{D}_i^{\text{curr}} - \mathbf{D}_i^{\text{clean}}) / \mathbf{s}\|_2$ | `multidata_suite/defenses.py:510` | N/A (Online computation) | **Verified** | Euclidean norm in standardized 5D space. |
+| **Robust Positive Mapping** | $z_i = \max((v_i - \text{med})/\text{MAD}, 0)$, $A_i = 2(\sigma(z_i) - 0.5)$ | `multidata_suite/defenses.py:428–432` | `training_history.csv` | **Verified** | One-sided: clients below median receive exactly $A_i = 0$. |
+| **5-Client Invariant Anomaly** | $z_0 = d / (0.4d) \equiv 2.5 \implies A_0^{\text{topo}} \approx 0.8483$ | Analytical proof in Section 9.3 | `training_history.csv` | **Verified** | Holds when exactly 1 of 5 clients has non-zero topological drift. |
+| **Coordinate-wise Parameter Median** | $\mathbf{m}_{\text{upd}}^t = \text{median}_{j}(\Delta \mathbf{w}_j^t)$ | `multidata_suite/defenses.py:530` | N/A (Online computation) | **Verified** | Computed per parameter dimension across all 5 clients. |
+| **Update Anomaly Distance** | $\delta_i^t = \|\Delta \mathbf{w}_i^t - \mathbf{m}_{\text{upd}}^t\|_2$ | `multidata_suite/defenses.py:531` | `training_history.csv` | **Verified** | Measures Euclidean deviation from median parameter update. |
+| **Convex Risk Fusion** | $R_i^t = \frac{9}{13} A_i^{\text{topo}} + \frac{4}{13} A_i^{\text{upd}, t}$ | `multidata_suite/defenses.py:490–491, 533` | `training_history.csv` | **Verified** | Coefficients: $\alpha_{\text{topo}} = 9/13 \approx 0.6923$, $\alpha_{\text{upd}} = 4/13 \approx 0.3077$. |
+| **Exponential Trust Factor** | $T_i^t = \text{clip}(\exp(-3.0 R_i^t), 0.02, 1.0)$ | `multidata_suite/defenses.py:534` | `training_history.csv` | **Verified** | Trust decay strength $\beta = 3.0$; minimum clipping floor 0.02. |
+| **5-Client Invariant Attacker Weight** | $w_0 = \frac{0.1717}{0.1717 + 4.0} \equiv 4.12\%$ | `multidata_suite/controlled_ablation.py:175–185` | `controlled_ablation_summary.csv` | **Verified** | Holds in Fixed No Update variant across all seeds and datasets ($\sigma = 0.00\%$). |
+| **Trigger Topology Structure** | Complete 3-node clique ($K_3$, $s = 3$ nodes) | `multidata_suite/config.py:21`, `backdoor.py:10–55` | `baseline_seed42.csv` | **Verified** | Exactly 3 synthetic nodes added per victim node; sweeps across $s \ne 3$ (e.g., $s=5$) not executed. |
+| **Local Poisoning Budget** | $\rho = 0.20$ (20% of candidate training nodes in Client 0) | `multidata_suite/config.py:20` | `baseline_seed42.csv` | **Verified** | 20% of candidate non-target training nodes in Client 0; 10% budget was not executed. |
+| **Cora Baseline ASR Suppression (Seed 42)** | Clean: 76.10%, ASR: **4.25%** (vs FedAvg 48.05%) | `outputs/final_multidataset/federated_cora/defended_etdfgl/` | `baseline_seed42.csv:6` | **Verified** | Seed 42 single-seed run; Attack Effect = 0.23%. |
+| **PubMed Baseline ASR Suppression (Seed 42)**| Clean: 77.60%, ASR: **1.22%** (vs FedAvg 17.68%) | `outputs/final_multidataset/federated_pubmed/defended_etdfgl/` | `baseline_seed42.csv:14` | **Verified** | Seed 42 single-seed run; Attack Effect = -3.78%. |
+| **Reddit Baseline ASR Suppression (Seed 42)**| Clean: 85.30%, ASR: **0.85%** (vs FedAvg 72.29%) | `outputs/final_multidataset/federated_reddit/defended_etdfgl/` | `baseline_seed42.csv:22` | **Verified** | Seed 42 single-seed run; Attack Effect = 0.64%. |
+| **Cora Multi-Seed Robustness (Seeds 42–44)** | Clean: $75.57 \pm 1.57\%$, ASR: **$5.21 \pm 0.88\%$** | `outputs/extended_experiments/multiseed/cora/` | `multiseed_summary.csv:2` | **Verified** | Sample mean $\pm$ sample standard deviation ($ddof=1$) over 3 seeds. |
+| **PubMed Multi-Seed Robustness (Seeds 42–44)**| Clean: $75.50 \pm 2.01\%$, ASR: **$0.89 \pm 0.56\%$** | `outputs/extended_experiments/multiseed/pubmed/` | `multiseed_summary.csv:4` | **Verified** | Sample mean $\pm$ sample standard deviation ($ddof=1$) over 3 seeds. |
+| **Reddit Multi-Seed Robustness (Seeds 42–44)**| Clean: $84.87 \pm 0.40\%$, ASR: **$14.08 \pm 18.19\%$** | `outputs/extended_experiments/multiseed/reddit/` | `multiseed_summary.csv:6` | **Verified** | Seed 43 acts as an outlier ($ASR = 34.82\%$) due to high intra-class variance. |
+| **Reddit Seed 43 Elevated Backdoor Retention**| Seed 43 ASR = **34.82%**, Attack Effect = **34.39%** | `outputs/extended_experiments/multiseed/reddit/seed_43/defended_etdfgl/` | `consolidated_experiments.csv:38` | **Verified** | Transparently reported; not hidden or smoothed. |
+| **Controlled Ablation: Necessity of Update** | Reddit $\Delta \text{ASR} = \mathbf{+11.11 \pm 5.60\text{ \% pts}}$ (No Upd vs Full) | `outputs/extended_experiments/controlled_ablation_v1/reddit/` | `paired_differences.csv:9` | **Verified** | Proves update channel is non-redundant under held-constant penalty. |
+| **Controlled Ablation: Necessity of Topology**| Cora $\Delta \text{ASR} = \mathbf{+37.32 \pm 15.35\text{ \% pts}}$, Reddit $\mathbf{+52.23 \pm 14.61\text{ \% pts}}$ | `outputs/extended_experiments/controlled_ablation_v1/` | `paired_differences.csv:6, 10` | **Verified** | Proves parameter-space anomaly detection alone collapses. |
+| **Standard Ablation Normalization Inflation** | Topology-only ASR appears lower (4.60% Cora) due to $+44\%$ weight inflation | `multidata_suite/defenses.py:590` | `standard_ablation_summary.csv:4` | **Verified** | Standard ablation normalized weights to 1.0, artificially boosting topology weight from $9/13$ to $1.0$. |
+| **FLPurifier Clean Accuracy Collapse** | Cora Clean Acc: **56.90%**, Reddit: **49.30%** | `outputs/final_multidataset/federated_{cora,reddit}/baseline_flpurifier/` | `baseline_seed42.csv:3, 19` | **Verified** | Gradient purification destroys feature representations on clean nodes. |
+| **FedTGE Extreme Computational Runtime** | Cora: **177.03s**, PubMed: **773.29s**, Reddit: **399.94s** | `outputs/final_multidataset/federated_{cora,pubmed,reddit}/baseline_fedtge/` | `baseline_seed42.csv:2, 10, 18` | **Verified** | Graph topology entropy calculation requires intensive matrix operations. Fixed previous clipping defect. |
+| **DMGNN-FL / Attacked FedAvg Reddit Equivalence**| Clean: 85.70%, ASR: 72.29%, matching hash SHA-256 | `outputs/final_multidataset/federated_reddit/baseline_dmgnn/` | `baseline_seed42.csv:17` | **Verified** | Saliency thresholds were not triggered, pruning 0 edges on Reddit. |
+| **Weak Attack Penetration on PubMed** | Attacked FedAvg PubMed ASR is only $9.23 \pm 7.36\%$ | `outputs/extended_experiments/multiseed/pubmed/` | `multiseed_summary.csv:3` | **Verified** | PubMed's sparse graph structure and 3-class cardinality limit clique backdoor penetration. |
+| **Macro/Micro F1-Score** | Metric values not serialized to disk | N/A | None | **Not Recorded** | Node prediction arrays were not stored; F1 cannot be derived without retraining. |
+| **Precision, Recall, ROC-AUC** | Confusion matrices and softmax probabilities not saved | N/A | None | **Not Recorded** | Do NOT report or invent. |
+| **Differential Privacy ($\epsilon, \delta$)** | ETD-FGL does not inject DP noise | N/A | None | **Not Measured** | Excluded from ETD-FGL framework. |
+| **Network Packet Delay / PDR** | Physical network latency not simulated | N/A | None | **Not Measured** | From unrelated IoT reference paper; strictly excluded. |
+| **Sensitivity to Trigger Size ($s \ne 3$)** | Only $s = 3$ clique triggers evaluated | `multidata_suite/config.py:21` | N/A | **Not Measured** | Sensitivity sweeps across trigger sizes were not executed. |
+| **Sensitivity to Attacker Count ($M \ne 1$)** | Only $M = 1$ in $K = 5$ evaluated | `multidata_suite/config.py:10, 18` | N/A | **Not Measured** | Multiple colluding attacker scenarios were not evaluated. |
+| **GNN Architecture Generalization** | Only 2-layer GCN evaluated | `multidata_suite/model.py:23–41` | N/A | **Not Measured** | GAT, GraphSAGE, GIN were not evaluated. |
