@@ -28,11 +28,12 @@ def rendered():
 @pytest.mark.unit
 def test_all_figures_exported_as_pdf_and_png(rendered):
     out, _ = rendered
-    for name in ["Fig1_etdfgl_architecture_workflow", "Fig2_overall_baselines", "Fig3_accuracy_robustness_tradeoff", "Fig4_multiseed_robustness",
+    for name in ["Fig1_etdfgl_architecture_workflow", "Fig2_overall_baselines", "Fig4_multiseed_robustness",
                  "Fig5_learning_dynamics_rounds", "Fig6_controlled_ablation", "Fig7_attacker_weight_dynamics"]:
         assert (out / f"{name}.pdf").stat().st_size > 5_000
         assert (out / "previews" / f"{name}.png").exists()
-    assert (out / "supplementary" / "FigS_runtime_exploratory.pdf").exists()
+    assert (out / "supplementary" / "FigS1_runtime_exploratory.pdf").exists()
+    assert (out / "supplementary" / "FigS2_accuracy_asr_scatter.pdf").exists()
 
 
 @pytest.mark.unit
@@ -79,7 +80,7 @@ def test_attacker_weight_raw_trace_is_unsmoothed_and_not_capped(rendered):
 @pytest.mark.unit
 def test_figure_source_contains_no_rejected_claims():
     text = SCRIPT.read_text(encoding="utf-8").lower()
-    for bad in ["<= 4.7", "≤4.7", "from round 1", "within 0.5", "gnnexplainer", "upper-left", "pareto frontier is", "significant"]:
+    for bad in ["<= 4.7", "≤4.7", "from round 1", "within 0.5", "gnnexplainer", "upper-left", "pareto frontier is", "significant", "how stable", "how strongly", "desirable"]:
         assert bad not in text.replace("no cross-dataset pareto frontier is claimed", "")
 
 
