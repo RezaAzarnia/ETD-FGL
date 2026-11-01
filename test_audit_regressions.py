@@ -1740,3 +1740,35 @@ def test_controlled_ablation_report_not_stale():
             assert set(summary_data[ds][var].keys()) == {"42", "43", "44"}, (
                 f"Variant {var} under {ds} does not have seeds 42, 43, 44"
             )
+
+
+@pytest.mark.unit
+def test_run_method_records_runtime_environment_and_timing_scope():
+    """Provenance fix: summaries/manifests must record device, library versions and timing scope."""
+    from multidata_suite.core import TIMING_SCOPE, collect_runtime_environment
+
+    env = collect_runtime_environment(torch.device("cpu"))
+    for key in ("device", "python", "torch", "cuda_available", "torch_geometric"):
+        assert key in env
+    assert env["device"] == "cpu"
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        cfg = DatasetConfig(key="cora", display_name="Cora", seed=42, rounds=2, local_epochs=1,
+                            hidden_channels=4)
+        graph = make_synthetic_graph(num_nodes=30)
+        triggered = graph.clone()
+        context = ExperimentContext(
+            project_dir=tmp_path, config=cfg, data_cpu=graph, num_features=8, num_classes=3,
+            metadata={}, clean_graphs_cpu=[graph], attacked_graphs_cpu=[graph], attack_metadata={},
+            device=torch.device("cpu"), triggered_data=triggered, victim_nodes=torch.tensor([0, 1, 2]),
+            base_output_override=tmp_path,
+        )
+        summary = run_method(context=context, method_name="FedAvg", output_slug="env_check",
+                             client_graphs_cpu=[graph])
+        assert summary["runtime_environment"]["device"] == "cpu"
+        assert summary["timing_scope"] == TIMING_SCOPE
+        on_disk = json.loads((tmp_path / "env_check" / "final_summary.json").read_text(encoding="utf-8"))
+        assert on_disk["runtime_environment"]["torch"] == torch.__version__
+        # Existing-run validation must remain compatible with the new optional keys.
+        assert validate_existing_experiment(context, "env_check") is not None

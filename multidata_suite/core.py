@@ -147,6 +147,47 @@ def build_context(
     )
 
 
+TIMING_SCOPE = (
+    "time.perf_counter() around the full multi-round loop: local training of all clients, "
+    "server aggregation, and per-round global evaluation (clean + triggered); excludes dataset "
+    "loading, partitioning, reference-descriptor computation and baseline preprocessing; "
+    "no CUDA synchronization or warm-up exclusion."
+)
+
+
+def collect_runtime_environment(device: torch.device) -> dict[str, Any]:
+    """Record the software/hardware environment used for a run (provenance only).
+
+    Added so that runtime values in ``final_summary.json`` can be interpreted; it does not
+    influence training, aggregation, evaluation or any reported metric.
+    """
+    import platform
+    import sys
+
+    info: dict[str, Any] = {
+        "device": str(device),
+        "python": sys.version.split()[0],
+        "platform": platform.platform(),
+        "torch": torch.__version__,
+        "cuda_build": torch.version.cuda,
+        "cuda_available": bool(torch.cuda.is_available()),
+        "gpu_name": None,
+        "torch_geometric": None,
+    }
+    try:
+        if device.type == "cuda":
+            info["gpu_name"] = torch.cuda.get_device_name(device)
+    except Exception:  # pragma: no cover - provenance must never break a run
+        pass
+    try:
+        import torch_geometric
+
+        info["torch_geometric"] = torch_geometric.__version__
+    except Exception:  # pragma: no cover
+        pass
+    return info
+
+
 def accuracy(logits: Tensor, labels: Tensor, mask: Tensor) -> float:
     total = int(mask.sum())
     if total == 0:
@@ -548,6 +589,8 @@ def run_method(
         "best_round": best_round,
         "final_metrics": final_metrics,
         "elapsed_seconds": elapsed,
+        "timing_scope": TIMING_SCOPE,
+        "runtime_environment": collect_runtime_environment(context.device),
         "config": asdict(context.config),
         "dataset_metadata": context.metadata,
         "partition_metadata": context.partition_metadata,
