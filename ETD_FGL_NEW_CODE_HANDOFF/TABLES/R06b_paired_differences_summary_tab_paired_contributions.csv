@@ -1,0 +1,7 @@
+dataset,comparison,n_pairs,d_asr_mean,d_asr_sd,d_asr_per_seed,d_clean_acc_mean,d_clean_acc_sd,d_attack_effect_mean,d_attack_effect_sd,d_attacker_weight_mean,d_attacker_weight_sd,n_seeds_with_positive_d_asr,significance_test
+Cora,Remove topology channel (Fixed No Topology minus Full),3,37.318,15.3466,+21.84; +37.59; +52.53,0.5333,1.1676,37.318,15.9204,13.6553,0.576,3,NOT RUN (n=3 pairs; no p-value or CI computed)
+Cora,Remove update channel (Fixed No Update minus Full),3,1.1877,1.4187,+0.80; +0.00; +2.76,0.3,1.2767,0.3448,0.9123,-0.6407,0.026,2,NOT RUN (n=3 pairs; no p-value or CI computed)
+PubMed,Remove topology channel (Fixed No Topology minus Full),3,3.5772,3.0666,+7.07; +2.32; +1.34,0.2,2.1,1.8699,3.7792,11.2052,0.5566,3,NOT RUN (n=3 pairs; no p-value or CI computed)
+PubMed,Remove update channel (Fixed No Update minus Full),3,0.2846,0.1863,+0.49; +0.24; +0.12,-0.9333,1.2741,-0.3659,0.2112,-0.4372,0.0433,3,NOT RUN (n=3 pairs; no p-value or CI computed)
+Reddit,Remove topology channel (Fixed No Topology minus Full),3,52.2293,14.6131,+57.22; +35.77; +63.69,0.4,0.5,52.2647,14.4519,10.7123,1.0245,3,NOT RUN (n=3 pairs; no p-value or CI computed)
+Reddit,Remove update channel (Fixed No Update minus Full),3,11.1111,5.6036,+7.11; +8.70; +17.52,0.1333,0.8327,11.1465,5.5659,1.589,0.0845,3,NOT RUN (n=3 pairs; no p-value or CI computed)
