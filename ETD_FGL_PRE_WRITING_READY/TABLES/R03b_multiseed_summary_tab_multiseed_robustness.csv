@@ -1,0 +1,7 @@
+dataset,method,n_seeds,seeds,clean_acc_mean,clean_acc_sd,asr_mean,asr_sd,asr_min,asr_max,effect_mean,effect_sd,runtime_mean,runtime_sd,sd_convention
+Cora,Attacked FedAvg,3,"42,43,44",75.0,0.7211,62.0307,15.3818,48.046,78.5057,52.2605,14.2502,2.7349,0.0449,"sample SD, ddof=1"
+Cora,ETD-FGL,3,"42,43,44",75.5667,1.5695,5.2107,0.8779,4.2529,5.977,-2.2222,2.1728,2.8535,0.0144,"sample SD, ddof=1"
+PubMed,Attacked FedAvg,3,"42,43,44",74.8,3.1796,9.2276,7.359,4.2683,17.6829,2.561,7.7331,9.4354,3.1282,"sample SD, ddof=1"
+PubMed,ETD-FGL,3,"42,43,44",75.5,2.0075,0.8943,0.5633,0.2439,1.2195,-3.5366,0.5316,10.5288,3.6405,"sample SD, ddof=1"
+Reddit,Attacked FedAvg,3,"42,43,44",84.9,0.8,74.4161,1.8509,72.293,75.69,74.0623,1.7454,11.0657,6.5758,"sample SD, ddof=1"
+Reddit,ETD-FGL,3,"42,43,44",84.8667,0.4041,14.0835,18.1852,0.8493,34.8195,13.765,18.0861,7.3953,0.0508,"sample SD, ddof=1"

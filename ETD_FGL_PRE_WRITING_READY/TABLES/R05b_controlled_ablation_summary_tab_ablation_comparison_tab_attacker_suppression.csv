@@ -1,0 +1,13 @@
+dataset,variant,slug,n_seeds,clean_acc_mean,clean_acc_sd,asr_mean,asr_sd,effect_mean,effect_sd,attacker_weight_mean,attacker_weight_sd,benign_risk_mean,benign_risk_sd,benign_trust_mean,benign_trust_min_over_all
+Cora,Attacked FedAvg,fedavg_structural_backdoor,3,75.0,0.72111,62.03065,15.38184,52.26054,14.25025,,,,,,
+Cora,Fixed No Topology (4/13 upd only),etdfgl_fixed_no_topology,3,76.1,0.86603,42.52874,15.94473,35.09579,14.40241,18.41259,0.59539,0.06096,0.00325,0.85969,0.45921
+Cora,Fixed No Update (9/13 topo only),etdfgl_fixed_no_update,3,75.86667,1.5567,6.39847,1.59407,-1.87739,2.75942,4.11656,0.0,0.0,0.0,1.0,1.0
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),etdfgl_full,3,75.56667,1.5695,5.21073,0.87789,-2.22222,2.17279,4.75726,0.02603,0.05766,0.00072,0.8584,0.4898
+PubMed,Attacked FedAvg,fedavg_structural_backdoor,3,74.8,3.17962,9.22764,7.35896,2.56098,7.73309,,,,,,
+PubMed,Fixed No Topology (4/13 upd only),etdfgl_fixed_no_topology,3,75.7,1.9,4.47154,3.45002,-1.66667,3.78311,15.75895,0.58648,0.02815,0.00581,0.93098,0.45436
+PubMed,Fixed No Update (9/13 topo only),etdfgl_fixed_no_update,3,74.56667,3.17227,1.17886,0.71457,-3.90244,0.4878,4.11656,0.0,0.0,0.0,1.0,1.0
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),etdfgl_full,3,75.5,2.00749,0.89431,0.56327,-3.53659,0.53157,4.55372,0.04325,0.04872,0.0054,0.88007,0.46145
+Reddit,Attacked FedAvg,fedavg_structural_backdoor,3,84.9,0.8,74.41614,1.85091,74.06228,1.74541,,,,,,
+Reddit,Fixed No Topology (4/13 upd only),etdfgl_fixed_no_topology,3,85.26667,0.81445,66.31281,7.14204,66.02972,7.08395,13.23992,1.02979,0.02229,0.00244,0.94401,0.47116
+Reddit,Fixed No Update (9/13 topo only),etdfgl_fixed_no_update,3,85.0,0.88882,25.19462,17.80668,24.91154,17.64935,4.11656,0.0,0.0,0.0,1.0,1.0
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),etdfgl_full,3,84.86667,0.40414,14.08351,18.18522,13.76504,18.08611,2.52758,0.08448,0.02025,0.00124,0.94926,0.45806

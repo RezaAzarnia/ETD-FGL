@@ -1,0 +1,451 @@
+dataset,variant,round,attacker_weight_pct,attacker_trust,attacker_topology_risk,attacker_update_risk,asr_pct,clean_accuracy_pct
+Cora,Fixed No Topology (4/13 upd only),1,21.32241,1.0,0.84828,0.0,100.0,13.4
+Cora,Fixed No Topology (4/13 upd only),2,22.4779,1.0,0.84828,0.0,100.0,19.7
+Cora,Fixed No Topology (4/13 upd only),3,23.01543,1.0,0.84828,0.0,99.54023,29.5
+Cora,Fixed No Topology (4/13 upd only),4,16.23221,0.74081,0.84828,0.32502,96.09196,54.8
+Cora,Fixed No Topology (4/13 upd only),5,24.19852,1.0,0.84828,0.0,97.93103,45.2
+Cora,Fixed No Topology (4/13 upd only),6,11.74407,0.47584,0.84828,0.80456,94.5977,53.3
+Cora,Fixed No Topology (4/13 upd only),7,22.05294,1.0,0.84828,0.0,95.51724,49.3
+Cora,Fixed No Topology (4/13 upd only),8,11.28492,0.46502,0.84828,0.82948,61.37931,70.0
+Cora,Fixed No Topology (4/13 upd only),9,22.01644,1.0,0.84828,0.0,92.64368,58.3
+Cora,Fixed No Topology (4/13 upd only),10,18.05933,0.7705,0.84828,0.28244,78.96551,67.0
+Cora,Fixed No Topology (4/13 upd only),11,23.25194,1.0,0.84828,0.0,94.25287,56.4
+Cora,Fixed No Topology (4/13 upd only),12,14.2656,0.58576,0.84828,0.57942,80.45977,65.2
+Cora,Fixed No Topology (4/13 upd only),13,23.59505,1.0,0.84828,0.0,93.90805,56.7
+Cora,Fixed No Topology (4/13 upd only),14,14.74908,0.61622,0.84828,0.52449,66.2069,69.8
+Cora,Fixed No Topology (4/13 upd only),15,23.05295,1.0,0.84828,0.0,90.0,60.3
+Cora,Fixed No Topology (4/13 upd only),16,14.25714,0.58477,0.84828,0.58125,49.77011,71.8
+Cora,Fixed No Topology (4/13 upd only),17,23.36475,1.0,0.84828,0.0,80.91954,67.8
+Cora,Fixed No Topology (4/13 upd only),18,15.3031,0.63947,0.84828,0.48437,54.13793,72.7
+Cora,Fixed No Topology (4/13 upd only),19,23.81039,1.0,0.84828,0.0,73.90805,70.0
+Cora,Fixed No Topology (4/13 upd only),20,14.5558,0.59783,0.84828,0.55732,42.75862,73.4
+Cora,Fixed No Topology (4/13 upd only),21,24.13723,1.0,0.84828,0.0,70.68965,69.8
+Cora,Fixed No Topology (4/13 upd only),22,16.33848,0.70784,0.84828,0.37434,51.72414,72.7
+Cora,Fixed No Topology (4/13 upd only),23,23.24967,1.0,0.84828,0.0,66.78161,70.7
+Cora,Fixed No Topology (4/13 upd only),24,12.93532,0.5166,0.84828,0.71553,43.33333,73.2
+Cora,Fixed No Topology (4/13 upd only),25,23.17762,1.0,0.84828,0.0,65.97701,70.9
+Cora,Fixed No Topology (4/13 upd only),26,13.15974,0.52806,0.84828,0.69176,29.88506,73.3
+Cora,Fixed No Topology (4/13 upd only),27,23.57803,1.0,0.84828,0.0,58.04598,72.6
+Cora,Fixed No Topology (4/13 upd only),28,14.17512,0.57512,0.84828,0.59927,40.91954,73.5
+Cora,Fixed No Topology (4/13 upd only),29,23.45971,1.0,0.84828,0.0,61.83908,71.9
+Cora,Fixed No Topology (4/13 upd only),30,14.25755,0.57984,0.84828,0.59042,32.29885,73.2
+Cora,Fixed No Topology (4/13 upd only),31,23.92309,1.0,0.84828,0.0,61.37931,72.2
+Cora,Fixed No Topology (4/13 upd only),32,14.72626,0.59992,0.84828,0.55354,32.41379,73.8
+Cora,Fixed No Topology (4/13 upd only),33,22.8967,1.0,0.84828,0.0,57.35632,71.6
+Cora,Fixed No Topology (4/13 upd only),34,14.67344,0.59967,0.84828,0.55399,35.86207,74.2
+Cora,Fixed No Topology (4/13 upd only),35,24.83883,1.0,0.84828,0.0,62.18391,72.5
+Cora,Fixed No Topology (4/13 upd only),36,14.15441,0.57485,0.84828,0.59978,30.34483,74.5
+Cora,Fixed No Topology (4/13 upd only),37,22.87589,1.0,0.84828,0.0,54.5977,72.8
+Cora,Fixed No Topology (4/13 upd only),38,14.40893,0.58661,0.84828,0.57785,31.26437,74.1
+Cora,Fixed No Topology (4/13 upd only),39,23.49272,1.0,0.84828,0.0,57.58621,72.3
+Cora,Fixed No Topology (4/13 upd only),40,14.36645,0.5855,0.84828,0.57989,30.91954,75.0
+Cora,Fixed No Topology (4/13 upd only),41,23.68856,1.0,0.84828,0.0,52.52873,73.5
+Cora,Fixed No Topology (4/13 upd only),42,14.94613,0.63156,0.84828,0.49785,33.90805,74.5
+Cora,Fixed No Topology (4/13 upd only),43,23.34764,1.0,0.84828,0.0,48.96552,74.6
+Cora,Fixed No Topology (4/13 upd only),44,15.3677,0.63088,0.84828,0.49903,30.68965,74.8
+Cora,Fixed No Topology (4/13 upd only),45,23.62099,1.0,0.84828,0.0,54.13793,74.1
+Cora,Fixed No Topology (4/13 upd only),46,13.36801,0.543,0.84828,0.66154,25.97701,75.3
+Cora,Fixed No Topology (4/13 upd only),47,22.43155,1.0,0.84828,0.0,42.75862,74.2
+Cora,Fixed No Topology (4/13 upd only),48,14.02156,0.56589,0.84828,0.61681,26.09195,75.6
+Cora,Fixed No Topology (4/13 upd only),49,24.19814,1.0,0.84828,0.0,50.34482,74.1
+Cora,Fixed No Topology (4/13 upd only),50,13.74585,0.55749,0.84828,0.633,24.82759,75.0
+Cora,Fixed No Update (9/13 topo only),1,4.11656,0.17173,0.84828,0.0,68.62069,20.8
+Cora,Fixed No Update (9/13 topo only),2,4.11656,0.17173,0.84828,0.0,0.0,61.1
+Cora,Fixed No Update (9/13 topo only),3,4.11656,0.17173,0.84828,0.0,20.11494,58.3
+Cora,Fixed No Update (9/13 topo only),4,4.11656,0.17173,0.84828,0.0,6.32184,69.3
+Cora,Fixed No Update (9/13 topo only),5,4.11656,0.17173,0.84828,0.0,14.02299,70.0
+Cora,Fixed No Update (9/13 topo only),6,4.11656,0.17173,0.84828,0.0,31.26437,67.3
+Cora,Fixed No Update (9/13 topo only),7,4.11656,0.17173,0.84828,0.0,18.3908,71.4
+Cora,Fixed No Update (9/13 topo only),8,4.11656,0.17173,0.84828,0.0,5.63218,73.3
+Cora,Fixed No Update (9/13 topo only),9,4.11656,0.17173,0.84828,0.0,11.14943,70.4
+Cora,Fixed No Update (9/13 topo only),10,4.11656,0.17173,0.84828,0.0,7.58621,73.8
+Cora,Fixed No Update (9/13 topo only),11,4.11656,0.17173,0.84828,0.0,12.18391,72.0
+Cora,Fixed No Update (9/13 topo only),12,4.11656,0.17173,0.84828,0.0,24.94253,73.0
+Cora,Fixed No Update (9/13 topo only),13,4.11656,0.17173,0.84828,0.0,18.50575,72.3
+Cora,Fixed No Update (9/13 topo only),14,4.11656,0.17173,0.84828,0.0,6.78161,74.7
+Cora,Fixed No Update (9/13 topo only),15,4.11656,0.17173,0.84828,0.0,12.41379,71.9
+Cora,Fixed No Update (9/13 topo only),16,4.11656,0.17173,0.84828,0.0,4.48276,72.5
+Cora,Fixed No Update (9/13 topo only),17,4.11656,0.17173,0.84828,0.0,8.16092,73.5
+Cora,Fixed No Update (9/13 topo only),18,4.11656,0.17173,0.84828,0.0,6.66667,74.1
+Cora,Fixed No Update (9/13 topo only),19,4.11656,0.17173,0.84828,0.0,6.2069,74.3
+Cora,Fixed No Update (9/13 topo only),20,4.11656,0.17173,0.84828,0.0,4.5977,74.6
+Cora,Fixed No Update (9/13 topo only),21,4.11656,0.17173,0.84828,0.0,6.78161,75.4
+Cora,Fixed No Update (9/13 topo only),22,4.11656,0.17173,0.84828,0.0,4.82759,74.5
+Cora,Fixed No Update (9/13 topo only),23,4.11656,0.17173,0.84828,0.0,5.17241,74.4
+Cora,Fixed No Update (9/13 topo only),24,4.11656,0.17173,0.84828,0.0,6.43678,73.8
+Cora,Fixed No Update (9/13 topo only),25,4.11656,0.17173,0.84828,0.0,5.97701,74.8
+Cora,Fixed No Update (9/13 topo only),26,4.11656,0.17173,0.84828,0.0,5.17241,74.4
+Cora,Fixed No Update (9/13 topo only),27,4.11656,0.17173,0.84828,0.0,4.94253,75.6
+Cora,Fixed No Update (9/13 topo only),28,4.11656,0.17173,0.84828,0.0,6.55172,74.4
+Cora,Fixed No Update (9/13 topo only),29,4.11656,0.17173,0.84828,0.0,5.17241,74.9
+Cora,Fixed No Update (9/13 topo only),30,4.11656,0.17173,0.84828,0.0,5.05747,75.2
+Cora,Fixed No Update (9/13 topo only),31,4.11656,0.17173,0.84828,0.0,5.17241,74.8
+Cora,Fixed No Update (9/13 topo only),32,4.11656,0.17173,0.84828,0.0,5.17241,74.7
+Cora,Fixed No Update (9/13 topo only),33,4.11656,0.17173,0.84828,0.0,5.51724,74.9
+Cora,Fixed No Update (9/13 topo only),34,4.11656,0.17173,0.84828,0.0,6.32184,76.6
+Cora,Fixed No Update (9/13 topo only),35,4.11656,0.17173,0.84828,0.0,6.09195,76.6
+Cora,Fixed No Update (9/13 topo only),36,4.11656,0.17173,0.84828,0.0,4.5977,76.4
+Cora,Fixed No Update (9/13 topo only),37,4.11656,0.17173,0.84828,0.0,6.2069,75.4
+Cora,Fixed No Update (9/13 topo only),38,4.11656,0.17173,0.84828,0.0,6.55172,76.0
+Cora,Fixed No Update (9/13 topo only),39,4.11656,0.17173,0.84828,0.0,7.35632,75.8
+Cora,Fixed No Update (9/13 topo only),40,4.11656,0.17173,0.84828,0.0,3.56322,75.9
+Cora,Fixed No Update (9/13 topo only),41,4.11656,0.17173,0.84828,0.0,5.97701,76.1
+Cora,Fixed No Update (9/13 topo only),42,4.11656,0.17173,0.84828,0.0,5.86207,77.0
+Cora,Fixed No Update (9/13 topo only),43,4.11656,0.17173,0.84828,0.0,4.25287,76.4
+Cora,Fixed No Update (9/13 topo only),44,4.11656,0.17173,0.84828,0.0,4.5977,76.0
+Cora,Fixed No Update (9/13 topo only),45,4.11656,0.17173,0.84828,0.0,5.05747,77.5
+Cora,Fixed No Update (9/13 topo only),46,4.11656,0.17173,0.84828,0.0,4.13793,75.9
+Cora,Fixed No Update (9/13 topo only),47,4.11656,0.17173,0.84828,0.0,4.02299,75.7
+Cora,Fixed No Update (9/13 topo only),48,4.11656,0.17173,0.84828,0.0,4.25287,76.4
+Cora,Fixed No Update (9/13 topo only),49,4.11656,0.17173,0.84828,0.0,4.5977,76.8
+Cora,Fixed No Update (9/13 topo only),50,4.11656,0.17173,0.84828,0.0,4.02299,76.3
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),1,4.44713,0.17173,0.84828,0.0,75.4023,19.3
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),2,4.76018,0.17173,0.84828,0.0,0.0,55.0
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),3,4.38513,0.17173,0.84828,0.0,3.10345,55.4
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),4,4.48817,0.17173,0.84828,0.0,11.72414,68.4
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),5,4.49749,0.17173,0.84828,0.0,12.29885,70.1
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),6,4.4562,0.17173,0.84828,0.0,40.45977,66.1
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),7,4.7559,0.17173,0.84828,0.0,9.54023,71.6
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),8,4.83001,0.17173,0.84828,0.0,10.68965,72.6
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),9,4.97417,0.17173,0.84828,0.0,9.42529,70.8
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),10,4.71384,0.17173,0.84828,0.0,10.45977,74.1
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),11,4.7561,0.17173,0.84828,0.0,10.68965,72.2
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),12,4.85079,0.17173,0.84828,0.0,35.97701,70.3
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),13,4.94218,0.17173,0.84828,0.0,19.1954,72.3
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),14,4.77931,0.17173,0.84828,0.0,9.65517,74.9
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),15,4.7991,0.17173,0.84828,0.0,8.96552,72.8
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),16,4.78376,0.17173,0.84828,0.0,5.51724,72.7
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),17,4.89088,0.17173,0.84828,0.0,6.32184,74.8
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),18,4.82102,0.17173,0.84828,0.0,8.04598,74.3
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),19,4.96802,0.17173,0.84828,0.0,4.48276,74.3
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),20,4.78669,0.17173,0.84828,0.0,6.89655,75.0
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),21,4.83234,0.17173,0.84828,0.0,4.25287,75.6
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),22,4.84287,0.17173,0.84828,0.0,7.70115,74.6
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),23,4.85455,0.17173,0.84828,0.0,3.10345,74.8
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),24,4.82802,0.17173,0.84828,0.0,9.65517,73.8
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),25,4.92002,0.17173,0.84828,0.0,4.13793,75.4
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),26,4.74439,0.17173,0.84828,0.0,5.97701,74.5
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),27,4.95367,0.17173,0.84828,0.0,2.87356,75.5
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),28,4.82799,0.17173,0.84828,0.0,8.85057,74.5
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),29,4.84537,0.17173,0.84828,0.0,3.67816,75.3
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),30,4.82776,0.17173,0.84828,0.0,6.66667,75.4
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),31,4.89353,0.17173,0.84828,0.0,2.75862,75.2
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),32,4.83991,0.17173,0.84828,0.0,7.01149,74.6
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),33,4.99537,0.17173,0.84828,0.0,4.13793,75.6
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),34,4.57285,0.17173,0.84828,0.0,8.16092,76.5
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),35,4.70197,0.17173,0.84828,0.0,4.25287,76.1
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),36,4.67407,0.17173,0.84828,0.0,5.28736,76.7
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),37,4.78618,0.17173,0.84828,0.0,4.13793,75.9
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),38,4.79278,0.17173,0.84828,0.0,7.93103,76.2
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),39,4.94924,0.17173,0.84828,0.0,6.32184,76.4
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),40,4.57129,0.17173,0.84828,0.0,3.7931,76.0
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),41,4.83689,0.17173,0.84828,0.0,4.94253,76.6
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),42,4.72533,0.17173,0.84828,0.0,6.32184,76.8
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),43,4.85086,0.17173,0.84828,0.0,3.21839,76.8
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),44,4.58668,0.17173,0.84828,0.0,5.28736,76.0
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),45,4.61239,0.17173,0.84828,0.0,3.90805,76.7
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),46,4.82187,0.17173,0.84828,0.0,4.48276,76.1
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),47,4.77554,0.17173,0.84828,0.0,2.41379,75.8
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),48,4.68084,0.17173,0.84828,0.0,5.05747,77.1
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),49,4.79155,0.17173,0.84828,0.0,2.64368,76.1
+Cora,Full ETD-FGL (9/13 topo + 4/13 upd),50,4.71164,0.17173,0.84828,0.0,4.5977,76.3
+PubMed,Fixed No Topology (4/13 upd only),1,17.82941,0.81168,0.84828,0.22603,100.0,18.0
+PubMed,Fixed No Topology (4/13 upd only),2,14.73336,0.63191,0.84828,0.49727,67.43903,62.0
+PubMed,Fixed No Topology (4/13 upd only),3,15.25281,0.64908,0.84828,0.46822,95.2439,55.3
+PubMed,Fixed No Topology (4/13 upd only),4,12.76752,0.54751,0.84828,0.65257,53.29269,67.7
+PubMed,Fixed No Topology (4/13 upd only),5,15.60101,0.68914,0.84828,0.40333,18.04878,72.3
+PubMed,Fixed No Topology (4/13 upd only),6,15.53473,0.72332,0.84828,0.3509,47.31707,66.7
+PubMed,Fixed No Topology (4/13 upd only),7,16.80626,0.74081,0.84828,0.32502,52.31707,66.7
+PubMed,Fixed No Topology (4/13 upd only),8,22.24921,1.0,0.84828,0.0,60.85366,69.0
+PubMed,Fixed No Topology (4/13 upd only),9,11.10661,0.49164,0.84828,0.76919,31.95122,71.4
+PubMed,Fixed No Topology (4/13 upd only),10,20.83096,0.97023,0.84828,0.03274,51.82927,67.1
+PubMed,Fixed No Topology (4/13 upd only),11,14.16695,0.64911,0.84828,0.46817,31.95122,69.7
+PubMed,Fixed No Topology (4/13 upd only),12,15.81475,0.74081,0.84828,0.32502,39.5122,68.0
+PubMed,Fixed No Topology (4/13 upd only),13,16.57934,0.75275,0.84828,0.30769,27.56098,71.6
+PubMed,Fixed No Topology (4/13 upd only),14,14.45439,0.63207,0.84828,0.49698,16.09756,67.7
+PubMed,Fixed No Topology (4/13 upd only),15,21.40168,1.0,0.84828,0.0,29.87805,70.9
+PubMed,Fixed No Topology (4/13 upd only),16,16.20633,0.74081,0.84828,0.32502,19.51219,71.9
+PubMed,Fixed No Topology (4/13 upd only),17,17.26275,0.74081,0.84828,0.32502,16.95122,72.5
+PubMed,Fixed No Topology (4/13 upd only),18,13.80127,0.56192,0.84828,0.62443,14.14634,73.0
+PubMed,Fixed No Topology (4/13 upd only),19,22.4084,1.0,0.84828,0.0,25.97561,72.9
+PubMed,Fixed No Topology (4/13 upd only),20,11.28921,0.4822,0.84828,0.79018,14.51219,73.5
+PubMed,Fixed No Topology (4/13 upd only),21,20.58317,0.96954,0.84828,0.03351,19.63415,72.2
+PubMed,Fixed No Topology (4/13 upd only),22,11.94647,0.51717,0.84828,0.71433,14.87805,73.2
+PubMed,Fixed No Topology (4/13 upd only),23,19.94872,0.96654,0.84828,0.03687,17.19512,73.2
+PubMed,Fixed No Topology (4/13 upd only),24,14.37405,0.65792,0.84828,0.45356,12.31707,74.2
+PubMed,Fixed No Topology (4/13 upd only),25,18.24931,0.79819,0.84828,0.24419,22.68293,72.9
+PubMed,Fixed No Topology (4/13 upd only),26,14.90115,0.67218,0.84828,0.43034,10.4878,74.2
+PubMed,Fixed No Topology (4/13 upd only),27,23.71394,1.0,0.84828,0.0,18.29268,74.0
+PubMed,Fixed No Topology (4/13 upd only),28,11.27957,0.48108,0.84828,0.7927,8.41463,73.7
+PubMed,Fixed No Topology (4/13 upd only),29,21.2464,0.95517,0.84828,0.04968,24.63415,73.6
+PubMed,Fixed No Topology (4/13 upd only),30,11.19631,0.46118,0.84828,0.83845,8.90244,73.3
+PubMed,Fixed No Topology (4/13 upd only),31,24.28692,1.0,0.84828,0.0,24.7561,74.6
+PubMed,Fixed No Topology (4/13 upd only),32,10.76771,0.46267,0.84828,0.83497,8.04878,74.1
+PubMed,Fixed No Topology (4/13 upd only),33,21.36999,0.96505,0.84828,0.03854,19.02439,73.9
+PubMed,Fixed No Topology (4/13 upd only),34,11.55768,0.49585,0.84828,0.75993,6.34146,74.7
+PubMed,Fixed No Topology (4/13 upd only),35,22.86907,1.0,0.84828,0.0,21.82927,74.3
+PubMed,Fixed No Topology (4/13 upd only),36,11.19641,0.46701,0.84828,0.82485,6.21951,74.9
+PubMed,Fixed No Topology (4/13 upd only),37,22.97893,1.0,0.84828,0.0,16.70732,75.0
+PubMed,Fixed No Topology (4/13 upd only),38,11.60754,0.50338,0.84828,0.74361,6.70732,74.2
+PubMed,Fixed No Topology (4/13 upd only),39,18.76613,0.80278,0.84828,0.23798,19.39024,75.3
+PubMed,Fixed No Topology (4/13 upd only),40,11.27576,0.48489,0.84828,0.78416,6.70732,75.1
+PubMed,Fixed No Topology (4/13 upd only),41,18.72994,0.81795,0.84828,0.2177,13.78049,75.6
+PubMed,Fixed No Topology (4/13 upd only),42,11.88909,0.48948,0.84828,0.77395,7.92683,74.6
+PubMed,Fixed No Topology (4/13 upd only),43,14.76037,0.64777,0.84828,0.4704,9.14634,75.8
+PubMed,Fixed No Topology (4/13 upd only),44,15.43647,0.6931,0.84828,0.39713,8.65854,76.1
+PubMed,Fixed No Topology (4/13 upd only),45,14.03079,0.63662,0.84828,0.48922,8.29268,75.7
+PubMed,Fixed No Topology (4/13 upd only),46,16.58374,0.74462,0.84828,0.31946,11.21951,76.2
+PubMed,Fixed No Topology (4/13 upd only),47,12.70779,0.53017,0.84828,0.68743,6.09756,74.8
+PubMed,Fixed No Topology (4/13 upd only),48,21.3143,1.0,0.84828,0.0,12.19512,76.3
+PubMed,Fixed No Topology (4/13 upd only),49,11.03103,0.46001,0.84828,0.84121,4.87805,75.6
+PubMed,Fixed No Topology (4/13 upd only),50,18.46145,0.84616,0.84828,0.18097,10.0,76.4
+PubMed,Fixed No Update (9/13 topo only),1,4.11656,0.17173,0.84828,0.22603,99.87805,19.8
+PubMed,Fixed No Update (9/13 topo only),2,4.11656,0.17173,0.84828,0.32502,2.80488,67.3
+PubMed,Fixed No Update (9/13 topo only),3,4.11656,0.17173,0.84828,0.3205,36.58537,59.3
+PubMed,Fixed No Update (9/13 topo only),4,4.11656,0.17173,0.84828,0.0,5.60976,70.3
+PubMed,Fixed No Update (9/13 topo only),5,4.11656,0.17173,0.84828,0.0,2.80488,66.7
+PubMed,Fixed No Update (9/13 topo only),6,4.11656,0.17173,0.84828,0.0,7.92683,66.8
+PubMed,Fixed No Update (9/13 topo only),7,4.11656,0.17173,0.84828,0.0,7.07317,68.7
+PubMed,Fixed No Update (9/13 topo only),8,4.11656,0.17173,0.84828,0.0,8.17073,67.9
+PubMed,Fixed No Update (9/13 topo only),9,4.11656,0.17173,0.84828,0.0,7.19512,70.4
+PubMed,Fixed No Update (9/13 topo only),10,4.11656,0.17173,0.84828,0.0,5.85366,66.2
+PubMed,Fixed No Update (9/13 topo only),11,4.11656,0.17173,0.84828,0.0,6.95122,69.6
+PubMed,Fixed No Update (9/13 topo only),12,4.11656,0.17173,0.84828,0.0,6.70732,68.1
+PubMed,Fixed No Update (9/13 topo only),13,4.11656,0.17173,0.84828,0.0,3.53659,71.2
+PubMed,Fixed No Update (9/13 topo only),14,4.11656,0.17173,0.84828,0.0,2.31707,68.6
+PubMed,Fixed No Update (9/13 topo only),15,4.11656,0.17173,0.84828,0.0,2.43902,70.8
+PubMed,Fixed No Update (9/13 topo only),16,4.11656,0.17173,0.84828,0.0,2.56098,72.2
+PubMed,Fixed No Update (9/13 topo only),17,4.11656,0.17173,0.84828,0.0,1.58537,71.9
+PubMed,Fixed No Update (9/13 topo only),18,4.11656,0.17173,0.84828,0.0,2.43902,74.6
+PubMed,Fixed No Update (9/13 topo only),19,4.11656,0.17173,0.84828,0.0,1.70732,72.4
+PubMed,Fixed No Update (9/13 topo only),20,4.11656,0.17173,0.84828,0.0,2.68293,74.5
+PubMed,Fixed No Update (9/13 topo only),21,4.11656,0.17173,0.84828,0.0,1.70732,72.4
+PubMed,Fixed No Update (9/13 topo only),22,4.11656,0.17173,0.84828,0.0,2.68293,73.9
+PubMed,Fixed No Update (9/13 topo only),23,4.11656,0.17173,0.84828,0.0,1.95122,74.4
+PubMed,Fixed No Update (9/13 topo only),24,4.11656,0.17173,0.84828,0.0,1.82927,75.8
+PubMed,Fixed No Update (9/13 topo only),25,4.11656,0.17173,0.84828,0.0,2.56098,73.1
+PubMed,Fixed No Update (9/13 topo only),26,4.11656,0.17173,0.84828,0.0,1.09756,76.5
+PubMed,Fixed No Update (9/13 topo only),27,4.11656,0.17173,0.84828,0.0,1.21951,74.9
+PubMed,Fixed No Update (9/13 topo only),28,4.11656,0.17173,0.84828,0.0,1.46341,75.3
+PubMed,Fixed No Update (9/13 topo only),29,4.11656,0.17173,0.84828,0.0,2.19512,74.9
+PubMed,Fixed No Update (9/13 topo only),30,4.11656,0.17173,0.84828,0.0,1.82927,75.1
+PubMed,Fixed No Update (9/13 topo only),31,4.11656,0.17173,0.84828,0.0,1.95122,76.3
+PubMed,Fixed No Update (9/13 topo only),32,4.11656,0.17173,0.84828,0.0,1.21951,76.3
+PubMed,Fixed No Update (9/13 topo only),33,4.11656,0.17173,0.84828,0.0,1.82927,76.2
+PubMed,Fixed No Update (9/13 topo only),34,4.11656,0.17173,0.84828,0.0,1.09756,74.5
+PubMed,Fixed No Update (9/13 topo only),35,4.11656,0.17173,0.84828,0.0,1.95122,76.6
+PubMed,Fixed No Update (9/13 topo only),36,4.11656,0.17173,0.84828,0.0,1.09756,75.6
+PubMed,Fixed No Update (9/13 topo only),37,4.11656,0.17173,0.84828,0.0,1.95122,77.3
+PubMed,Fixed No Update (9/13 topo only),38,4.11656,0.17173,0.84828,0.0,1.09756,75.6
+PubMed,Fixed No Update (9/13 topo only),39,4.11656,0.17173,0.84828,0.0,2.31707,77.3
+PubMed,Fixed No Update (9/13 topo only),40,4.11656,0.17173,0.84828,0.0,1.09756,76.8
+PubMed,Fixed No Update (9/13 topo only),41,4.11656,0.17173,0.84828,0.0,1.46341,77.7
+PubMed,Fixed No Update (9/13 topo only),42,4.11656,0.17173,0.84828,0.0,2.19512,77.5
+PubMed,Fixed No Update (9/13 topo only),43,4.11656,0.17173,0.84828,0.0,1.21951,77.6
+PubMed,Fixed No Update (9/13 topo only),44,4.11656,0.17173,0.84828,0.0,1.82927,77.5
+PubMed,Fixed No Update (9/13 topo only),45,4.11656,0.17173,0.84828,0.0,1.21951,77.3
+PubMed,Fixed No Update (9/13 topo only),46,4.11656,0.17173,0.84828,0.0,1.70732,77.5
+PubMed,Fixed No Update (9/13 topo only),47,4.11656,0.17173,0.84828,0.0,1.09756,77.1
+PubMed,Fixed No Update (9/13 topo only),48,4.11656,0.17173,0.84828,0.0,1.34146,78.1
+PubMed,Fixed No Update (9/13 topo only),49,4.11656,0.17173,0.84828,0.0,1.09756,77.4
+PubMed,Fixed No Update (9/13 topo only),50,4.11656,0.17173,0.84828,0.0,1.21951,77.6
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),1,3.59239,0.13939,0.84828,0.22603,99.87805,19.8
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),2,2.84158,0.10482,0.84828,0.53485,1.70732,68.4
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),3,3.74273,0.13936,0.84828,0.2263,33.41464,65.3
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),4,4.29405,0.15987,0.84828,0.07757,6.70732,69.1
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),5,5.10374,0.17173,0.84828,0.0,2.43902,70.2
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),6,4.78823,0.17173,0.84828,0.0,9.51219,64.8
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),7,4.77289,0.17173,0.84828,0.0,7.92683,68.8
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),8,4.70873,0.17173,0.84828,0.0,8.29268,68.2
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),9,4.91189,0.17173,0.84828,0.0,6.34146,70.8
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),10,4.45803,0.17173,0.84828,0.0,5.4878,67.2
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),11,4.5165,0.17173,0.84828,0.0,6.70732,71.4
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),12,4.8297,0.17173,0.84828,0.0,6.34146,68.5
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),13,4.64938,0.17173,0.84828,0.0,3.78049,71.0
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),14,4.52539,0.17173,0.84828,0.0,2.19512,68.0
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),15,4.75982,0.17173,0.84828,0.0,2.56098,71.7
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),16,4.84361,0.17173,0.84828,0.0,2.07317,73.2
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),17,4.36458,0.17173,0.84828,0.0,1.58537,72.4
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),18,4.62541,0.17173,0.84828,0.0,2.07317,74.7
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),19,4.60126,0.17173,0.84828,0.0,1.82927,72.7
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),20,4.67485,0.17173,0.84828,0.0,3.17073,74.7
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),21,4.89431,0.17173,0.84828,0.0,1.46341,72.6
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),22,4.44206,0.17173,0.84828,0.0,3.17073,74.9
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),23,4.7376,0.17173,0.84828,0.0,1.58537,74.8
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),24,4.55294,0.17173,0.84828,0.0,1.95122,76.0
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),25,4.80516,0.17173,0.84828,0.0,2.80488,74.0
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),26,4.80358,0.17173,0.84828,0.0,1.46341,77.2
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),27,4.31184,0.17173,0.84828,0.0,1.46341,74.6
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),28,4.89347,0.17173,0.84828,0.0,1.34146,76.1
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),29,4.50293,0.17173,0.84828,0.0,2.31707,75.4
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),30,4.84157,0.17173,0.84828,0.0,1.82927,76.0
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),31,4.83476,0.17173,0.84828,0.0,1.95122,76.9
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),32,4.84758,0.17173,0.84828,0.0,1.58537,77.1
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),33,4.87228,0.17173,0.84828,0.0,1.46341,76.8
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),34,4.61599,0.17173,0.84828,0.0,1.09756,74.9
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),35,4.76814,0.17173,0.84828,0.0,1.95122,77.2
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),36,5.38347,0.17173,0.84828,0.0,0.97561,77.6
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),37,4.67221,0.17173,0.84828,0.0,1.82927,77.8
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),38,4.39379,0.17173,0.84828,0.0,0.97561,75.9
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),39,4.77251,0.17173,0.84828,0.0,2.68293,77.7
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),40,4.32761,0.16921,0.84828,0.01603,0.97561,76.5
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),41,4.73406,0.17173,0.84828,0.0,1.58537,77.8
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),42,4.74206,0.17173,0.84828,0.0,1.70732,77.3
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),43,4.872,0.17173,0.84828,0.0,1.09756,78.4
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),44,4.75745,0.17173,0.84828,0.0,1.70732,78.2
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),45,5.01733,0.17173,0.84828,0.0,1.21951,77.6
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),46,4.94063,0.17173,0.84828,0.0,1.82927,78.0
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),47,4.59234,0.17173,0.84828,0.0,0.97561,77.2
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),48,4.80678,0.17173,0.84828,0.0,1.58537,78.0
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),49,2.91481,0.10998,0.84828,0.48278,0.97561,77.2
+PubMed,Full ETD-FGL (9/13 topo + 4/13 upd),50,4.90093,0.17173,0.84828,0.0,1.34146,78.0
+Reddit,Fixed No Topology (4/13 upd only),1,11.39975,0.47738,0.84828,0.80107,1.4862,33.6
+Reddit,Fixed No Topology (4/13 upd only),2,10.67691,0.46335,0.84828,0.83338,11.35881,50.0
+Reddit,Fixed No Topology (4/13 upd only),3,10.57994,0.47251,0.84828,0.81217,12.6327,51.0
+Reddit,Fixed No Topology (4/13 upd only),4,10.92869,0.47912,0.84828,0.79713,13.16348,51.3
+Reddit,Fixed No Topology (4/13 upd only),5,11.02493,0.48298,0.84828,0.78843,17.40977,54.4
+Reddit,Fixed No Topology (4/13 upd only),6,10.90862,0.45593,0.84828,0.85086,20.91295,62.6
+Reddit,Fixed No Topology (4/13 upd only),7,12.62045,0.55389,0.84828,0.64003,25.47771,65.6
+Reddit,Fixed No Topology (4/13 upd only),8,10.79448,0.45623,0.84828,0.85016,26.75159,67.5
+Reddit,Fixed No Topology (4/13 upd only),9,10.99657,0.46405,0.84828,0.83175,28.98089,69.0
+Reddit,Fixed No Topology (4/13 upd only),10,14.11109,0.60548,0.84828,0.54354,30.78556,70.2
+Reddit,Fixed No Topology (4/13 upd only),11,15.43365,0.6879,0.84828,0.40529,33.86412,70.7
+Reddit,Fixed No Topology (4/13 upd only),12,11.18314,0.4585,0.84828,0.84477,32.69639,72.1
+Reddit,Fixed No Topology (4/13 upd only),13,14.69089,0.6442,0.84828,0.4764,34.92569,73.5
+Reddit,Fixed No Topology (4/13 upd only),14,10.67141,0.47561,0.84828,0.8051,35.13801,74.3
+Reddit,Fixed No Topology (4/13 upd only),15,24.97405,1.0,0.84828,0.0,42.25053,74.5
+Reddit,Fixed No Topology (4/13 upd only),16,11.46646,0.504,0.84828,0.74229,40.12739,75.7
+Reddit,Fixed No Topology (4/13 upd only),17,10.91111,0.48863,0.84828,0.77582,39.49045,76.8
+Reddit,Fixed No Topology (4/13 upd only),18,13.02953,0.52552,0.84828,0.69699,41.29512,77.6
+Reddit,Fixed No Topology (4/13 upd only),19,11.00396,0.46628,0.84828,0.82656,42.25053,79.2
+Reddit,Fixed No Topology (4/13 upd only),20,13.89808,0.64078,0.84828,0.48217,41.93206,79.2
+Reddit,Fixed No Topology (4/13 upd only),21,10.9209,0.47839,0.84828,0.79878,42.03822,79.9
+Reddit,Fixed No Topology (4/13 upd only),22,10.93563,0.458,0.84828,0.84597,41.71975,80.6
+Reddit,Fixed No Topology (4/13 upd only),23,13.75647,0.60782,0.84828,0.53936,43.52442,82.2
+Reddit,Fixed No Topology (4/13 upd only),24,13.66731,0.57205,0.84828,0.60507,43.73673,81.7
+Reddit,Fixed No Topology (4/13 upd only),25,11.54481,0.51153,0.84828,0.7262,43.84289,82.4
+Reddit,Fixed No Topology (4/13 upd only),26,12.95948,0.55697,0.84828,0.63402,45.64756,82.9
+Reddit,Fixed No Topology (4/13 upd only),27,16.1069,0.71821,0.84828,0.35858,47.13376,83.0
+Reddit,Fixed No Topology (4/13 upd only),28,10.64743,0.47176,0.84828,0.81389,44.90446,83.2
+Reddit,Fixed No Topology (4/13 upd only),29,16.30626,0.73913,0.84828,0.32748,48.61996,83.3
+Reddit,Fixed No Topology (4/13 upd only),30,10.82738,0.46344,0.84828,0.83318,47.55839,83.2
+Reddit,Fixed No Topology (4/13 upd only),31,11.34674,0.47276,0.84828,0.8116,46.70913,83.6
+Reddit,Fixed No Topology (4/13 upd only),32,15.38946,0.70731,0.84828,0.37515,49.36306,84.3
+Reddit,Fixed No Topology (4/13 upd only),33,10.70025,0.46806,0.84828,0.82242,48.19533,83.7
+Reddit,Fixed No Topology (4/13 upd only),34,16.17617,0.72586,0.84828,0.3471,51.59236,84.2
+Reddit,Fixed No Topology (4/13 upd only),35,10.90561,0.47788,0.84828,0.79992,50.10616,84.6
+Reddit,Fixed No Topology (4/13 upd only),36,12.03526,0.49006,0.84828,0.77267,52.12314,84.2
+Reddit,Fixed No Topology (4/13 upd only),37,15.87363,0.70585,0.84828,0.37739,52.54777,84.9
+Reddit,Fixed No Topology (4/13 upd only),38,11.11786,0.46491,0.84828,0.82974,53.39703,84.7
+Reddit,Fixed No Topology (4/13 upd only),39,11.28286,0.49611,0.84828,0.75936,53.7155,84.9
+Reddit,Fixed No Topology (4/13 upd only),40,13.34043,0.59865,0.84828,0.55583,54.77707,85.2
+Reddit,Fixed No Topology (4/13 upd only),41,11.31195,0.48131,0.84828,0.79219,55.52017,85.7
+Reddit,Fixed No Topology (4/13 upd only),42,10.63229,0.46678,0.84828,0.82539,54.67091,85.6
+Reddit,Fixed No Topology (4/13 upd only),43,12.17619,0.51864,0.84828,0.71126,55.52017,85.4
+Reddit,Fixed No Topology (4/13 upd only),44,17.19381,0.78229,0.84828,0.26599,56.90022,85.8
+Reddit,Fixed No Topology (4/13 upd only),45,12.64022,0.53992,0.84828,0.66769,57.96179,85.7
+Reddit,Fixed No Topology (4/13 upd only),46,10.86369,0.46576,0.84828,0.82775,57.11253,86.2
+Reddit,Fixed No Topology (4/13 upd only),47,11.17748,0.46381,0.84828,0.83229,57.85562,85.8
+Reddit,Fixed No Topology (4/13 upd only),48,11.84793,0.50278,0.84828,0.74491,58.06794,86.2
+Reddit,Fixed No Topology (4/13 upd only),49,10.96559,0.47569,0.84828,0.80492,58.06794,86.2
+Reddit,Fixed No Topology (4/13 upd only),50,15.46586,0.70928,0.84828,0.37213,59.34182,86.2
+Reddit,Fixed No Update (9/13 topo only),1,4.11656,0.17173,0.84828,0.80107,0.42463,33.7
+Reddit,Fixed No Update (9/13 topo only),2,4.11656,0.17173,0.84828,0.83274,3.39703,50.2
+Reddit,Fixed No Update (9/13 topo only),3,4.11656,0.17173,0.84828,0.81664,2.86624,51.5
+Reddit,Fixed No Update (9/13 topo only),4,4.11656,0.17173,0.84828,0.75815,2.01699,51.3
+Reddit,Fixed No Update (9/13 topo only),5,4.11656,0.17173,0.84828,0.74885,2.33546,54.8
+Reddit,Fixed No Update (9/13 topo only),6,4.11656,0.17173,0.84828,0.85397,2.33546,62.2
+Reddit,Fixed No Update (9/13 topo only),7,4.11656,0.17173,0.84828,0.39706,3.39703,65.8
+Reddit,Fixed No Update (9/13 topo only),8,4.11656,0.17173,0.84828,0.78653,3.7155,67.7
+Reddit,Fixed No Update (9/13 topo only),9,4.11656,0.17173,0.84828,0.73216,4.35244,68.5
+Reddit,Fixed No Update (9/13 topo only),10,4.11656,0.17173,0.84828,0.02345,4.77707,70.4
+Reddit,Fixed No Update (9/13 topo only),11,4.11656,0.17173,0.84828,0.03425,5.73248,71.3
+Reddit,Fixed No Update (9/13 topo only),12,4.11656,0.17173,0.84828,0.72953,5.30786,72.4
+Reddit,Fixed No Update (9/13 topo only),13,4.11656,0.17173,0.84828,0.0,5.73248,73.1
+Reddit,Fixed No Update (9/13 topo only),14,4.11656,0.17173,0.84828,0.79837,5.62633,74.2
+Reddit,Fixed No Update (9/13 topo only),15,4.11656,0.17173,0.84828,0.02509,5.2017,74.4
+Reddit,Fixed No Update (9/13 topo only),16,4.11656,0.17173,0.84828,0.0,4.67091,76.2
+Reddit,Fixed No Update (9/13 topo only),17,4.11656,0.17173,0.84828,0.79581,4.35244,77.2
+Reddit,Fixed No Update (9/13 topo only),18,4.11656,0.17173,0.84828,0.0,5.9448,78.0
+Reddit,Fixed No Update (9/13 topo only),19,4.11656,0.17173,0.84828,0.55384,5.62633,78.8
+Reddit,Fixed No Update (9/13 topo only),20,4.11656,0.17173,0.84828,0.41226,5.41401,79.8
+Reddit,Fixed No Update (9/13 topo only),21,4.11656,0.17173,0.84828,0.7916,6.05096,80.5
+Reddit,Fixed No Update (9/13 topo only),22,4.11656,0.17173,0.84828,0.80253,5.62633,80.8
+Reddit,Fixed No Update (9/13 topo only),23,4.11656,0.17173,0.84828,0.434,5.9448,82.3
+Reddit,Fixed No Update (9/13 topo only),24,4.11656,0.17173,0.84828,0.32502,5.09554,82.4
+Reddit,Fixed No Update (9/13 topo only),25,4.11656,0.17173,0.84828,0.46936,4.24628,82.2
+Reddit,Fixed No Update (9/13 topo only),26,4.11656,0.17173,0.84828,0.38578,6.6879,83.3
+Reddit,Fixed No Update (9/13 topo only),27,4.11656,0.17173,0.84828,0.32502,6.15711,83.1
+Reddit,Fixed No Update (9/13 topo only),28,4.11656,0.17173,0.84828,0.70621,4.98938,83.3
+Reddit,Fixed No Update (9/13 topo only),29,4.11656,0.17173,0.84828,0.70195,6.58174,83.7
+Reddit,Fixed No Update (9/13 topo only),30,4.11656,0.17173,0.84828,0.81418,6.15711,83.9
+Reddit,Fixed No Update (9/13 topo only),31,4.11656,0.17173,0.84828,0.83448,4.14013,84.2
+Reddit,Fixed No Update (9/13 topo only),32,4.11656,0.17173,0.84828,0.6515,5.73248,84.3
+Reddit,Fixed No Update (9/13 topo only),33,4.11656,0.17173,0.84828,0.82221,5.41401,84.4
+Reddit,Fixed No Update (9/13 topo only),34,4.11656,0.17173,0.84828,0.84302,6.90021,84.1
+Reddit,Fixed No Update (9/13 topo only),35,4.11656,0.17173,0.84828,0.66076,6.36943,84.4
+Reddit,Fixed No Update (9/13 topo only),36,4.11656,0.17173,0.84828,0.77626,6.36943,84.4
+Reddit,Fixed No Update (9/13 topo only),37,4.11656,0.17173,0.84828,0.439,5.83864,84.6
+Reddit,Fixed No Update (9/13 topo only),38,4.11656,0.17173,0.84828,0.83069,6.36943,85.1
+Reddit,Fixed No Update (9/13 topo only),39,4.11656,0.17173,0.84828,0.35781,5.62633,85.2
+Reddit,Fixed No Update (9/13 topo only),40,4.11656,0.17173,0.84828,0.7903,6.26327,85.1
+Reddit,Fixed No Update (9/13 topo only),41,4.11656,0.17173,0.84828,0.53845,6.47558,85.7
+Reddit,Fixed No Update (9/13 topo only),42,4.11656,0.17173,0.84828,0.79042,6.36943,85.5
+Reddit,Fixed No Update (9/13 topo only),43,4.11656,0.17173,0.84828,0.84158,7.53715,85.3
+Reddit,Fixed No Update (9/13 topo only),44,4.11656,0.17173,0.84828,0.71078,7.74947,85.5
+Reddit,Fixed No Update (9/13 topo only),45,4.11656,0.17173,0.84828,0.75224,7.85563,85.5
+Reddit,Fixed No Update (9/13 topo only),46,4.11656,0.17173,0.84828,0.80429,7.21868,85.8
+Reddit,Fixed No Update (9/13 topo only),47,4.11656,0.17173,0.84828,0.7539,7.96178,85.7
+Reddit,Fixed No Update (9/13 topo only),48,4.11656,0.17173,0.84828,0.80889,7.53715,85.3
+Reddit,Fixed No Update (9/13 topo only),49,4.11656,0.17173,0.84828,0.82318,8.06794,85.6
+Reddit,Fixed No Update (9/13 topo only),50,4.11656,0.17173,0.84828,0.73921,9.12951,85.6
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),1,2.16182,0.08198,0.84828,0.80107,0.42463,33.8
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),2,1.98669,0.07976,0.84828,0.83082,2.44161,50.1
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),3,1.99652,0.08087,0.84828,0.81589,1.69851,51.5
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),4,2.06583,0.08298,0.84828,0.7879,1.06157,51.3
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),5,2.56885,0.10234,0.84828,0.56072,1.16773,54.7
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),6,2.24795,0.08331,0.84828,0.78362,1.27389,62.5
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),7,3.32986,0.12722,0.84828,0.32502,1.59236,65.9
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),8,2.40295,0.09839,0.84828,0.60336,1.80467,67.9
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),9,2.12187,0.08457,0.84828,0.76742,1.59236,68.6
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),10,4.32931,0.15648,0.84828,0.10072,2.65393,70.1
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),11,3.51002,0.13083,0.84828,0.29468,3.18471,71.4
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),12,2.42764,0.09133,0.84828,0.68408,2.2293,72.6
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),13,4.80683,0.17173,0.84828,0.0,2.65393,73.2
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),14,2.00191,0.07893,0.84828,0.84212,2.65393,74.3
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),15,4.18078,0.15095,0.84828,0.13973,2.9724,74.2
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),16,3.86078,0.14334,0.84828,0.1958,2.54777,76.4
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),17,2.19776,0.08371,0.84828,0.77849,1.69851,76.7
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),18,4.90826,0.17173,0.84828,0.0,2.86624,77.7
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),19,2.38851,0.09154,0.84828,0.68164,2.54777,79.3
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),20,3.638,0.14373,0.84828,0.19281,2.01699,79.7
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),21,2.59592,0.10486,0.84828,0.53441,2.12314,80.7
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),22,2.10061,0.07929,0.84828,0.83726,1.80467,81.1
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),23,2.51694,0.10279,0.84828,0.55601,1.69851,82.4
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),24,3.11148,0.12323,0.84828,0.35954,1.38004,82.3
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),25,3.30842,0.12722,0.84828,0.32502,0.95541,82.2
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),26,2.89784,0.11839,0.84828,0.40298,1.69851,83.2
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),27,3.16885,0.12242,0.84828,0.36668,1.38004,82.9
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),28,2.26911,0.09237,0.84828,0.67178,0.53079,83.5
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),29,2.89451,0.11151,0.84828,0.46785,0.7431,83.5
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),30,2.20341,0.08462,0.84828,0.7667,0.63694,83.9
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),31,2.00041,0.079,0.84828,0.84126,0.42463,84.1
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),32,2.29002,0.08959,0.84828,0.70493,0.53079,84.5
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),33,2.01846,0.07966,0.84828,0.83217,0.42463,84.1
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),34,2.70017,0.10688,0.84828,0.5137,0.63694,84.4
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),35,2.24447,0.0914,0.84828,0.6833,0.42463,84.5
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),36,2.16155,0.08017,0.84828,0.82524,0.53079,84.6
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),37,2.166,0.08176,0.84828,0.80393,0.42463,85.0
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),38,1.97068,0.0799,0.84828,0.82886,0.53079,85.3
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),39,2.80561,0.11334,0.84828,0.45015,0.42463,85.2
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),40,2.10033,0.08306,0.84828,0.78693,0.53079,85.3
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),41,2.18583,0.08792,0.84828,0.72531,0.53079,85.5
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),42,2.24628,0.09132,0.84828,0.68414,0.53079,85.6
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),43,2.1381,0.08114,0.84828,0.8122,0.63694,85.1
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),44,2.51291,0.09895,0.84828,0.59731,0.95541,85.2
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),45,2.0237,0.07873,0.84828,0.84491,1.06157,85.4
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),46,1.97847,0.07986,0.84828,0.82953,0.53079,85.9
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),47,2.12539,0.08051,0.84828,0.82066,0.7431,85.9
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),48,2.00307,0.07959,0.84828,0.83319,0.84926,85.6
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),49,2.01828,0.08084,0.84828,0.81628,0.84926,85.3
+Reddit,Full ETD-FGL (9/13 topo + 4/13 upd),50,2.39188,0.09344,0.84828,0.6593,1.16773,85.7

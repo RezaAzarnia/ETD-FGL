@@ -1,0 +1,19 @@
+dataset,variant,slug,n_seeds,clean_acc_mean,clean_acc_sd,asr_mean,asr_sd,effect_mean,effect_sd,attacker_weight_mean,attacker_weight_sd
+Cora,Attacked FedAvg,fedavg_structural_backdoor,3,75.0,0.7211,62.0307,15.3818,52.2605,14.2502,,
+Cora,ETD-FGL (Full),etdfgl_full,3,75.5667,1.5695,5.2107,0.8779,-2.2222,2.1728,4.7573,0.026
+Cora,Historical 3-channel (0.45/0.35/0.20),etdfgl_historical_three_channel,3,75.4333,1.097,18.9272,3.7954,9.9234,4.5316,9.1126,0.9928
+Cora,No trust weighting (uniform),etdfgl_no_trust,3,75.0,0.7211,62.0307,15.3818,52.2605,14.2502,20.0,0.0
+Cora,Topology-only (renormalized 1.0/0),etdfgl_no_update,3,75.4,1.6462,4.5977,0.8977,-3.9847,3.3041,1.9244,0.0
+Cora,Update-only (renormalized 0/1.0),etdfgl_no_topology,3,74.9,1.9,44.3295,8.0249,35.8621,6.9888,17.5642,1.4008
+PubMed,Attacked FedAvg,fedavg_structural_backdoor,3,74.8,3.1796,9.2276,7.359,2.561,7.7331,,
+PubMed,ETD-FGL (Full),etdfgl_full,3,75.5,2.0075,0.8943,0.5633,-3.5366,0.5316,4.5537,0.0433
+PubMed,Historical 3-channel (0.45/0.35/0.20),etdfgl_historical_three_channel,3,75.8,2.0075,1.1382,0.8652,-3.8618,1.0154,6.4306,2.5858
+PubMed,No trust weighting (uniform),etdfgl_no_trust,3,74.8,3.1796,9.2276,7.359,2.561,7.7331,20.0,0.0
+PubMed,Topology-only (renormalized 1.0/0),etdfgl_no_update,3,74.6,3.6373,0.813,0.392,-3.4959,0.6934,1.9244,0.0
+PubMed,Update-only (renormalized 0/1.0),etdfgl_no_topology,3,75.8333,1.9296,6.5041,9.3715,0.6098,7.5363,14.6517,0.6703
+Reddit,Attacked FedAvg,fedavg_structural_backdoor,3,84.9,0.8,74.4161,1.8509,74.0623,1.7454,,
+Reddit,ETD-FGL (Full),etdfgl_full,3,84.8667,0.4041,14.0835,18.1852,13.765,18.0861,2.5276,0.0845
+Reddit,Historical 3-channel (0.45/0.35/0.20),etdfgl_historical_three_channel,3,84.9,0.6245,21.8684,16.3316,21.5853,16.2737,3.8544,2.1371
+Reddit,No trust weighting (uniform),etdfgl_no_trust,3,84.9,0.8,74.4161,1.8509,74.0623,1.7454,20.0,0.0
+Reddit,Topology-only (renormalized 1.0/0),etdfgl_no_update,3,84.9333,0.4933,10.4388,16.0804,10.1557,15.958,1.9244,0.0
+Reddit,Update-only (renormalized 0/1.0),etdfgl_no_topology,3,84.8,0.6557,31.4933,17.7309,31.2456,17.6187,5.2117,0.3878

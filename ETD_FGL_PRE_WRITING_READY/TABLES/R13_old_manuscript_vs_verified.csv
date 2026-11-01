@@ -1,0 +1,26 @@
+item,old_manuscript_location,old_value_or_claim,verified_current_value,status,evidence
+Seed-42 baseline table (24 rows: acc/ASR/effect/time/best round),tab:seed42_baselines,as printed,identical to recomputed raw values,UNCHANGED,R02
+Multi-seed table (acc/ASR/effect/time mean±SD ddof=1),tab:multiseed_robustness,as printed,identical to recomputed raw values,UNCHANGED,R03b
+Standard ablation ASR cells,tab:ablation_comparison (upper block),as printed,identical (ASR only; clean acc/effect not in old table),UNCHANGED,R04b
+Controlled ablation ASR cells,tab:ablation_comparison (lower block),as printed,identical,UNCHANGED,R05b
+Paired ΔASR (mean±SD),tab:paired_contributions,e.g. Reddit remove-update +11.11±5.60; remove-topology +52.23±14.61,identical,UNCHANGED,R06b
+Paired ΔClean-Acc ± values,tab:paired_contributions,Cora +0.30±0.56 / +0.53±1.63; PubMed -0.93±1.25 / +0.20±0.46; Reddit +0.13±0.50 / +0.40±0.56,Cora ±1.28 / ±1.17; PubMed ±1.27 / ±2.10; Reddit ±0.83 / ±0.50 (means unchanged),CHANGED (SD values in old table do not reproduce with ddof=1 paired SD),R06b
+Attacker weight Cora Full,tab:attacker_suppression,4.76±0.03,4.76±0.03 (mean over 50 rounds); per-round range 4.39-5.00 (seed 42),UNCHANGED (table) / prose '<=4.7%' in Fig7 caption+conclusion+architecture figure CONTRADICTED,R05b R08
+Attacker weight PubMed/Reddit Full,tab:attacker_suppression,4.55±0.04 / 2.53±0.08,identical; PubMed per-round max 5.38%,UNCHANGED,R05b R08
+Benign risk column,tab:attacker_suppression,as printed,identical; Fixed-No-Update 0.0000 is by construction (benign topology risk exactly 0; no update term),UNCHANGED (needs explanation),R05b
+Benign trust '>85%' / '>=85%',Sec 6.5 prose; architecture fig,>85% trust on benign clients,mean over rounds 0.858 Cora / 0.880 PubMed / 0.949 Reddit (Full); minimum single-round benign trust 0.46-0.49,REVISE (true only as a mean for Cora marginally; not per-round),R05b
+Reddit seed 43 ASR,abstract/Sec 6.3,34.82%,34.82% (acc 84.50; attack effect 34.39 pp),UNCHANGED,R03a
+Reddit seed 43 attacker share,Sec 6.3,2.45%,2.44% mean over rounds (2.16% final round),CHANGED (minor rounding/definition),R03a
+Reddit seed 43 Attacked FedAvg ASR,Sec 6.3,75.69%,75.69%,UNCHANGED,R03a
+Seed 43 'high community clustering overlap attenuated topological drift',Sec 6.3 + abstract + Discussion,causal claim,Logged A_topo of attacker is 0.8483 in ALL 9 multi-seed runs incl. Reddit seed 43; no clustering/community statistics logged,CONTRADICTED / UNSUPPORTED - remove,R03a + raw histories
+'suppresses ASR to <5% from round 1',Fig5 caption + Sec 6.4,<5% from round 1,"ETD-FGL ASR at round 1 seed 42: Cora 75.4%, PubMed 99.9%; Cora spikes 40.5% (r6) 36.1% (r12); only Reddit seed 42 stays <5% all rounds",CONTRADICTED - remove,R07 R10
+'within 0.5% of unattacked FedAvg',abstract,0.5%,"seed 42 vs Clean FedAvg: Cora +0.00, PubMed +1.30, Reddit -0.90 pp; no 3-seed Clean FedAvg exists",CONTRADICTED / UNVERIFIED,R02
+'near-total backdoor elimination across multiple seeds',conclusion,strong claim,Reddit 14.08±18.19 ASR; seed 43 34.82; Cora 5.21; PubMed 0.89 (weak baseline attack 9.23),REVISE (soften),R03b
+'<5 ms aggregation overhead per round',Sec 6.7,<5 ms,no isolated aggregation timing exists (only 50-round loop wall-clock),UNVERIFIED - remove,R01 elapsed_seconds only
+Reddit runtime ETD-FGL 7.41 s vs FedAvg 44.60 s,tab:runtime_comparison,implies ETD-FGL faster,same Attacked FedAvg run seed 42 elapsed 44.60 / 18.66 / 50.72 s in different suites; seeds 43/44 7.2-9.5 s; timing noise exceeds claimed differences,REVISE (not a fair runtime comparison),R11
+DMGNN-FL Reddit identical to FedAvg because GNNExplainer masks diffuse,Sec 6.1,zero edges pruned,"metrics identical (72.29/85.70) but pruning counts not logged in runs; DMGNN implementation is leave-one-edge-out probability-drop (threshold 0.02), not GNNExplainer",UNVERIFIED mechanism; method description REVISE,multidata_suite/defenses.py:229-290
+Pareto frontier / 'ideal upper-left',Fig3 caption,upper-left,"desirable region is lower-right (x=accuracy higher better, y=ASR lower better); pooled cross-dataset frontier not justified",REVISE,FIGURES/accuracy_robustness_tradeoff.pdf
+Poisoned labels,Sec 3.2,labels of triggered training nodes set to 0,victim labels set to 0 (code); trigger nodes appended with label 0 but NOT in train mask; test triggers attached to all non-target test nodes simultaneously,KEEP w/ clarification,multidata_suite/attack.py
+Dataset edge counts,tab:dataset_config,"Cora 10,556; PubMed 88,648; Reddit 135,224",PyG directed edge entries (undirected count is half); matches logged metadata,KEEP (label as directed entries),R12
+Number of poisoned victim nodes,not in old paper,,"victims: Cora 5, PubMed 2, Reddit 227 (client-0 train nodes 28/12/1200)",NEW (PubMed attack is only 2 victim nodes),R12
+Best Round column,tab:seed42_baselines,"as printed (e.g. Cora Clean FedAvg 28, DMGNN 27, FLPurifier 23)","raw final_summary best_round differs in 16 of 24 rows (e.g. 50, 48, 45); ETD-FGL and Attacked FedAvg rows match",CHANGED (old column not reproducible from raw files),R02 (column old_tex_best_round)

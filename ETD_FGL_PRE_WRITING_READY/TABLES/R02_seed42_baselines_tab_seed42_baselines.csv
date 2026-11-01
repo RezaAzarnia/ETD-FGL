@@ -1,0 +1,25 @@
+dataset,method,seed,clean_accuracy_pct,asr_pct,attack_effect_pp,clean_target_rate_pct,active_loop_seconds,best_round,source_summary
+Cora,Clean FedAvg,42,76.1,3.5632,-0.4598,4.023,2.8984,50,outputs/final_multidataset/federated_cora/fedavg_clean/final_summary.json
+Cora,Attacked FedAvg,42,74.2,48.046,40.3448,7.7011,2.8812,38,outputs/final_multidataset/federated_cora/fedavg_structural_backdoor/final_summary.json
+Cora,PD-FL,42,74.9,53.2184,46.3218,6.8966,4.532,45,outputs/final_multidataset/federated_cora/baseline_pdfl/final_summary.json
+Cora,GSP-FL,42,73.9,55.8621,49.6552,6.2069,2.9714,40,outputs/final_multidataset/federated_cora/baseline_gsp/final_summary.json
+Cora,FLPurifier-GNN,42,56.9,0.2299,-3.5632,3.7931,6.9463,45,outputs/final_multidataset/federated_cora/baseline_flpurifier/final_summary.json
+Cora,DMGNN-FL,42,75.2,56.7816,47.3563,9.4253,2.7005,48,outputs/final_multidataset/federated_cora/baseline_dmgnn/final_summary.json
+Cora,FedTGE,42,76.8,82.8736,73.908,8.9655,177.0288,48,outputs/final_multidataset/federated_cora/baseline_fedtge/final_summary.json
+Cora,ETD-FGL,42,76.1,4.2529,0.2299,4.023,3.2609,35,outputs/final_multidataset/federated_cora/defended_etdfgl/final_summary.json
+PubMed,Clean FedAvg,42,76.3,1.2195,-4.3902,5.6098,9.1324,49,outputs/final_multidataset/federated_pubmed/fedavg_clean/final_summary.json
+PubMed,Attacked FedAvg,42,75.3,17.6829,11.2195,6.4634,11.4028,50,outputs/final_multidataset/federated_pubmed/fedavg_structural_backdoor/final_summary.json
+PubMed,PD-FL,42,74.3,41.0976,34.3902,6.7073,10.1647,48,outputs/final_multidataset/federated_pubmed/baseline_pdfl/final_summary.json
+PubMed,GSP-FL,42,74.5,23.6585,17.0732,6.5854,6.8888,37,outputs/final_multidataset/federated_pubmed/baseline_gsp/final_summary.json
+PubMed,FLPurifier-GNN,42,66.4,2.9268,-2.6829,5.6098,20.9567,45,outputs/final_multidataset/federated_pubmed/baseline_flpurifier/final_summary.json
+PubMed,DMGNN-FL,42,74.0,16.8293,8.4146,8.4146,7.7448,37,outputs/final_multidataset/federated_pubmed/baseline_dmgnn/final_summary.json
+PubMed,FedTGE,42,71.3,79.2683,66.7073,12.561,773.2946,4,outputs/final_multidataset/federated_pubmed/baseline_fedtge/final_summary.json
+PubMed,ETD-FGL,42,77.6,1.2195,-3.7805,5.0,6.572,45,outputs/final_multidataset/federated_pubmed/defended_etdfgl/final_summary.json
+Reddit,Clean FedAvg,42,86.2,0.1062,-0.1062,0.2123,24.0171,49,outputs/final_multidataset/federated_reddit/fedavg_clean/final_summary.json
+Reddit,Attacked FedAvg,42,85.7,72.293,72.0807,0.2123,44.6011,49,outputs/final_multidataset/federated_reddit/fedavg_structural_backdoor/final_summary.json
+Reddit,PD-FL,42,85.9,73.1422,73.0361,0.1062,46.9894,49,outputs/final_multidataset/federated_reddit/baseline_pdfl/final_summary.json
+Reddit,GSP-FL,42,85.5,73.1422,73.0361,0.1062,42.9464,48,outputs/final_multidataset/federated_reddit/baseline_gsp/final_summary.json
+Reddit,FLPurifier-GNN,42,49.3,0.2123,-0.1062,0.3185,45.9608,48,outputs/final_multidataset/federated_reddit/baseline_flpurifier/final_summary.json
+Reddit,DMGNN-FL,42,85.7,72.293,72.0807,0.2123,43.679,49,outputs/final_multidataset/federated_reddit/baseline_dmgnn/final_summary.json
+Reddit,FedTGE,42,52.7,4.7771,4.4586,0.3185,399.9416,49,outputs/final_multidataset/federated_reddit/baseline_fedtge/final_summary.json
+Reddit,ETD-FGL,42,85.3,0.8493,0.6369,0.2123,7.4058,49,outputs/final_multidataset/federated_reddit/defended_etdfgl/final_summary.json
