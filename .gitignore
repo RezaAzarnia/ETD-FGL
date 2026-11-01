@@ -148,3 +148,16 @@ tasks/
 !README.md
 !EXPERIMENT_NOTES.md
 !EXTENDED_EXPERIMENTS.md
+
+# Generated handoff archives and figure-revision previews (regenerable; not tracked)
+/ETD_FGL_PAPER_HANDOFF.zip
+/ETD_FGL_NEW_CODE_HANDOFF.zip
+/ETD_FGL_PRE_WRITING_READY.zip
+/paper_artifacts/ETDFGL_Figure_Revision_v2.zip
+/paper_artifacts/ETDFGL_Figure_Revision_v3.zip
+/paper_artifacts/ETDFGL_Figure_Revision_v4.zip
+/paper_artifacts/ETDFGL_Figure_Revision_v4_1.zip
+/paper_artifacts/ETDFGL_Figure_Revision_v2/figures/
+/paper_artifacts/ETDFGL_Figure_Revision_v3/figures/
+/paper_artifacts/ETDFGL_Figure_Revision_v4/figures/
+/paper_artifacts/ETDFGL_Figure_Revision_v4_1/figures/
